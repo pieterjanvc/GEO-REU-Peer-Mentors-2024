@@ -1,0 +1,63 @@
+---
+title: "From Excel to R"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+#remotes::install_github("rstudio/gradethis")
+gradethis::gradethis_setup()
+```
+
+# Values, Variables and Functions
+
+## Values
+
+Think of values as what goes in a cell within a specific column in you Excel document. The two most common types are _text_ and _numbers_
+
+### Numbers
+
+In R, you can work with numbers the same way as you would in a calculator.
+For example:
+```{r ex1, exercise=TRUE, exercise.eval=TRUE}
+1 + 1
+```
+
+_Try any of the other basic numeric operations using `-`, `*` or `/` and try using decimal numbers as well like `2.5`_
+
+
+### Text
+
+The other common type of values are text (often called _strings_ in code). 
+You can write this by wrapping your text in quotes like this:
+```{r ex2, exercise=TRUE, exercise.eval=TRUE}
+"This is a string of text"
+```
+ _Try changing the text_
+ 
+## Variables
+
+We can store values for later use inside a _variable_, by defining the variable using a alphanumeric name (no spaces or special characters apart from `_`)
+
+```{r ex3, exercise=TRUE, exercise.eval=TRUE}
+x = 1
+y = 2
+x + y
+```
+ _Try changing the values of x and y or the operation_
+
+We can store multiple values in a single variable by using a vector `c()`
+
+```{r ex4, exercise=TRUE, exercise.eval=TRUE}
+x = c(1,2,3,4,5)
+x
+```
+ _Try changing the values in the vector to a, b, c, d, e_
+ 
+#------------------
+```{r ex-check}
+grade_result(
+  pass_if(~identical(.result, 2))
+)
+```
