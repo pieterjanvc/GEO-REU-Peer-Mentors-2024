@@ -6,58 +6,191 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(knitr)
+library(dplyr)
 #remotes::install_github("rstudio/gradethis")
 gradethis::gradethis_setup()
 ```
 
-# Values, Variables and Functions
+# Reconstructing an (Excel) spreadsheet as a dataframe in R
 
-## Values
+## Intro and Setup
 
-Think of values as what goes in a cell within a specific column in you Excel document. The two most common types are _text_ and _numbers_
+In this tutorial we'll introduce some very basic data types in R and show how you can use them to construct something very similar to an Excel spreadsheet that you can then use to analyse using code. 
+
+This document is interactive. You will see coding boxes like the one below where you can type and run code to try things for yourself.
+
+```{r demo, exercise=TRUE}
+"Hello World!"
+```
+```{r demo-check}
+grade_result(
+  pass_if(~identical(.result, "Hello World!"))
+)
+```
+
+- To run code, click the `Run Code` button. You will see any output appear below the box
+- In some cases, there is a `Submit Answer` button that will provide feedback
+- If you make mistakes you will see errors appear, but don't worry, there is a `Start Over` button in case you need it.
+
+## Data Types
+
+There are many different types of data we put into spreadsheets, but in most cases we can break them down into a few simple categories of values. Two of the most commonly types of data entered into a spreadsheet are _numbers_ and _text_ 
 
 ### Numbers
 
-In R, you can work with numbers the same way as you would in a calculator.
+In most programming languages like R, you can work with numbers the same way as you would in a calculator.
 For example:
 ```{r ex1, exercise=TRUE, exercise.eval=TRUE}
 1 + 1
 ```
 
-_Try any of the other basic numeric operations using `-`, `*` or `/` and try using decimal numbers as well like `2.5`_
+_Try any of the other basic arithmetic operations using `-`, `*` or `/` and try using decimal numbers as well like `2.5`_
+
+--- SIDE NOTE ---
+
+_In programming things are always very explicit, and whole numbers (integers), decimal numbers, complex numbers etc. are technically all considered different data types, though for this intro we won't worry about that._
 
 
 ### Text
 
 The other common type of values are text (often called _strings_ in code). 
-You can write this by wrapping your text in quotes like this:
+You can write strings by wrapping your text in quotes like this:
 ```{r ex2, exercise=TRUE, exercise.eval=TRUE}
 "This is a string of text"
 ```
  _Try changing the text_
  
+### Vectors
+ 
+We can group multiple values of the _same type_ by wrapping them in a vector `c()`
+
+```{r ex4, exercise=TRUE}
+c(1,2,3,4,5)
+```
+_Replace the vector with one containing 3 strings: cat, dog, horse_ 
+
+_You can check your answer once finished_
+```{r ex4-check}
+grade_result(
+  pass_if(~identical(.result, c("cat", "dog", "horse")))
+)
+```
+
+### Lists
+ 
+We can group multiple values of the _different types_ by creating a list `list()`
+
+```{r ex5, exercise=TRUE}
+list(1, "test", 0.95)
+```
+
+
+Lists allow you to give a unique name to each of its entries like so:
+
+```{r ex6, exercise=TRUE}
+list(val1 = 1, val2 = "test", val3 = 0.95)
+```
+
+### Putting it all together
+
+Create the following list:
+
+- The first entry contains the numbers 1 - 3 and is named _first_
+- The second entry contains the first 3 letters of the alphabet and is named _second_
+
+```{r ex7, exercise=TRUE}
+list()
+```
+
+```{r ex7-check}
+grade_result(
+  pass_if(~identical(.result, list(first = c(1,2,3), 
+                                   second = c("a", "b", "c"))
+))
+)
+```
+
+## Data Frames
+
+### Building on what we know ...
+
+Now you learned basic data types, we can use them to recreate a spreadsheet.
+Look at the simple example below
+
+```{r echo=FALSE}
+data.frame(name = c("Mohamet", "Lin Yi", "Nina"), age = c(42,33,19),
+           GPA = c(3.6, 2.8, 3.9)) %>% kable()
+```
+
+This simple, basic spreadsheet records student info and is a table with the following properties:
+
+- Each row is an entry in the table
+- Each column records a different observation
+- Every column has a header
+
+Note that the values in every column are of the same data type. This means we can represent them as a vector. For example, the first column would be `c("Mohamet", "Lin Yi", "Nina")`. If we do this for all three columns and store them as a list, we can recreate the whole table like this
+
+```{r}
+list(
+  name = c("Mohamet", "Lin Yi", "Nina"), 
+  age = c(42,33,19),
+  GPA = c(3.6, 2.8, 3.9)
+) 
+```
+
+_We just converted our spreadsheet to a combination of data types in R! Note that the way we write it in R looks like the table was rotated with the columns now horizontal an the rows vertical._
+
+### Introducing a new data type
+
+Although the list above is valid representation of a table, R has another, special, built-in datatype that optimises working with this type of data called a _data frame_. It is constructed very much like we did with the list but is treated and rendered differently:
+```{r}
+data.frame(
+  name = c("Mohamet", "Lin Yi", "Nina"), 
+  age = c(42,33,19),
+  GPA = c(3.6, 2.8, 3.9)
+) 
+```
+
+A data frame imposes more restrictions on how the data can be organised as it has to conform to the rules of a well-organised spreadsheet table. These rules are:
+
+- Every column needs a unique name
+- Every column needs to be a vector (i.e. contains a single data type)
+- The length of each column has to be the same
+
+_There are more rules that you should follow to create a tidy table, but they will be discussed in another section_
+
+### Try it yourself
+
+_Edit the following code so it becomes a valid data frame with 3 rows, and the columns: animal, legs and category_
+
+```{r ex8, exercise=TRUE}
+data.frame(
+  animal = c("dog", "beetle", "spider"), 
+  legs = c(4, 6),
+  c("mammal", "insect", "arthropod")
+) 
+```
+
+```{r ex8-check}
+grade_result(
+  pass_if(~identical(.result, data.frame(
+    animal = c("dog", "beetle", "spider"), 
+    legs = c(4, 6, 8),
+    category = c("mammal", "insect", "arthropod")
+    ) 
+))
+)
+```
+
 ## Variables
 
 We can store values for later use inside a _variable_, by defining the variable using a alphanumeric name (no spaces or special characters apart from `_`)
 
-```{r ex3, exercise=TRUE, exercise.eval=TRUE}
+```{r exx, exercise=TRUE, exercise.eval=TRUE}
 x = 1
 y = 2
 x + y
 ```
  _Try changing the values of x and y or the operation_
 
-We can store multiple values in a single variable by using a vector `c()`
-
-```{r ex4, exercise=TRUE, exercise.eval=TRUE}
-x = c(1,2,3,4,5)
-x
-```
- _Try changing the values in the vector to a, b, c, d, e_
- 
-#------------------
-```{r ex-check}
-grade_result(
-  pass_if(~identical(.result, 2))
-)
-```
