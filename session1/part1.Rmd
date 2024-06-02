@@ -12,7 +12,7 @@ library(dplyr)
 gradethis::gradethis_setup()
 ```
 
-# Reconstructing an (Excel) spreadsheet as a dataframe in R
+# Introduction to R data types, variables and functions
 
 ## Intro and Setup
 
@@ -35,7 +35,7 @@ grade_result(
 
 ## Data Types
 
-There are many different types of data we put into spreadsheets, but in most cases we can break them down into a few simple categories of values. Two of the most commonly types of data entered into a spreadsheet are _numbers_ and _text_ 
+There are many different types of data we put into spreadsheets, but in most cases we can break them down into a few simple categories of values. Three of the most common types of data entered into a spreadsheet are _numbers_, _text_ and _boolean_ values.
 
 ### Numbers
 
@@ -47,19 +47,27 @@ For example:
 
 _Try any of the other basic arithmetic operations using `-`, `*` or `/` and try using decimal numbers as well like `2.5`_
 
---- SIDE NOTE ---
+_--- SIDE NOTE ---_
 
 _In programming things are always very explicit, and whole numbers (integers), decimal numbers, complex numbers etc. are technically all considered different data types, though for this intro we won't worry about that._
 
 
 ### Text
 
-The other common type of values are text (often called _strings_ in code). 
+The other common type of values are text (often called _strings_ when programming). 
 You can write strings by wrapping your text in quotes like this:
 ```{r ex2, exercise=TRUE, exercise.eval=TRUE}
 "This is a string of text"
 ```
  _Try changing the text_
+ 
+### Boolean
+
+A Boolean value is a binary value that simply means _true_ or _false_. In R these can be written as `TRUE` / `FALSE` or `T` / `F`
+```{r ex3, exercise=TRUE, exercise.eval=TRUE}
+TRUE
+```
+_Note that this is case sensitve and you must use all capital letters_
  
 ### Vectors
  
@@ -82,21 +90,21 @@ grade_result(
 We can group multiple values of the _different types_ by creating a list `list()`
 
 ```{r ex5, exercise=TRUE}
-list(1, "test", 0.95)
+list(1, "test", FALSE)
 ```
 
 
 Lists allow you to give a unique name to each of its entries like so:
 
 ```{r ex6, exercise=TRUE}
-list(val1 = 1, val2 = "test", val3 = 0.95)
+list(val1 = 1, val2 = "test", val3 = FALSE)
 ```
 
 ### Putting it all together
 
 Create the following list:
 
-- The first entry contains the numbers 1 - 3 and is named _first_
+- The first entry contains a vector of the numbers 1 - 3 and is named _first_
 - The second entry contains the first 3 letters of the alphabet and is named _second_
 
 ```{r ex7, exercise=TRUE}
@@ -116,11 +124,11 @@ grade_result(
 ### Building on what we know ...
 
 Now you learned basic data types, we can use them to recreate a spreadsheet.
-Look at the simple example below
+Let's take a look at this simple spreadsheet table below
 
 ```{r echo=FALSE}
-data.frame(name = c("Mohamet", "Lin Yi", "Nina"), age = c(42,33,19),
-           GPA = c(3.6, 2.8, 3.9)) %>% kable()
+data.frame(name = c("Mohamet", "Lin Yi", "Nina"), age = c(21,19,24),
+           student = c(TRUE, TRUE, FALSE)) %>% kable()
 ```
 
 This simple, basic spreadsheet records student info and is a table with the following properties:
@@ -129,26 +137,26 @@ This simple, basic spreadsheet records student info and is a table with the foll
 - Each column records a different observation
 - Every column has a header
 
-Note that the values in every column are of the same data type. This means we can represent them as a vector. For example, the first column would be `c("Mohamet", "Lin Yi", "Nina")`. If we do this for all three columns and store them as a list, we can recreate the whole table like this
+Note that the values in every column are of the same data type. This means we can represent them as a vector. For example, the first column would be `c("Mohamet", "Lin Yi", "Nina")`. If we do this for all three columns and store them as a list, we can recreate the whole table like this:
 
 ```{r}
 list(
   name = c("Mohamet", "Lin Yi", "Nina"), 
   age = c(42,33,19),
-  GPA = c(3.6, 2.8, 3.9)
+  student = c(TRUE, TRUE, FALSE)
 ) 
 ```
 
-_We just converted our spreadsheet to a combination of data types in R! Note that the way we write it in R looks like the table was rotated with the columns now horizontal an the rows vertical._
+We just converted our spreadsheet to a combination of data types in R! Note that the way we write it in R looks like the table was rotated with the columns now horizontal an the rows vertical.
 
-### Introducing a new data type
+### Introducing the data frame
 
 Although the list above is valid representation of a table, R has another, special, built-in datatype that optimises working with this type of data called a _data frame_. It is constructed very much like we did with the list but is treated and rendered differently:
 ```{r}
 data.frame(
   name = c("Mohamet", "Lin Yi", "Nina"), 
   age = c(42,33,19),
-  GPA = c(3.6, 2.8, 3.9)
+  student = c(TRUE, TRUE, FALSE)
 ) 
 ```
 
@@ -162,13 +170,13 @@ _There are more rules that you should follow to create a tidy table, but they wi
 
 ### Try it yourself
 
-_Edit the following code so it becomes a valid data frame with 3 rows, and the columns: animal, legs and category_
+Edit the following code so it becomes a _valid_ data frame with 3 rows, and the columns: animal, legs and mammal
 
 ```{r ex8, exercise=TRUE}
 data.frame(
   animal = c("dog", "beetle", "spider"), 
-  legs = c(4, 6),
-  c("mammal", "insect", "arthropod")
+  mammal = c(TRUE),
+  c(4, 6, 8)
 ) 
 ```
 
@@ -176,8 +184,8 @@ data.frame(
 grade_result(
   pass_if(~identical(.result, data.frame(
     animal = c("dog", "beetle", "spider"), 
-    legs = c(4, 6, 8),
-    category = c("mammal", "insect", "arthropod")
+    mammal = c(TRUE, FALSE, FALSE),
+    legs = c(4, 6, 8)
     ) 
 ))
 )
@@ -185,12 +193,230 @@ grade_result(
 
 ## Variables
 
-We can store values for later use inside a _variable_, by defining the variable using a alphanumeric name (no spaces or special characters apart from `_`)
+Now we know how to create different types of data in R, let's see how we can store and access them in R.
 
-```{r exx, exercise=TRUE, exercise.eval=TRUE}
-x = 1
-y = 2
-x + y
+### Storing data into a variable
+
+We define (assign) a variable by picking a name followed by the assignment `<-` operator and then the value (or calculation that will generate one).
+
+Valid variable names:
+
+- Must start with a letter
+- can only have alphanumeric characters (A-Z, a-z, 0-9) or `_` or `.`
+
+```{r ex9, exercise=TRUE, exercise.eval=TRUE}
+x <- FALSE
+y2 <- data.frame(x = c(1,2,3), y = c("A", "B", "C"))
+other_var <- (6 + 4) / 2
+
+x
 ```
- _Try changing the values of x and y or the operation_
 
+_Note that running a line containing a variable that has been assigned will print its value. Try and replace x with any of the other variables to see its value_
+
+### Updating a variable
+
+You can update a variable by using the same name, but assigning a different value
+```{r ex10, exercise=TRUE}
+x <- 1
+x
+x <- 2 + 3
+x
+```
+
+We can also use the values stored in variables to perform calculations
+```{r ex11, exercise=TRUE}
+x <- 5
+y <- x * 2
+y
+```
+
+We can even update a variable by using it's own value then reassigning it
+```{r ex12, exercise=TRUE}
+x <- 10 - 4
+x <- x / 2
+x
+```
+
+#### Try it yourself
+Create a variable `prod` that stores the product of x, y and z and then display the result
+
+```{r ex13, exercise=TRUE, exercise.reveal_solution = FALSE}
+x <- 5
+y <- 7
+z <- 11
+
+```
+
+
+```{r ex13-solution}
+x <- 5
+y <- 7
+z <- 11
+prod <- x * y * z
+prod
+```
+
+```{r ex13-check}
+grade_this_code()
+```
+
+## Functions
+
+### Intro
+
+The power of programming lies in the ability to execute a set of instructions automatically and being able to reuse code written by others or yourself. This a accomplished using _functions_. Just as in mathematics, a function contains a set of instructions, with variables or parameters that serve as placeholders. 
+
+Let say we have a vector x  ...
+```r
+x = c(1, 15, 22, 10)
+```
+... and we want to calculate the mean value. R has a built-in function called `mean` which takes in a vector and returns the mean:
+```r
+mean(x)
+```
+```{r ex14, exercise=TRUE}
+values <- c(1, 15, 22, 10)
+result = mean(values)
+result
+```
+
+_Try to replace the mean function with some other basic functions you can execute on vectors of numbers like `min` or `max` or `sum`_
+
+### Arguments
+
+Some functions have multiple parameters or arguments that you have to specify. For example, if we want to round off a number to 3 decimal points ...
+```{r}
+value <- 17/13
+value
+round(x = value, digits = 3)
+```
+... we set `x` to the value and `digits` to 3.
+
+To know which arguments a function takes, you have several options
+
+#### Option 1: look at the function code
+
+Run the function _without_ the  brackets `()` to print its code and look at the arguments listed at the top
+```{r}
+round
+```
+
+_Note that the second argument here already has a default value assigned (see notes below for more details)_
+
+#### Option 2: load the function documentation
+
+Run the function _without_ the  brackets and put a question mark in front of it. This will open up the documentation (might not work in this online tutorial) 
+```{r ex15, exercise=TRUE}
+?round
+```
+_Note that the documentation has much more details on how to use the function and what each argument means_
+
+#### Option 3: Code editor tooltips
+
+Many code editors like [R Studio](https://posit.co/download/rstudio-desktop/) or [VS Code](https://code.visualstudio.com/) will automatically show function arguments whilst writing code or when you hover over a function name in your code. Even here you will see suggestions pop-up when you start typing the brackets of a known function
+
+```{r ex16, exercise=TRUE}
+round
+
+```
+
+#### Notes about function arguments
+
+If you don't specify the argument names explicitly, the first value will become the first listed argument, the second the next, etc.
+```{r}
+round(1.333, 1)
+```
+_This implicit argument assignment will be translated to round(x = 1.333, digits = 1) when the code is run_
+
+Functions can come with default values for some of its arguments, which you don't have to set if you are OK with the value. In other words, functions have required arguments (i.e. no default and you have to provide a value) and optional arguments (you can choose to override the default if you want). Look at the function documentation to see which ones are required.
+```{r}
+round(1.333)
+```
+_By default `digits = 0`_
+
+You can combine implicit (unnamed) and explicit (named) arguments, but the implicit ones always have to come first and all required arguments need to have a value.
+```{r}
+format(15658475, big.mark = ",")
+```
+_In this example, big.mark is the 9th argument, but since all apart from the first argument have default values, we can use named arguments to only override those we need to change_
+
+### Try it yourself
+
+Create a new variable called _vec_sorted_ where all the numbers in _vec_ are in _decreasing_ order (i.e. highest to lowest) and then display the result. 
+
+_Tip: The function you want to use is called `sort`_
+
+```{r ex17, exercise=TRUE, exercise.reveal_solution = FALSE}
+vec <- c(11.2, 16, 0.6, 8.89)
+
+```
+
+
+```{r ex17-solution}
+vec <- c(11.2, 16, 0.6, 8.89)
+vec_sorted <- sort(x = vec, decreasing = TRUE)
+vec_sorted
+```
+
+```{r ex17-check}
+grade_this_code()
+```
+
+### Combining functions
+
+Functions can use other functions as input to create more complex behaviour. There are two ways of going this: 
+
+#### Nested functions
+
+Just as in mathematics, the inner most calculations of nested functions are performed before the outer ones can use their results.
+
+```{r}
+floor(sqrt(2))
+```
+_The square root function is run first before the value is used in the flooring function_
+
+#### Piping (chaining) functions
+
+Highly nested functions can become difficult to read, so it it also possible to write your code differently by using the result from one function as the input for the next one using the piping operator `|>` (`|` followed by `>`).
+
+```{r}
+sqrt(2) |> floor()
+```
+
+* The function that needs to be executed first comes first in the chain
+* The result from the previous function will occupy the _first_ argument slot of the next function. 
+* You can add and optional named arguments to a function later in the chain
+
+More complex example using calculating and exponential function result:
+```{r}
+sqrt(2) |> exp() |> round(digits = 3) 
+```
+_Take the square root of 2, raise e (Euler's number) to this value and then round the result to 3 digits_
+
+_This is more readable than `round(exp(sqrt(2)),digits = 3)`_
+
+__ NOTE ON THE PIPING OPERATOR __
+
+The built-in piping operator `<|` was only introduced in R 4.1.0 in 2021. It was already possible long before that to use piping but this required an additional package to be installed. Hence, you will still see a lot of code using an alternative pipe which looks like `%>%`. Both are identical in functionality.
+
+### Try it yourself
+
+- On line 2, write a _nested_ set of functions what will `sum` _vec_ and then `floor` the result (i.e. round down to the nearest integer) 
+- On line 3, write the same set of functions but now using piping
+
+
+```{r ex18, exercise=TRUE, exercise.reveal_solution = FALSE}
+vec <- c(65.001,58,412.4,36,87.6666,4,11,0.69)
+```
+
+
+```{r ex18-solution}
+vec <- c(65.001,58,412.4,36,87.6666,4,11,0.69)
+floor(sum(vec))
+sum(vec) |> floor()
+```
+
+```{r ex18-check}
+grade_this_code()
+```
