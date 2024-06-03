@@ -16,7 +16,7 @@ gradethis::gradethis_setup()
 
 ## Intro and Setup
 
-In this tutorial we'll introduce some very basic data types in R and show how you can use them to construct something very similar to an Excel spreadsheet that you can then use to analyse using code. 
+In this tutorial we'll introduce some very basic data types in R and show how you can use them to construct something very similar to an Excel spreadsheet that you can then use to analyze using code. 
 
 This document is interactive. You will see coding boxes like the one below where you can type and run code to try things for yourself.
 
@@ -32,6 +32,10 @@ grade_result(
 - To run code, click the `Run Code` button. You will see any output appear below the box
 - In some cases, there is a `Submit Answer` button that will provide feedback
 - If you make mistakes you will see errors appear, but don't worry, there is a `Start Over` button in case you need it.
+
+___
+
+_This tutorial was made to prepare students for an in-person workshop series on coding with R for people with no prior experience but who perform data analysis using Excel. It is not considered a comprehensive introduction to programming, but rather focusses on aspects relevant to the workshop series. In case of questions, please reach out to PJ Van Camp - pjvancamp@hms.harvard.edu_
 
 ## Data Types
 
@@ -100,7 +104,7 @@ Lists allow you to give a unique name to each of its entries like so:
 list(val1 = 1, val2 = "test", val3 = FALSE)
 ```
 
-### Putting it all together
+### Try it yourself
 
 Create the following list:
 
@@ -170,7 +174,7 @@ _There are more rules that you should follow to create a tidy table, but they wi
 
 ### Try it yourself
 
-Edit the following code so it becomes a _valid_ data frame with 3 rows, and the columns: animal, legs and mammal
+Edit the following code so it becomes a _valid_ data frame with 3 rows, and the columns: animal, legs and mammal. 
 
 ```{r ex8, exercise=TRUE}
 data.frame(
@@ -179,6 +183,7 @@ data.frame(
   c(4, 6, 8)
 ) 
 ```
+_You will see errors appear as long as it's not correct, but keep trying!_
 
 ```{r ex8-check}
 grade_result(
@@ -197,7 +202,7 @@ Now we know how to create different types of data in R, let's see how we can sto
 
 ### Storing data into a variable
 
-We define (assign) a variable by picking a name followed by the assignment `<-` operator and then the value (or calculation that will generate one).
+We define (assign) a variable by picking a name followed by the assignment `<-` operator (`<` followed by `-`) and then the value (or calculation that will generate one).
 
 Valid variable names:
 
@@ -275,7 +280,7 @@ x = c(1, 15, 22, 10)
 ```r
 mean(x)
 ```
-```{r ex14, exercise=TRUE}
+```{r ex14, exercise=TRUE, exercise.eval=TRUE}
 values <- c(1, 15, 22, 10)
 result = mean(values)
 result
@@ -285,7 +290,9 @@ _Try to replace the mean function with some other basic functions you can execut
 
 ### Arguments
 
-Some functions have multiple parameters or arguments that you have to specify. For example, if we want to round off a number to 3 decimal points ...
+Some functions have multiple parameters or arguments that you have to specify. 
+
+For example, the `round` function has two parameters: `x`, which is the value we like to round, and `digits`, the number of decimal points we want to round to. If we want to round a number to 3 decimal points we specify them inside the function ...
 ```{r}
 value <- 17/13
 value
@@ -335,7 +342,7 @@ round(1.333)
 ```
 _By default `digits = 0`_
 
-You can combine implicit (unnamed) and explicit (named) arguments, but the implicit ones always have to come first and all required arguments need to have a value.
+You can combine implicit (unnamed) and explicit (named) arguments, but the implicit ones always have to come first and all required arguments need to have a value. Let's take the [format](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/format) function as an example
 ```{r}
 format(15658475, big.mark = ",")
 ```
@@ -365,7 +372,7 @@ grade_this_code()
 
 ### Combining functions
 
-Functions can use other functions as input to create more complex behaviour. There are two ways of going this: 
+Functions can use other functions as input to create more complex behaviour. There are two ways of doing this: 
 
 #### Nested functions
 
@@ -386,19 +393,21 @@ sqrt(2) |> floor()
 
 * The function that needs to be executed first comes first in the chain
 * The result from the previous function will occupy the _first_ argument slot of the next function. 
-* You can add and optional named arguments to a function later in the chain
+* You can add (optional) named arguments to any function in the chain
 
-More complex example using calculating and exponential function result:
+More complex example:
 ```{r}
 sqrt(2) |> exp() |> round(digits = 3) 
 ```
-_Take the square root of 2, raise e (Euler's number) to this value and then round the result to 3 digits_
+_Take the square root of 2, exponentiate it (raise e, Euler's number to this power) and then round the result to 3 digits_
 
-_This is more readable than `round(exp(sqrt(2)),digits = 3)`_
+_This is more readable than the nested version `round(exp(sqrt(2)),digits = 3)`_
 
-__ NOTE ON THE PIPING OPERATOR __
+___
 
-The built-in piping operator `<|` was only introduced in R 4.1.0 in 2021. It was already possible long before that to use piping but this required an additional package to be installed. Hence, you will still see a lot of code using an alternative pipe which looks like `%>%`. Both are identical in functionality.
+Note on the piping operator
+
+The built-in piping operator `|>` was only introduced in R version 4.1.0 in 2021. It was already possible long before that to use piping but this required an additional package to be installed. Hence, you will still see a lot of code using an alternative pipe which looks like `%>%`. Both are identical in functionality.
 
 ### Try it yourself
 
@@ -427,7 +436,7 @@ Remember that a data frame in essence is a list of column vectors. Before we lea
 
 ### Simple vector math
 
-When you perform basic arithmetic operations, on a vector, they will be carried out for every element in that vector and return a new vector with all results
+When you perform basic arithmetic operations on a vector, they will be carried out for every element in that vector and return a new vector with all results. Note that this will onyl work if the vectors are of the same size. 
 
 ```{r ex19, exercise=TRUE, exercise.eval=TRUE}
 vec <- c(2,4,6,8,10)

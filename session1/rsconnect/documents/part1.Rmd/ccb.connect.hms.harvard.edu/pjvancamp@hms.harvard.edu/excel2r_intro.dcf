@@ -1,0 +1,13 @@
+name: excel2r_intro
+title: Excel2R_Intro
+username: pjvancamp@hms.harvard.edu
+account: pjvancamp@hms.harvard.edu
+server: ccb.connect.hms.harvard.edu
+hostUrl: https://ccb.connect.hms.harvard.edu/__api__
+appId: 87
+bundleId: 319
+url: https://ccb.connect.hms.harvard.edu/content/107ab161-070d-4082-80e0-1008f201e8a7/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: part1.html
