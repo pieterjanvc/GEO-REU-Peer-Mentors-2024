@@ -420,3 +420,66 @@ sum(vec) |> floor()
 ```{r ex18-check}
 grade_this_code()
 ```
+
+## Vector operations
+
+Remember that a data frame in essence is a list of column vectors. Before we learn to work with this, it's important to know how R makes it very easy to perform operations across vectors. We'll just explore the basics you need here.
+
+### Simple vector math
+
+When you perform basic arithmetic operations, on a vector, they will be carried out for every element in that vector and return a new vector with all results
+
+```{r ex19, exercise=TRUE, exercise.eval=TRUE}
+vec <- c(2,4,6,8,10)
+vec / 2
+```
+_You can try out other basic operations like `+`, `-` or `*`_
+
+### Operations with multiple vecors
+
+When you perform basic arithmetic operations using two vectors they will be carried out by using the first element of each vector for the first calculation, the the second for the next one and so on, returning again a vector with all results.
+
+```{r ex20, exercise=TRUE, exercise.eval=TRUE}
+vec <- c(1,2,3,4,5)
+vec + vec
+```
+_You can try out other basic operations like `+`, `-` or `*`_
+
+### Functions across vectors
+
+Finally, you can use functions across a vector. The result depends on what the effect of the function is. For example:
+
+```{r}
+vec <- c(1.554,6.23,2.201,0.01366)
+sum(vec)
+```
+_As seen before, this will sum all elements in the vector and return a single value_
+
+```{r}
+vec <- c(1.554,6.23,2.201,0.1366)
+round(vec, digits = 1)
+```
+_On the other hand, if a function is made to be run on a single value, it will just be repeated for every value in the vector and return the result vector_
+
+### Try it yourself
+
+If you want to normalize a list (vector) of values so they all fall between 0 and 1, you first subtract the `mean` from every value, then divide each result by the difference between the `max` and `min` value of the list
+
+```{r ex21, exercise=TRUE, exercise.reveal_solution = FALSE}
+vec <- c(11,6,3,8,9)
+
+```
+_The result after normalisation should be: 1.000, 0.375, 0.000, 0.625, 0.750_
+
+```{r ex21-solution}
+vec <- c(11,6,3,8,9)
+(vec - min(vec)) / (max(vec) - min(vec))
+```
+
+```{r ex21-check}
+grade_this_code()
+```
+
+## Wrap-up
+
+Congratulations, you now know all the basics to be ready to start working with data frames in R! You can revisit this introduction at any time, but don't worry if some things are still unclear, learning to code takes time and frustration is definitely part of the experience, but you'll have more opportunity to practice soon! 
