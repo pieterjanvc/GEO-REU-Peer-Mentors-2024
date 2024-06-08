@@ -14,11 +14,17 @@ gradethis::gradethis_setup()
 
 # Introduction to R data types, variables and functions
 
-## Intro and Setup
+## Introduction
 
-In this tutorial we'll introduce some very basic data types in R and show how you can use them to construct something very similar to an Excel spreadsheet that you can then use to analyze using code. 
+### Why should you learn to code if you work with spreadsheets ?
 
-This document is interactive. You will see coding boxes like the one below where you can type and run code to try things for yourself.
+Many people who use computers for their job or studies work with some from of spreadsheets like Excel or Google Sheets. Spreadsheets are a handy way to collect and organise many types of data. Tools like Excel provide additional clever functionality that can help you analyse the data and gain new insights. However, when the dataset is complex, gets large, or the analysis becomes more customized, manually curating and analyzing the data becomes difficult. This often is the point where it is handed over to a data analyst, who will use programming languages to automate the process and perform the seemingly hard tasks. 
+
+Programming has come a long way and learning how to use it for specific tasks is less daunting that it might seem. In this tutorial, we'll introduce you to one of the programming languages that's popular in data science and analytics called _R_. By following along in this interactive page, we'll introduce some very basic data types in R and show how you can use them to construct something very similar to an Excel spreadsheet. This will prepare you for the next step: learning to analyze data from spreadsheet using simple R code.
+
+### Tutorial setup
+
+As mentioned, this tutorial is interactive. You will be able to play around with actual R code provided in the coding boxes like the one below. You can type and run code to try things for yourself.
 
 ```{r demo, exercise=TRUE}
 "Hello World!"
@@ -33,6 +39,9 @@ grade_result(
 - In some cases, there is a `Submit Answer` button that will provide feedback
 - If you make mistakes you will see errors appear, but don't worry, there is a `Start Over` button in case you need it.
 
+The tutorial is broken up in several topics, and your progress is automatically saved (as long as you don't wipe the browser history). You can also choose to reset the whole tutorial by clicking the small `start over` link underneath the topic overview. 
+
+Ready? Click the `Next Topic` button to get started ...
 ___
 
 _This tutorial was made to prepare students for an in-person workshop series on coding with R for people with no prior experience but who perform data analysis using Excel. It is not considered a comprehensive introduction to programming, but rather focusses on aspects relevant to the workshop series. In case of questions, please reach out to PJ Van Camp - pjvancamp@hms.harvard.edu_
@@ -127,21 +136,20 @@ grade_result(
 
 ### Building on what we know ...
 
-Now you learned basic data types, we can use them to recreate a spreadsheet.
-Let's take a look at this simple spreadsheet table below
+In the previous topic you learned about basic R data types. Let's now use then to recreate a spreadsheet. Start by taking a look at this spreadsheet table below
 
 ```{r echo=FALSE}
 data.frame(name = c("Mohamet", "Lin Yi", "Nina"), age = c(21,19,24),
            student = c(TRUE, TRUE, FALSE)) %>% kable()
 ```
 
-This simple, basic spreadsheet records student info and is a table with the following properties:
+This simple spreadsheet records student info and is a table with the following properties:
 
-- Each row is an entry in the table
+- Each row is an entry in the table (i.e. info about a particular student)
 - Each column records a different observation
-- Every column has a header
+- Every column has a header that describes what is being recorded
 
-Note that the values in every column are of the same data type. This means we can represent them as a vector. For example, the first column would be `c("Mohamet", "Lin Yi", "Nina")`. If we do this for all three columns and store them as a list, we can recreate the whole table like this:
+Note that the values in every column are of the same data type. This means we can represent them as a vector. For example, the first column would be `c("Mohamet", "Lin Yi", "Nina")`. If we do this for all three columns and organise them as a list in R, we can recreate the whole table like this:
 
 ```{r}
 list(
@@ -151,11 +159,11 @@ list(
 ) 
 ```
 
-We just converted our spreadsheet to a combination of data types in R! Note that the way we write it in R looks like the table was rotated with the columns now horizontal an the rows vertical.
+We just converted our spreadsheet to a combination of data types in R! Note that the way it written in R looks like the table was rotated with the columns now horizontal an the rows vertical.
 
-### Introducing the data frame
+### Introducing the R Data Frame
 
-Although the list above is valid representation of a table, R has another, special, built-in datatype that optimises working with this type of data called a _data frame_. It is constructed very much like we did with the list but is treated and rendered differently:
+Although the list above is a valid representation of a table, R has another, special, built-in datatype that optimises working with this type of data called a _data frame_. It is constructed very much like we did with the list but is handled and displayed differently:
 ```{r}
 data.frame(
   name = c("Mohamet", "Lin Yi", "Nina"), 
@@ -166,11 +174,11 @@ data.frame(
 
 A data frame imposes more restrictions on how the data can be organised as it has to conform to the rules of a well-organised spreadsheet table. These rules are:
 
-- Every column needs a unique name
-- Every column needs to be a vector (i.e. contains a single data type)
+- Every column needs a unique name (avoid using spaces)
+- Every column can only hold a single data type (i.e. need to be represented as a vector)
 - The length of each column has to be the same
 
-_There are more rules that you should follow to create a tidy table, but they will be discussed in another section_
+_There are more rules that you should follow to create a tidy table, but they will not be discussed in here_
 
 ### Try it yourself
 
@@ -243,7 +251,7 @@ x <- x / 2
 x
 ```
 
-#### Try it yourself
+### Try it yourself
 Create a variable `prod` that stores the product of x, y and z and then display the result
 
 ```{r ex13, exercise=TRUE, exercise.reveal_solution = FALSE}
