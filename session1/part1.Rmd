@@ -103,26 +103,46 @@ grade_result(
 We can group multiple values of the _different types_ by creating a list `list()`
 
 ```{r ex5, exercise=TRUE}
-list(1, "test", FALSE)
+list(TRUE, "test", c(1,2,3))
 ```
-
+_This list has 3 entries: a boolean, a string and a vector (which in turn contains 3 numbers)_
 
 Lists allow you to give a unique name to each of its entries like so:
 
 ```{r ex6, exercise=TRUE}
-list(val1 = 1, val2 = "test", val3 = FALSE)
+list(item1 = TRUE, item2 = "test", item3 = c(1,2,3))
 ```
+
+### Note on _lines of code_
+
+You can see that the code boxes have line numbers. This is because when the code is run, it's done so line by line (each line containing a new instruction). However, there are ways of splitting a long line of code across multiple lines for better readability without _braking_ the code. 
+
+Examples of valid ways to split a line are _after_ an opening bracket `(` or a comma `,` or _before_ a closing bracket `)`. When R executes the code, it will ignore these line breaks and interpret them as if they were on as single line. This means we can rewrite ...
+```r
+list(item1 = TRUE, item2 = "test", item3 = c(1,2,3))
+```
+... like so ...
+
+```r
+list(
+  item1 = TRUE, 
+  item2 = "test", 
+  item3 = c(1,2,3)
+)
+```
+... and it will still be valid and interpreted as a single line.
 
 ### Try it yourself
 
-Create the following list:
+Create the following named list:
 
-- The first entry contains a vector of the numbers 1 - 3 and is named _first_
-- The second entry contains the first 3 letters of the alphabet and is named _second_
+- The first entry contains a vector of the numbers 1 to 3 and is named _first_
+- The second entry contains a vector with the first 3 letters of the alphabet (lowercase) and is named _second_
 
 ```{r ex7, exercise=TRUE}
 list()
 ```
+
 
 ```{r ex7-check}
 grade_result(
@@ -215,7 +235,7 @@ We define (assign) a variable by picking a name followed by the assignment `<-` 
 Valid variable names:
 
 - Must start with a letter
-- can only have alphanumeric characters (A-Z, a-z, 0-9) or `_` or `.`
+- can only have alphanumeric characters (A-Z, a-z, 0-9), `_` or `.`
 
 ```{r ex9, exercise=TRUE, exercise.eval=TRUE}
 x <- FALSE
@@ -225,7 +245,7 @@ other_var <- (6 + 4) / 2
 x
 ```
 
-_Note that running a line containing a variable that has been assigned will print its value. Try and replace x with any of the other variables to see its value_
+_You can print the content of a variable by simply wiring its name on a separate line (e.g. `x` on line 5). Try and replace it with any of the other variable names to print its content when you run the code_
 
 ### Updating a variable
 
@@ -358,20 +378,21 @@ _In this example, big.mark is the 9th argument, but since all apart from the fir
 
 ### Try it yourself
 
-Create a new variable called _vec_sorted_ where all the numbers in _vec_ are in _decreasing_ order (i.e. highest to lowest) and then display the result. 
-
-_Tip: The function you want to use is called `sort`_
+1. You are given a variable _values_ that contains a vector of numbers. 
+2. On line 2 use the function `sort` to sort the values in the vector and save the result to a new variable called _values_sorted_
+3. Now make sure that the sorting happens in _decreasing_ order (i.e. highest to lowest). You will need to set an argument of the sort function to make this happen (look it up)
+4. Print the result of _values_sorted_ on line 3
 
 ```{r ex17, exercise=TRUE, exercise.reveal_solution = FALSE}
-vec <- c(11.2, 16, 0.6, 8.89)
+values <- c(11.2, 16, 0.6, 8.89)
 
 ```
 
 
 ```{r ex17-solution}
-vec <- c(11.2, 16, 0.6, 8.89)
-vec_sorted <- sort(x = vec, decreasing = TRUE)
-vec_sorted
+values <- c(11.2, 16, 0.6, 8.89)
+values_sorted <- sort(x = values, decreasing = TRUE)
+values_sorted
 ```
 
 ```{r ex17-check}
@@ -420,7 +441,7 @@ The built-in piping operator `|>` was only introduced in R version 4.1.0 in 2021
 ### Try it yourself
 
 - On line 2, write a _nested_ set of functions what will `sum` _vec_ and then `floor` the result (i.e. round down to the nearest integer) 
-- On line 3, write the same set of functions but now using piping
+- On line 3, write the same set of functions but now using pipes
 
 
 ```{r ex18, exercise=TRUE, exercise.reveal_solution = FALSE}
@@ -480,21 +501,28 @@ _On the other hand, if a function is made to be run on a single value, it will j
 
 ### Try it yourself
 
-If you want to normalize a list (vector) of values so they all fall between 0 and 1, you first subtract the `mean` from every value, then divide each result by the difference between the `max` and `min` value of the list
+When _centering_ a set of numbers, you ensure that the mean value is zero without changing the distribution. We can do this by simply subtracting the mean from each individual value. For example: the list 2, 4, 9 has a mean value of 5. If we subtract this from each value we get -3, -1 , 4 which has a mean of 0.
+
+1. You are given a variable _vec_ that contains a set of numbers
+2. Calculate the mean value using the `mean` function
+3. Use vector operations to subtract the mean from each entry in the vector
 
 ```{r ex21, exercise=TRUE, exercise.reveal_solution = FALSE}
 vec <- c(11,6,3,8,9)
 
 ```
-_The result after normalisation should be: 1.000, 0.375, 0.000, 0.625, 0.750_
+_Note, you can accomplish step 2 and 3 in a single line, or create an intermediate variable. You should try both and get the same result_
 
 ```{r ex21-solution}
 vec <- c(11,6,3,8,9)
-(vec - min(vec)) / (max(vec) - min(vec))
+vec - mean(vec)
 ```
 
 ```{r ex21-check}
-grade_this_code()
+vec <- c(11,6,3,8,9)
+grade_result(
+  pass_if(~identical(.result, vec - mean(vec))
+))
 ```
 
 ## Wrap-up
