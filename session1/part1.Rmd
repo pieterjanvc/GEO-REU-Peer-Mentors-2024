@@ -1,5 +1,5 @@
 ---
-title: "From Excel to R"
+title: "From Spreadsheets to R - without going too far"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -35,11 +35,15 @@ grade_result(
 )
 ```
 
-- To run code, click the `Run Code` button. You will see any output appear below the box
-- In some cases, there is a `Submit Answer` button that will provide feedback
-- If you make mistakes you will see errors appear, but don't worry, there is a `Start Over` button in case you need it.
+- To **run the code** in the box, click the `Run Code` button. You will see any output appear below the box. Seeing output doesn't mean the code is correct, it just means there are no errors.
+- In some exercises, there is a `Submit Answer` button that allows you to **check if your code is correct** and provide feedback
+- **If you make mistakes** you will see errors appear, but don't worry, there is a `Start Over` button in case you need it, though it's recommended to try and fix your code first before you reset.
+
+Each section will first introduce a new topic together with some code examples. Some examples have simple instructions below for you to explore them in a bit more detail (called: EXPLORE A BIT MORE). At the end of each section will be a `Try it yourself` exercise that combines all you have learned and requires a bit more thinking. 
 
 The tutorial is broken up in several topics, and your progress is automatically saved (as long as you don't wipe the browser history). You can also choose to reset the whole tutorial by clicking the small `start over` link underneath the topic overview. 
+
+Before you start, realize that learning how to code can often be frustrating or overwhelming, but this is very normal. Just write down any questions you have and bring them to the workshop where we can revisit them together.
 
 Ready? Click the `Next Topic` button to get started ...
 ___
@@ -48,7 +52,7 @@ _This tutorial was made to prepare students for an in-person workshop series on 
 
 ## Data Types
 
-There are many different types of data we put into spreadsheets, but in most cases we can break them down into a few simple categories of values. Three of the most common types of data entered into a spreadsheet are _numbers_, _text_ and _boolean_ values.
+There are many different types of data we put into spreadsheets, but in most cases we can break them down into a few simple categories of values. Three of the most common types of data entered into a spreadsheet are _numbers_, _text_ and _boolean_ (true / false) values.
 
 ### Numbers
 
@@ -58,7 +62,7 @@ For example:
 1 + 1
 ```
 
-_Try any of the other basic arithmetic operations using `-`, `*` or `/` and try using decimal numbers as well like `2.5`_
+_EXPLORE A BIT MORE: Try any of the other basic arithmetic operations using `-`, `*` or `/` and try using decimal numbers as well like `2.5`_
 
 _--- SIDE NOTE ---_
 
@@ -72,7 +76,7 @@ You can write strings by wrapping your text in quotes like this:
 ```{r ex2, exercise=TRUE, exercise.eval=TRUE}
 "This is a string of text"
 ```
- _Try changing the text_
+ _EXPLORE A BIT MORE: Try changing the text_
  
 ### Boolean
 
@@ -80,8 +84,12 @@ A Boolean value is a binary value that simply means _true_ or _false_. In R thes
 ```{r ex3, exercise=TRUE, exercise.eval=TRUE}
 TRUE
 ```
-_Note that this is case sensitve and you must use all capital letters_
+_Note that this is case sensitive and you must use all capital letters_
  
+### Grouping data
+
+Now we have introduced a few basic data types, we can take a look on how we can group them into more complex structures. We'll start by taking a look at vectors and lists.
+
 ### Vectors
  
 We can group multiple values of the _same type_ by wrapping them in a vector `c()`
@@ -89,7 +97,7 @@ We can group multiple values of the _same type_ by wrapping them in a vector `c(
 ```{r ex4, exercise=TRUE}
 c(1,2,3,4,5)
 ```
-_Replace the vector with one containing 3 strings: cat, dog, horse_ 
+_EXPLORE A BIT MORE: Replace the vector with one containing 3 strings: cat, dog, horse_ 
 
 _You can check your answer once finished_
 ```{r ex4-check}
@@ -115,7 +123,7 @@ list(item1 = TRUE, item2 = "test", item3 = c(1,2,3))
 
 ### Note on _lines of code_
 
-You can see that the code boxes have line numbers. This is because when the code is run, it's done so line by line (each line containing a new instruction). However, there are ways of splitting a long line of code across multiple lines for better readability without _braking_ the code. 
+You can see that the code boxes have line numbers. This is because when the code is run, it's done so line by line (each line containing a new instruction). However, there are ways of splitting a long line of code across multiple lines for better readability without _breaking_ the code. 
 
 Examples of valid ways to split a line are _after_ an opening bracket `(` or a comma `,` or _before_ a closing bracket `)`. When R executes the code, it will ignore these line breaks and interpret them as if they were on as single line. This means we can rewrite ...
 ```r
@@ -207,7 +215,7 @@ Edit the following code so it becomes a _valid_ data frame with 3 rows, and the 
 ```{r ex8, exercise=TRUE}
 data.frame(
   animal = c("dog", "beetle", "spider"), 
-  mammal = c(TRUE),
+  mammal = c(TRUE, TRUE),
   c(4, 6, 8)
 ) 
 ```
@@ -245,7 +253,7 @@ other_var <- (6 + 4) / 2
 x
 ```
 
-_You can print the content of a variable by simply wiring its name on a separate line (e.g. `x` on line 5). Try and replace it with any of the other variable names to print its content when you run the code_
+_EXPLORE A BIT MORE: You can print the content of a variable by simply writing its name on a separate line (e.g. `x` on line 5 will print FALSE). Try and replace `x` with any of the other variable names listed to print their content when you run the code._
 
 ### Updating a variable
 
@@ -310,11 +318,11 @@ mean(x)
 ```
 ```{r ex14, exercise=TRUE, exercise.eval=TRUE}
 values <- c(1, 15, 22, 10)
-result = mean(values)
+result <- mean(values)
 result
 ```
 
-_Try to replace the mean function with some other basic functions you can execute on vectors of numbers like `min` or `max` or `sum`_
+_EXPLORE A BIT MORE: Try to replace the mean function with some other basic functions you can execute on vectors of numbers like `min` or `max` or `sum`_
 
 ### Arguments
 
@@ -332,7 +340,7 @@ To know which arguments a function takes, you have several options
 
 #### Option 1: look at the function code
 
-Run the function _without_ the  brackets `()` to print its code and look at the arguments listed at the top
+To run the function _without_ the  brackets `()` to print its code and look at the arguments listed at the top
 ```{r}
 round
 ```
@@ -341,11 +349,11 @@ _Note that the second argument here already has a default value assigned (see no
 
 #### Option 2: load the function documentation
 
-Run the function _without_ the  brackets and put a question mark in front of it. This will open up the documentation (might not work in this online tutorial) 
+The people who wrote any of the functions you will use, also wrote documentation on _how_ to use them. You can read this documentation by running the function _without_ the  brackets and putting a question mark in front of it. This will open up the function documentation where you can read more about specific function arguments.
 ```{r ex15, exercise=TRUE}
 ?round
 ```
-_Note that the documentation has much more details on how to use the function and what each argument means_
+_NOTE: In this tutorial, the documentation is just printed in plain text and might contains strange characters or formatting. When open it in a real code editor, it is often rendered much nicer or interactive_
 
 #### Option 3: Code editor tooltips
 
@@ -380,7 +388,7 @@ _In this example, big.mark is the 9th argument, but since all apart from the fir
 
 1. You are given a variable _values_ that contains a vector of numbers. 
 2. On line 2 use the function `sort` to sort the values in the vector and save the result to a new variable called _values_sorted_
-3. Now make sure that the sorting happens in _decreasing_ order (i.e. highest to lowest). You will need to set an argument of the sort function to make this happen (look it up)
+3. Now make sure that the sorting happens in _decreasing_ order (i.e. highest to lowest). You will need to set an argument of the sort function to make this happen (look at the documentation of the sort function)
 4. Print the result of _values_sorted_ on line 3
 
 ```{r ex17, exercise=TRUE, exercise.reveal_solution = FALSE}
@@ -465,13 +473,13 @@ Remember that a data frame in essence is a list of column vectors. Before we lea
 
 ### Simple vector math
 
-When you perform basic arithmetic operations on a vector, they will be carried out for every element in that vector and return a new vector with all results. Note that this will onyl work if the vectors are of the same size. 
+When you perform basic arithmetic operations on a vector, they will be carried out for every element in that vector and return a new vector with all results. 
 
 ```{r ex19, exercise=TRUE, exercise.eval=TRUE}
 vec <- c(2,4,6,8,10)
 vec / 2
 ```
-_You can try out other basic operations like `+`, `-` or `*`_
+_EXPLORE A BIT MORE: You can try out other basic operations like `+`, `-` or `*`_
 
 ### Operations with multiple vecors
 
@@ -481,7 +489,7 @@ When you perform basic arithmetic operations using two vectors they will be carr
 vec <- c(1,2,3,4,5)
 vec + vec
 ```
-_You can try out other basic operations like `+`, `-` or `*`_
+_EXPLORE A BIT MORE: You can try out other basic operations like `+`, `-` or `*`_
 
 ### Functions across vectors
 
