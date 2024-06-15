@@ -1,0 +1,28 @@
+---
+title: "From Spreadsheets to R - without going too far"
+subtitle: "Part 2 - Data Frame Manipulations"
+output: html_document
+---
+
+# Make sure you have the following libraries installed
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse) # Will load the readxl and dplyr libraries we'll be using
+
+#install.packages(c("tidyverse", "knitr"))
+
+```
+If needed install the libraries by uncommenting and running the install command
+
+# Intro
+
+```{r echo=TRUE}
+data = read_excel("antiquities_act.xlsx")
+glimpse(data)
+```
+
+# 
+
+```{r echo=TRUE}
+select()
+```
