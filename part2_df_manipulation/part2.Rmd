@@ -41,7 +41,7 @@ The built-in function `colnames()` can list all the column names for you, and th
 colnames(data)
 glimpse(data)
 ```
-# Selecting columns
+# Selecting columns - select()
 
 ## By name
 
@@ -49,6 +49,7 @@ glimpse(data)
 myData <- data |> select(c("current_name", "states", "year"))
 glimpse(myData)
 ```
+_Select the columns current_name, states and year_
 
 _Remember that in `dplyr` selecting columns using `select()` function does not require you to use a vector of quoted strings_
 ```{r}
@@ -61,16 +62,18 @@ myData <- data |> select(current_name, states, year)
 myData <- data |> select(1,2,7)
 glimpse(myData)
 ```
+_Select the 1st, 2nd and 7th column_
+
 ## Inverted
 ```{r}
 myData <- data |> select(-c(1,2,7))
 glimpse(myData)
 ```
-_Note that in this case a vector is required to invert everything_
+_Select all but the 1st, 2nd and seventh column. Note that in this case a vector is required to invert everything_
 
 ### Try it yourself
 
-_Use the same `data` variable for all exercises. You can save to whichever variable you like_
+_Use the same `data` variable for all exercises. You can save to whichever variable you like and check with glimpse()_
 
 #### Select the current agency and the the number of acres affected from the dataset
 
@@ -96,48 +99,110 @@ For example 1:5, is the same as c(1,2,3,4,5). Using this, select the columns 1-4
 
 ```
 
-# Filtering rows
+# Filtering rows - filter()
 
-Let's select a few column we like to work with first
+## Boolean statement
 ```{r}
-newData <- data |> select(current_name, acres_affected, year, states)
+myData <- data |> filter(acres_affected < 100)
+
+# Display relevant columns
+myData |> select(current_name, acres_affected)
 ```
+_Filter all rows with less than 100 affected acres_
 
-
-## All rows with less than 100 affected acres
+## Multiple boolean statements with _and_ 
 ```{r}
-myData <- newData |> filter(acres_affected < 100)
-myData
-```
+myData <- data |> filter(acres_affected < 100 & states == "Florida")
 
-## All rows with less than 100 affected acres _and_ located in Florida
-```{r}
-myData <- newData |> filter(acres_affected < 100 & states == "Florida")
-myData
+# Display relevant columns
+myData |> select(acres_affected, states)
 ```
+_Filter all rows with less than 100 acres affected in Florida_
 
-## All rows with less than 100 affected acres _or_ more than 1,000,000
+## Multiple boolean statements with _or_
 ```{r}
-myData <- newData |> filter(acres_affected < 100 | acres_affected > 1000000)
-myData
+myData <- data |> filter(acres_affected < 100 | acres_affected > 1000000)
+
+# Display relevant columns
+myData |> select(current_name, acres_affected)
 ```
+_Filter all rows with less than 100 or more than 1,000,000 affected acres_
 
 ### Try it yourself
 
-#### Filter out all rows from the `newData` dataframe from the year 2016 onwards
+#### Filter out all rows from the `data` dataframe from the year 2016 onwards
 ```{r}
-newData |> filter(year >= 2016)
+
 ```
 _The result should have 13 rows_
 
 #### Filter out all data from _Pinnacles National Park_ before 1950
 ```{r}
-newData %>% filter(current_name == "Pinnacles National Park" & year < 1950)
+
 ```
 _The result should have 6 rows_
 
 ####  Get all rows with more than 5000 affected acres or after the year 2016
 ```{r}
-newData %>% filter(acres_affected < 1 | year > 2016)
+
 ```
 _The result should have 13 rows_
+
+# Changing columns - mutate()
+
+## New column
+
+```{r}
+myData = data |> mutate(years_protected = 2024 - year)
+
+# Display relevant columns
+myData |> select(year, years_protected)
+```
+_Calculate the number of years the land has been protected in 2024_
+
+## Update existing column
+
+```{r}
+myData = data |> mutate(acres_affected = ceiling(acres_affected))
+
+# Display relevant columns
+myData |> select(current_name, acres_affected)
+```
+_Round up the acres to the nearest acre_
+
+### Try it yourself
+
+#### Create a new column that stores a boolean value (TRUE / FALSE) to indicate if the number of acres affected is larger than 1000
+```{r}
+
+```
+#### Use the `toupper()` function to change all state names to be written in capital letters (update the states column)
+```{r}
+
+```
+
+# Summarise data - summarise()
+
+## Single row
+```{r}
+data |> summarise(mean_acres = mean(acres_affected), sd_acres = sd(acres_affected))
+```
+_Summarise the data to show the mean and standard deviation of the affected acres across the whole dataset_
+
+## By group
+```{r}
+data |> group_by(states) |> 
+  summarise(mean_acres = mean(acres_affected), sd_acres = sd(acres_affected))
+```
+_Get the mean and standard deviation of the affected acres by state_
+
+### Try it yourself
+
+#### Get the minimum `min()` and maximum `max()` amount of acres affected across the whole table
+```{r}
+
+```
+#### Do the same thing but now by year
+```{r}
+
+```
