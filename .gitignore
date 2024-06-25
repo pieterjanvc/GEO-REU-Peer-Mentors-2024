@@ -5,3 +5,4 @@
 test.R
 *.html
 **/*.html
+!**/*README.html

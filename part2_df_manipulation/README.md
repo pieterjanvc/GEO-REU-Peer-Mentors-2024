@@ -57,12 +57,18 @@ There are multiple ways you can quickly view and check your data
 
 ## Selecting columns - `select()`
 
-One of the simplest operations you can do is **selecting a set of columns** from a larger dataframe. This is useful when you want to perform sub-analyses that do not need all of the collected data. Do do this, we'll use the `select()` function from the `dplyr` library (loaded automatically when loading tidyverse library).
+One of the simplest operations you can do is **selecting a set of columns** from a larger dataframe. This is useful when you want to perform sub-analyses that do not need all of the collected data. Do do this, we'll use the `select()` function from the `dplyr` library (loaded automatically when loading tidyverse library) and provide a vector of the columns names we want.
 
+```r
+data |> select(c("name", "date", "score"))
+```
+_This will select the name, date and score columns from the data_
+
+Note that in `dplyr`, selecting columns using `select()` function does not require you to use quoted strings
 ```r
 data |> select(c(name, date, score))
 ```
-_This will select the name, date and score columns from the data_
+_This is identical to using quoted strings, but only works for dplyr functions_
 
 You can also invert the selection by putting a minus `-` before the column vector
 
@@ -71,6 +77,10 @@ data |> select(-c(gender, race))
 ```
 _This will select all columns apart from the gender and race ones_
 
+If you know the order of the columns, you can also select by index instead of names which saves you having to write out the names.
+```r
+data |> select(c(1,3,7))
+```
 
 The `select` function can take many different types of arguments to help selecting specific columns efficiently. See the [documentation](https://dplyr.tidyverse.org/reference/select.html) for more details
 

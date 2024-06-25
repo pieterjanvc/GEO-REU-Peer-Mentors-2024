@@ -4,25 +4,140 @@ subtitle: "Part 2 - Data Frame Manipulations"
 output: html_document
 ---
 
-# Make sure you have the following libraries installed
+_This is an R-markdown document. If run in RStudio, you will see code blocks appear with the option to run each one using the little "play button" on the top-right of each block. The output (including errors) will be printed below a block_
+
+Read the [session materials](README.md) for more background on the various functions and their use
+
+## Make sure you have the following libraries installed
 ```{r setup, include=FALSE}
 library(knitr)
-library(tidyverse) # Will load the readxl and dplyr libraries we'll be using
+library(readxl)
+library(dplyr)
+
+opts_chunk$set(echo = TRUE)
 
 #install.packages(c("tidyverse", "knitr"))
 
 ```
-If needed install the libraries by uncommenting and running the install command
+If you get an error that libraries are not installed yet, un-comment the last line (remove the `#`), and run the code block again (you can re-comment once installed).
 
-# Intro
+# Exploring the data
 
-```{r echo=TRUE}
-data = read_excel("antiquities_act.xlsx")
+## Read in an Excel file
+
+Let's load in an Excel file (antiquities_act.xlsx) which is stored in the same folder as this script using the `read_excel` function and assigning it to a variable named `data`
+
+```{r}
+data <- read_excel("antiquities_act.xlsx")
+data
+```
+_You will see a preview of the table when you run this block, but you can also look at it it by clicking the variable name 'data' in the Environment pane on the right of your screen_
+
+## Handy functions to learn more about the data
+
+The built-in function `colnames()` can list all the column names for you, and the `glimpse()` function from the `dplyr` package will give you a summary of each column 
+
+```{r}
+colnames(data)
 glimpse(data)
 ```
+# Selecting columns
 
-# 
+## By name
 
-```{r echo=TRUE}
-select()
+```{r}
+myData <- data |> select(c("current_name", "states", "year"))
+glimpse(myData)
 ```
+
+_Remember that in `dplyr` selecting columns using `select()` function does not require you to use a vector of quoted strings_
+```{r}
+myData <- data |> select(current_name, states, year)
+```
+
+## By index
+
+```{r}
+myData <- data |> select(1,2,7)
+glimpse(myData)
+```
+## Inverted
+```{r}
+myData <- data |> select(-c(1,2,7))
+glimpse(myData)
+```
+_Note that in this case a vector is required to invert everything_
+
+### Try it yourself
+
+_Use the same `data` variable for all exercises. You can save to whichever variable you like_
+
+#### Select the current agency and the the number of acres affected from the dataset
+
+```{r}
+
+```
+
+#### Select the 1st, second and 5th columns
+```{r}
+
+```
+
+#### Select everything but the second and third column
+```{r}
+
+```
+
+#### Extra challenge: you can select a range of numbers using the <first>:<last> notation. 
+
+For example 1:5, is the same as c(1,2,3,4,5). Using this, select the columns 1-4 and 7-9
+
+```{r}
+
+```
+
+# Filtering rows
+
+Let's select a few column we like to work with first
+```{r}
+newData <- data |> select(current_name, acres_affected, year, states)
+```
+
+
+## All rows with less than 100 affected acres
+```{r}
+myData <- newData |> filter(acres_affected < 100)
+myData
+```
+
+## All rows with less than 100 affected acres _and_ located in Florida
+```{r}
+myData <- newData |> filter(acres_affected < 100 & states == "Florida")
+myData
+```
+
+## All rows with less than 100 affected acres _or_ more than 1,000,000
+```{r}
+myData <- newData |> filter(acres_affected < 100 | acres_affected > 1000000)
+myData
+```
+
+### Try it yourself
+
+#### Filter out all rows from the `newData` dataframe from the year 2016 onwards
+```{r}
+newData |> filter(year >= 2016)
+```
+_The result should have 13 rows_
+
+#### Filter out all data from _Pinnacles National Park_ before 1950
+```{r}
+newData %>% filter(current_name == "Pinnacles National Park" & year < 1950)
+```
+_The result should have 6 rows_
+
+####  Get all rows with more than 5000 affected acres or after the year 2016
+```{r}
+newData %>% filter(acres_affected < 1 | year > 2016)
+```
+_The result should have 13 rows_
