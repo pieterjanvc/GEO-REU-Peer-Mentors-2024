@@ -515,13 +515,13 @@ data |&gt; mutatae(finalScore = score / 100)</code></pre>
 <p><em>Assuming we have the column score in our dataframe, fist option
 will update this column by dividing all the values by 100. The second
 option will do the same, but store the result in a new column called
-finalScore, keeping the original values in the score column unchanged
-</em></p>
+finalScore, keeping the original values in the score column
+unchanged</em></p>
 <p>You can work with values from different columns, as long as their
 data types are compatible.</p>
 <pre class="r"><code>data |&gt; mutate(result = score1 - score2)</code></pre>
 <p><em>This will subtract the values of column score2 from the values of
-column score1 and store them in a new column result </em></p>
+column score1 and store them in a new column result</em></p>
 <div id="operations-across-a-column" class="section level3">
 <h3>Operations across a column</h3>
 <p>Remember from Part 1 that columns in a dataframe are vectors, and
@@ -535,7 +535,7 @@ the vector <code>c(11.3, 16.658, 66.578, 22.01, 6.99)</code></p>
 in the exact same way on columns of a data frame.</p>
 <pre class="r"><code>data |&gt; mutate(score = round(score, 1))</code></pre>
 <p><em>This will round all the values in the score column to one decimal
-position </em></p>
+position</em></p>
 <p>However, if the function summarised the vector to a single value,
 this will be repeated for the whole column</p>
 <pre class="r"><code>data |&gt; mutate(score = mean(score))</code></pre>

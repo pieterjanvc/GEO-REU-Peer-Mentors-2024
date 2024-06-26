@@ -4,11 +4,11 @@ subtitle: "Part 2 - Data Frame Manipulations"
 output: html_document
 ---
 
-*This is an R-markdown document. If run in RStudio, you will see code blocks appear with the option to run each one using the little "play button" on the top-right of each block. The output (including errors) will be printed below a block*
+*This is an R-markdown document. If run in RStudio, you will see code blocks appear with the option to run each one using the little "play button" on the top-right of each block. The output (including errors) will be printed below a block. For the best view, click the `Visual` mode at the top left of this file (if set to Source now)*
 
 Read the [session materials](README.md) for more background on the various functions and their use
 
-## Make sure you have the following libraries installed
+## Make sure you have the following libraries loaded
 
 ```{r setup, include=FALSE}
 library(knitr)
@@ -214,7 +214,9 @@ myData |> select(current_name, acres_affected)
 ## Single row
 
 ```{r}
-data |> summarise(mean_acres = mean(acres_affected), sd_acres = sd(acres_affected))
+data |> 
+  summarise(mean_acres = mean(acres_affected), sd_acres = sd(acres_affected)) |>
+  ungroup()
 ```
 
 *Summarise the data to show the mean and standard deviation of the affected acres across the whole dataset*
@@ -223,7 +225,8 @@ data |> summarise(mean_acres = mean(acres_affected), sd_acres = sd(acres_affecte
 
 ```{r}
 data |> group_by(states) |> 
-  summarise(mean_acres = mean(acres_affected), sd_acres = sd(acres_affected))
+  summarise(mean_acres = mean(acres_affected), sd_acres = sd(acres_affected)) |>
+  ungroup()
 ```
 
 *Get the mean and standard deviation of the affected acres by state*
@@ -241,3 +244,44 @@ data |> group_by(states) |>
 ```{r}
 
 ```
+
+# Putting it all together
+
+In this part you will combine the new things you've learned (selecting, filtering, mutating and summarising) into a more comprehensive analysis
+
+```{r}
+data <- read_excel("antiquities_act.xlsx")
+```
+
+#### Select the name, state, action, year and affected acres columns from the data and put them into a new variable called `analysis` 
+
+```{r}
+analysis <- data |> select(current_name, states, action, year, acres_affected)
+```
+
+#### We'll only focus on the data when and area was enlarged before the year 2000, so update the `analysis` variable to only contain those rows
+```{r}
+analysis <- analysis |> filter(action == "Enlarged" & year < 2000)
+```
+
+#### Generate a summary by state and save it to a variable called `result` with the following statistics:
+
+- Total acres of the area enlarged
+- Time span (difference between first and last year enlargement happened)
+- Number of times and area was enlarged (look up the `n()` function for details)
+
+```{r}
+result <- analysis |> group_by(states) |> 
+  summarise(
+    area = sum(acres_affected), 
+    timeSpan = max(year) - min(year), 
+    nTimes = n()
+  ) |>
+  ungroup()
+```
+
+#### Add a column `large` to these results indicating whether the total area is larger than 100,000 acres
+```{r}
+result |> mutate(large = area >= 100000)
+```
+
