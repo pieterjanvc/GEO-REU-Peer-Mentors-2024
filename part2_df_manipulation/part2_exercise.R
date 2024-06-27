@@ -5,12 +5,14 @@
 # Load the dplyr library
 library(dplyr)
 
+
+#....... IRIS DATSET ....... 
+#...........................
+
 # We'll use a built-in dataset called iris 
 myData = iris
 
 # Take a look at the dataset (columns and what type of data they contain)
-colnames(myData)
-glimpse(myData)
 
 # --- Part 1 ---
 
@@ -22,7 +24,7 @@ part1 <- myData |> select(Species, Petal.Length, Petal.Width)
 # is 1.7 cm or more and the width is smaller than 2
 part1 <- part1 |> filter(Petal.Length >= 1.7 & Petal.Width < 2)
 
-# Summarise the data so for each species you will have the mean petal length 
+# Summarise the data so for each species so you will have the mean petal length 
 # and width
 part1 <- part1 |> group_by(Species) |> 
   summarise(mLength = mean(Petal.Length), mWidth = mean(Petal.Width)) |> 
@@ -48,4 +50,14 @@ part2 |>  group_by(Species) |>
             min = min(Sepal.Length), max = max(Sepal.Length)) |>
   ungroup()
 
-  
+
+#....... HUMANOIDs DATSET ....... 
+#................................
+# https://www.kaggle.com/datasets/santiago123678/evolution-of-humans-datasets-for-clasification
+
+# Load the large humanoids.xlsx dataset and try to find out the following
+# about homo sapiens (our species of human) based on the data
+# - what are the major differences / similarities between the oldest and most recent species
+# - which other humanoid species are the most closely related to us and is it just time?
+# - are species from the same region or habitat more likely to share similar characteristics?
+
