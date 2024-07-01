@@ -159,6 +159,7 @@ myData <- data |> filter(year >= 2016)
 
 ```{r}
 myData <- data |> filter(current_name == "Pinnacles National Park" & year < 1950)
+
 ```
 
 *The result should have 6 rows*
@@ -167,6 +168,7 @@ myData <- data |> filter(current_name == "Pinnacles National Park" & year < 1950
 
 ```{r}
 myData <- data |> filter(acres_affected > 5000 | year > 2000) 
+
 ```
 
 *The result should have 122 rows*
@@ -207,6 +209,7 @@ myData <- data |> mutate(large = acres_affected > 1000)
 
 ```{r}
 myData <- data |> mutate(states = toupper(states))
+
 ```
 
 # Summarise data - summarise()
@@ -237,7 +240,7 @@ data |> group_by(states) |>
 
 ```{r}
 myData <- data |> 
-  summarise(min = min(acres_affected), max = max(acres_affected)) |>
+  summarise(min_acres = min(acres_affected), max_acres = max(acres_affected)) |>
   ungroup()
 ```
 
@@ -248,6 +251,7 @@ myData <- data |>
   group_by(year) |>
   summarise(min = min(acres_affected), max = max(acres_affected)) |>
   ungroup()
+
 ```
 
 # Putting it all together
