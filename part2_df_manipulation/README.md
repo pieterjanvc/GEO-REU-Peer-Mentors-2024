@@ -14,7 +14,8 @@ IMPORTANT NOTE: This tutorial will introduce you to the [Tidyverse Framework](ht
 
 ``` r
 install.packages("tidyverse") # Only run once to install
-library(tidyverse) # Run once every time you start R
+library(dplyr)
+library(readxl)
 ```
 
 Most functions for dataframe manipulation in the tidyverse libraries were written with the pipe operator `|>` in mind for better code readability. We will use this throughout this guide but you can always use the nested alternative as well (see Part 1).
@@ -39,8 +40,7 @@ If your data is not in a tidy format, we can still correct it, but it's better t
 
 ## Loading a spreadsheet into R
 
-You can load a spreadsheet as an R data frame using the `read_excel` function from the `readxl` library (is loaded when you load tidyverse).
-
+You can load a spreadsheet as an R data frame using the `read_excel` function from the `readxl` library.
 ``` r
 data <- read_excel(path = "myfile.xlsx")
 ```

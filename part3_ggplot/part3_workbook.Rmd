@@ -1,0 +1,37 @@
+---
+title: "From Spreadsheets to R - without going too far"
+subtitle: "Part 3 - Plotting your data"
+output: html_document
+---
+
+*This is an R-markdown document. If run in RStudio, you will see code blocks appear with the option to run each one using the little "play button" on the top-right of each block. The output (including errors) will be printed below a block. For the best view, click the `Visual` mode at the top left of this file (if set to Source now)*
+
+Read the [session materials](README.md) for more background on the various functions and their use
+
+## Make sure you have the following libraries loaded
+
+```{r setup, include=FALSE}
+library(knitr)
+library(readxl)
+library(dplyr)
+library(ggplot2)
+
+opts_chunk$set(echo = TRUE)
+
+#install.packages(c("tidyverse", "knitr"))
+
+```
+
+If you get an error that libraries are not installed yet, un-comment the last line (remove the `#`), and run the code block again (you can re-comment once installed).
+
+# Exploring the data
+
+## Read in an Excel file
+
+Let's load in an Excel file (antiquities_act.xlsx) which is stored in the same folder as this script using the `read_excel` function and assigning it to a variable named `data`
+
+```{r}
+
+```
+
+*You will see a preview of the table when you run this block, but you can also look at it it by clicking the variable name 'data' in the Environment pane on the right of your screen*
