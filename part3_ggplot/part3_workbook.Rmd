@@ -2,6 +2,8 @@
 title: "From Spreadsheets to R - without going too far"
 subtitle: "Part 3 - Plotting your data"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 *This is an R-markdown document. If run in RStudio, you will see code blocks appear with the option to run each one using the little "play button" on the top-right of each block. The output (including errors) will be printed below a block. For the best view, click the `Visual` mode at the top left of this file (if set to Source now)*
@@ -15,6 +17,7 @@ library(knitr)
 library(readxl)
 library(dplyr)
 library(ggplot2)
+library(stringr)
 
 opts_chunk$set(echo = TRUE)
 
@@ -31,7 +34,103 @@ If you get an error that libraries are not installed yet, un-comment the last li
 Let's load in an Excel file (antiquities_act.xlsx) which is stored in the same folder as this script using the `read_excel` function and assigning it to a variable named `data`
 
 ```{r}
+data <- read_xlsx("data/actions_under_antiquities_act_cleaned.xlsx")
+
+# Make sure the action column only has values established, enlarged and diminished.
+data <- data |> mutate(action = case_when(
+  str_detect(action, "Established") ~ "established",
+  str_detect(action, "Enlarged") ~ "enlarged",
+  str_detect(action, "Diminished") ~ "diminished",
+  TRUE ~ "other"
+)) %>% filter(action != "other")
+
+# Make sure if an area is diminished the values becomes negative
+data <- data |> mutate(
+  acres_affected = ifelse(action == "diminished", -acres_affected, acres_affected)
+  )
 
 ```
 
-*You will see a preview of the table when you run this block, but you can also look at it it by clicking the variable name 'data' in the Environment pane on the right of your screen*
+# Mapping dataframe columns to plot aesthetics
+
+```{r}
+plotData <- data |>
+  group_by(year) |>
+  summarise(
+    acres_affected = sum(acres_affected),
+    n_actions = n()) |> 
+  ungroup() |>
+  filter(acres_affected < 1000000) 
+```
+_We'll look at the cases where the total acres per year added was less than 100,000 and add up the number of actions that were taken in a year_
+
+We'll put the year on the x-axis and the affected acres on the y-axis
+
+```{r}
+myPlot <- ggplot(plotData, aes(x = year, y = acres_affected))
+myPlot
+```
+
+*Note that when the plot is rendered, no data points are shown yet because we have not defined the exact type of plot yet*
+
+# Visualising data points - geom\_\*()
+
+Let's start by showing the data as points (i.e. a scatter plot)
+
+```{r}
+myPlot + geom_point()
+```
+
+We can use the same ggplot object to show the data as a line chart
+
+```{r}
+myPlot + geom_line()
+```
+
+
+### Try it yourself
+
+We'll be working with a dataset that comes with R called `iris` which has a record of several plant characteristics for different iris species
+
+```{r}
+myData <- iris
+```
+
+#### Make a scatter plot (points) of the Petal length vs the width
+
+```{r}
+myPlot <- ggplot(myData, aes(x = Petal.Length, y = Petal.Width)) + 
+  geom_point()
+myPlot
+```
+
+#### Turn the same plot into a line chart
+
+```{r}
+myPlot <- ggplot(myData, aes(x = Petal.Length, y = Petal.Width)) + 
+  geom_line()
+myPlot
+```
+
+*Although it renders, why is this not a good chart type for this data?*
+
+# Data driven vs global attributes
+
+Depending on the data we have and what we want to visualise, we can have either set some attributes for the whole plot or have them be driven by the data.
+
+## Global / static point size
+
+```{r}
+myPlot <- ggplot(plotData, aes(x = year, y = acres_affected)) +
+  geom_point(size = 2)
+myPlot
+```
+_Defining an attribute outside of the aes() function in the geom function will set it for all the data points_
+
+## Data driven point size
+```{r}
+myPlot <- ggplot(plotData, aes(x = year, y = acres_affected, size = n_actions)) +
+  geom_point()
+myPlot
+```
+_Not that the size of the point is now defined by the value of n_actions and a legend appears_
