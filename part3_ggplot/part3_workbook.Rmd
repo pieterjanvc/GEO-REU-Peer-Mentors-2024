@@ -42,11 +42,12 @@ data <- data |> mutate(action = case_when(
   str_detect(action, "Enlarged") ~ "enlarged",
   str_detect(action, "Diminished") ~ "diminished",
   TRUE ~ "other"
-)) %>% filter(action != "other")
+)) |> filter(action != "other")
 
 # Make sure if an area is diminished the values becomes negative
 data <- data |> mutate(
-  acres_affected = ifelse(action == "diminished", -acres_affected, acres_affected)
+  acres_affected = ifelse(action == "diminished", -acres_affected, acres_affected),
+  square_miles = acres_affected / 640
   )
 
 ```
@@ -57,17 +58,17 @@ data <- data |> mutate(
 plotData <- data |>
   group_by(year) |>
   summarise(
-    acres_affected = sum(acres_affected),
+    square_miles = sum(square_miles),
     n_actions = n()) |> 
   ungroup() |>
-  filter(acres_affected < 1000000) 
+  filter(square_miles < 25000) 
 ```
-_We'll look at the cases where the total acres per year added was less than 100,000 and add up the number of actions that were taken in a year_
+_We'll look at the cases where the total square mile added per year was less than 25,000_
 
 We'll put the year on the x-axis and the affected acres on the y-axis
 
 ```{r}
-myPlot <- ggplot(plotData, aes(x = year, y = acres_affected))
+myPlot <- ggplot(plotData, aes(x = year, y = square_miles))
 myPlot
 ```
 
@@ -94,9 +95,10 @@ We'll be working with a dataset that comes with R called `iris` which has a reco
 
 ```{r}
 myData <- iris
+glimpse(myData)
 ```
 
-#### Make a scatter plot (points) of the Petal length vs the width
+#### Make a scatter plot (points) of the petal length vs the width
 
 ```{r}
 myPlot <- ggplot(myData, aes(x = Petal.Length, y = Petal.Width)) + 
@@ -114,23 +116,136 @@ myPlot
 
 *Although it renders, why is this not a good chart type for this data?*
 
-# Data driven vs global attributes
+#Static vs data-driven attributes
 
 Depending on the data we have and what we want to visualise, we can have either set some attributes for the whole plot or have them be driven by the data.
 
-## Global / static point size
+## Global / static attribute
 
+Change the size of the points in the plot
 ```{r}
-myPlot <- ggplot(plotData, aes(x = year, y = acres_affected)) +
+myPlot <- ggplot(plotData, aes(x = year, y = square_miles)) +
   geom_point(size = 2)
 myPlot
 ```
 _Defining an attribute outside of the aes() function in the geom function will set it for all the data points_
 
 ## Data driven point size
+
+Change the size based on a column value
 ```{r}
-myPlot <- ggplot(plotData, aes(x = year, y = acres_affected, size = n_actions)) +
+myPlot <- ggplot(plotData, aes(x = year, y = square_miles, size = n_actions)) +
   geom_point()
 myPlot
 ```
 _Not that the size of the point is now defined by the value of n_actions and a legend appears_
+
+### Try it yourself
+
+#### Continue from the last iris scatter plot and colour all the points blue
+```{r}
+ggplot(myData, aes(x = Petal.Length, y = Petal.Width)) + 
+  geom_point(color = "blue")
+```
+_You can either provide the name of the colour like "blue" or a hex value like "#1273ed"_
+
+#### Now change this so that each species had a different colour
+```{r}
+ggplot(myData, aes(x = Petal.Length, y = Petal.Width, colour = Species)) + 
+  geom_point()
+```
+_ggplot will automatically generate colours for different species names_
+
+## Plot layout
+
+### Add labels
+```{r}
+myPlot <- ggplot(plotData, aes(x = year, y = square_miles, size = n_actions)) +
+  geom_point() +
+  labs(x = "Year action was passed in congress", 
+       y = "Square miles added", 
+       title = "Fedaral acres added under the antiquities act in years where\n there were less than 25,000 square miles acres affected"
+       )
+myPlot
+```
+_Add axis labels and a title to the plot_
+
+### Change theme
+```{r}
+myPlot <- ggplot(plotData, aes(x = year, y = square_miles, size = n_actions)) +
+  geom_point() +
+  labs(x = "Year action was passed in congress", 
+       y = "Square miles added", 
+       title = "Fedaral acres added under the antiquities act in years where\n there were less than 25,000 square miles acres affected"
+       ) +
+  theme_bw()
+myPlot
+```
+_Use a built-in black and white theme_
+
+### Try it yourself
+
+#### Continue from the last iris scatter plot: update the axis labels and add a title
+
+- Title: Iris petal length and width comparison for different species
+- x label: Petal length (cm)
+- y label: Petal width (cm)
+```{r}
+ggplot(myData, aes(x = Petal.Length, y = Petal.Width, colour = Species)) + 
+  geom_point() + labs(x = "Petal length (cm)", y = "Petal width (cm)", 
+                      title = "Iris petal length and width comparison for different species")
+```
+
+#### Now add built-in minimal theme to the plot `theme_minimal()` 
+```{r}
+ggplot(myData, aes(x = Petal.Length, y = Petal.Width, colour = Species)) + 
+  geom_point() + labs(
+    x = "Petal length", 
+    y = "Petal width",
+    title = "Iris petal length and width comparison for different species") + theme_minimal()
+```
+
+## Bar charts
+
+When creating bar charts with ggplot you have two options depending on the current shape of the data
+
+### Data has already been summarised
+```{r}
+sumData <- data |>
+  group_by(year) |>
+  summarise(
+    square_miles = sum(square_miles),
+    n_actions = n()) |> 
+  ungroup()
+```
+
+```{r}
+myPlot <- ggplot(sumData, aes(x = year, y = square_miles)) +
+  geom_bar(stat = "identity")
+myPlot
+```
+_In this case (identity) the acres_affected were already summarised by year and we just need to plot them_
+
+### Data is not summarised
+
+```{r}
+myPlot <- ggplot(data, aes(x = year, y = square_miles)) +
+  geom_bar(stat = "sum")
+myPlot
+```
+_In this case the acres affected need to be summarised by year by ggplot before being plotted_
+
+## Examples of additional ggplot functions
+
+Looking at the last plot, we see that the 1978 bar overshadows all the others. We can deal with this in two ways:
+
+1) Filter the data: we did this in the previous plots limiting to 1 million acres per year
+2) Change the scale: make the scale logarithmic
+
+```{r}
+myPlot <- ggplot(data, aes(x = year, y = square_miles)) +
+  geom_bar(stat = "sum") +
+  scale_y_log10()
+myPlot
+```
+
