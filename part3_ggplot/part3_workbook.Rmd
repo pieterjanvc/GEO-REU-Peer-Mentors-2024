@@ -31,44 +31,20 @@ If you get an error that libraries are not installed yet, un-comment the last li
 
 ## Read in an Excel file
 
-Let's load in an Excel file (antiquities_act.xlsx) which is stored in the same folder as this script using the `read_excel` function and assigning it to a variable named `data`
+Let's load in an Excel file derived from a public dataset on water quality measurement. 
+
+https://www.kaggle.com/datasets/shreyanshverma27/water-quality-testing
 
 ```{r}
-data <- read_xlsx("data/actions_under_antiquities_act_cleaned.xlsx")
-
-# Make sure the action column only has values established, enlarged and diminished.
-data <- data |> mutate(action = case_when(
-  str_detect(action, "Established") ~ "established",
-  str_detect(action, "Enlarged") ~ "enlarged",
-  str_detect(action, "Diminished") ~ "diminished",
-  TRUE ~ "other"
-)) |> filter(action != "other")
-
-# Make sure if an area is diminished the values becomes negative
-data <- data |> mutate(
-  acres_affected = ifelse(action == "diminished", -acres_affected, acres_affected),
-  square_miles = acres_affected / 640
-  )
-
+data <- read_xlsx("part3_ggplot/Water_Quality.xlsx")
 ```
 
 # Mapping dataframe columns to plot aesthetics
 
-```{r}
-plotData <- data |>
-  group_by(year) |>
-  summarise(
-    square_miles = sum(square_miles),
-    n_actions = n()) |> 
-  ungroup() |>
-  filter(square_miles < 25000) 
-```
-_We'll look at the cases where the total square mile added per year was less than 25,000_
-
-We'll put the year on the x-axis and the affected acres on the y-axis
+We'll put the measure pH level on the x-axis and the amount of dissolved oxygen on the y-axis
 
 ```{r}
-myPlot <- ggplot(plotData, aes(x = year, y = square_miles))
+myPlot <- ggplot(data, aes(x = pH, y = Oxygen))
 myPlot
 ```
 
@@ -124,7 +100,7 @@ Depending on the data we have and what we want to visualise, we can have either 
 
 Change the size of the points in the plot
 ```{r}
-myPlot <- ggplot(plotData, aes(x = year, y = square_miles)) +
+myPlot <- ggplot(data, aes(x = pH, y = Oxygen)) +
   geom_point(size = 2)
 myPlot
 ```
@@ -132,9 +108,9 @@ _Defining an attribute outside of the aes() function in the geom function will s
 
 ## Data driven point size
 
-Change the size based on a column value
+Change the size based on the water tempature
 ```{r}
-myPlot <- ggplot(plotData, aes(x = year, y = square_miles, size = n_actions)) +
+myPlot <- ggplot(data, aes(x = pH, y = Oxygen, size = Temp)) +
   geom_point()
 myPlot
 ```
@@ -158,13 +134,13 @@ _ggplot will automatically generate colours for different species names_
 
 ## Plot layout
 
-### Add labels
+### Add axis labels and title
 ```{r}
-myPlot <- ggplot(plotData, aes(x = year, y = square_miles, size = n_actions)) +
+myPlot <- ggplot(data, aes(x = pH, y = Oxygen, size = Temp)) +
   geom_point() +
-  labs(x = "Year action was passed in congress", 
-       y = "Square miles added", 
-       title = "Fedaral acres added under the antiquities act in years where\n there were less than 25,000 square miles acres affected"
+  labs(x = "Water pH", 
+       y = "Dissolved Oxygen (mg/L)", 
+       title = "Effect of water quality on oxygenation"
        )
 myPlot
 ```
@@ -172,11 +148,11 @@ _Add axis labels and a title to the plot_
 
 ### Change theme
 ```{r}
-myPlot <- ggplot(plotData, aes(x = year, y = square_miles, size = n_actions)) +
+myPlot <- ggplot(data, aes(x = pH, y = Oxygen, size = Temp)) +
   geom_point() +
-  labs(x = "Year action was passed in congress", 
-       y = "Square miles added", 
-       title = "Fedaral acres added under the antiquities act in years where\n there were less than 25,000 square miles acres affected"
+  labs(x = "Water pH", 
+       y = "Dissolved Oxygen (mg/L)", 
+       title = "Effect of water quality on oxygenation"
        ) +
   theme_bw()
 myPlot
@@ -212,40 +188,17 @@ When creating bar charts with ggplot you have two options depending on the curre
 ### Data has already been summarised
 ```{r}
 sumData <- data |>
-  group_by(year) |>
-  summarise(
-    square_miles = sum(square_miles),
-    n_actions = n()) |> 
+  group_by(pH) |>
+  summarise(Oxygen = mean(Oxygen)) |> 
   ungroup()
 ```
 
 ```{r}
-myPlot <- ggplot(sumData, aes(x = year, y = square_miles)) +
+myPlot <- ggplot(sumData, aes(x = pH, y = Oxygen)) +
   geom_bar(stat = "identity")
 myPlot
 ```
-_In this case (identity) the acres_affected were already summarised by year and we just need to plot them_
-
-### Data is not summarised
-
-```{r}
-myPlot <- ggplot(data, aes(x = year, y = square_miles)) +
-  geom_bar(stat = "sum")
-myPlot
-```
-_In this case the acres affected need to be summarised by year by ggplot before being plotted_
+_`stat = "identity"` should always be set when you are creating bar charts where you summarised the data per bar already_
 
 ## Examples of additional ggplot functions
-
-Looking at the last plot, we see that the 1978 bar overshadows all the others. We can deal with this in two ways:
-
-1) Filter the data: we did this in the previous plots limiting to 1 million acres per year
-2) Change the scale: make the scale logarithmic
-
-```{r}
-myPlot <- ggplot(data, aes(x = year, y = square_miles)) +
-  geom_bar(stat = "sum") +
-  scale_y_log10()
-myPlot
-```
 
