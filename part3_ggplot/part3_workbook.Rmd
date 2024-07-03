@@ -140,7 +140,7 @@ myPlot <- ggplot(data, aes(x = pH, y = Oxygen, size = Temp)) +
   geom_point() +
   labs(x = "Water pH", 
        y = "Dissolved Oxygen (mg/L)", 
-       title = "Effect of water quality on oxygenation"
+       title = "Effect of water pH on oxygenation"
        )
 myPlot
 ```
@@ -152,7 +152,7 @@ myPlot <- ggplot(data, aes(x = pH, y = Oxygen, size = Temp)) +
   geom_point() +
   labs(x = "Water pH", 
        y = "Dissolved Oxygen (mg/L)", 
-       title = "Effect of water quality on oxygenation"
+       title = "Effect of water pH on oxygenation"
        ) +
   theme_bw()
 myPlot
@@ -183,9 +183,9 @@ ggplot(myData, aes(x = Petal.Length, y = Petal.Width, colour = Species)) +
 
 ## Bar charts
 
-When creating bar charts with ggplot you have two options depending on the current shape of the data
+When creating bar charts with ggplot you have to summarise the data first
 
-### Data has already been summarised
+### Data summary
 ```{r}
 sumData <- data |>
   group_by(pH) |>
@@ -193,6 +193,7 @@ sumData <- data |>
   ungroup()
 ```
 
+### Now plot the bar graph
 ```{r}
 myPlot <- ggplot(sumData, aes(x = pH, y = Oxygen)) +
   geom_bar(stat = "identity")
@@ -200,5 +201,97 @@ myPlot
 ```
 _`stat = "identity"` should always be set when you are creating bar charts where you summarised the data per bar already_
 
-## Examples of additional ggplot functions
+### Try it yourself
+
+#### Summarise the iris data so you have the average `mean()` petal length per species
+
+```{r}
+sumData <- myData |> 
+  group_by(Species) %>% 
+  summarise(avgPetalLength = mean(Petal.Length)) %>% 
+  ungroup()
+```
+
+#### Now create a bat chart with one bar per species and the height representing the average petal length
+```{r}
+ggplot(sumData, aes(x = Species, y = avgPetalLength)) + 
+  geom_bar(stat = "identity")
+```
+
+#### How can you make the bars horizontal instead of vertical? 
+```{r}
+ggplot(sumData, aes(x = avgPetalLength, y = Species)) + 
+  geom_bar(stat = "identity")
+```
+
+## Saving a plot as an image
+
+Once you are happy with your result, you can save the plot as an image.
+```{r}
+myPlot <- ggplot(data, aes(x = pH, y = Oxygen, color = Conductivity)) +
+  geom_point(size = 2) +
+  labs(x = "Water pH", 
+       y = "Dissolved Oxygen (mg/L)", 
+       title = "Effect of water pH on oxygenation"
+       ) +
+  theme_bw()
+myPlot
+
+ggsave(filename = "oxygenation.png", plot = myPlot, width = 1800, height = 900, units = "px")
+```
+
+## Bringing it all together
+
+Let's look at a wine tasting experiment. Experts rated red wines on a ten point scale. In addition specific wine properties were measured. Let's evlaute some of the result visually.
+
+https://www.kaggle.com/datasets/shilongzhuang/red-and-white-wine-quality
+
+#### Load the `winequality-red.csv` dataset using the built-in `read.csv()` function into a new variable called `wine`.
+
+```{r}
+wine <- read.csv("part3_ggplot/winequality-red.csv")
+```
+_Note that this data is not stored as an XLSX file but a CSV file_
+
+#### Create a plot with the following properties:
+
+- scatter plot
+- fixed acidity on x axis
+- density on y axis
+- alcohol is represented as the point colour
+- all points are of size 1.2
+- title: Correlation between acidity and density in red wines
+- use the built-in light theme
+
+```{r}
+
+winePlot <- ggplot(wine, aes(x = fixed.acidity, y = density, colour = alcohol)) + 
+  geom_point(size = 1.2) + theme_light()
+
+```
+
+#### Now summarise the data so that you get the average `mean()` sulphates concentration per quality level and save this to a new varliable `sulQual`
+```{r}
+
+sulQual <- myData %>% 
+  group_by(quality) %>% 
+  summarise(sulphates = mean(sulphates)) %>% 
+  ungroup()
+
+```
+
+#### Create a barchar of the results and style the plot as you see fit
+```{r}
+sulQualPlot <- ggplot(sulQual, aes(x = quality, y = sulphates)) + 
+  geom_bar(stat = "identity")
+sulQualPlot
+```
+
+#### Save the barchart as a PNG image `wine_sulfate_quality.png` with dimensions 550px x 1150px (width x height)
+
+```{r}
+ggsave(filename = "wine_sulfate_quality.png",plot =sulQualPlot, width = 550, height = 1150, units = "px")
+```
+
+
 
