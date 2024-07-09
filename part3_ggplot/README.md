@@ -118,6 +118,18 @@ ggplot(data = myData, mapping = aes(x = time, y = value)) +
   theme_bw()
 ```
 
+## Saving the plot as an image - `ggsave`
+
+You can use the `ggsave` function to save any ggplot to an image file.
+```r
+ggsave(filename = "image.png", plot = myPlot, 
+  width = 1800, height = 900, units = "px")
+```
+- `filename` should end with a valid image extension (e.g. .png or .jpeg)
+# - `plot` takes the variable containing the ggplot object
+- `width` and `height` are the dimensions of the plot to save
+- `units` specifies what the dimension values are (e.g. "px" = pixels)
+
 ## Additional resources
 
 If you like to get an idea of all the popular kinds of plots you can create using R and ggplot, you can visit the **[R Graph Gallery](https://r-graph-gallery.com/barplot.html)**. This website groups plots by type and shows examples of R code to recreate them.

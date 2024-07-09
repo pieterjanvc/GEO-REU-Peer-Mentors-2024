@@ -500,6 +500,23 @@ show essential plot elements</li>
   theme_bw()</code></pre>
 </div>
 </div>
+<div id="saving-the-plot-as-an-image---ggsave" class="section level2">
+<h2>Saving the plot as an image - <code>ggsave</code></h2>
+<p>You can use the <code>ggsave</code> function to save any ggplot to an
+image file.</p>
+<pre class="r"><code>ggsave(filename = &quot;image.png&quot;, plot = myPlot, 
+  width = 1800, height = 900, units = &quot;px&quot;)</code></pre>
+<ul>
+<li><code>filename</code> should end with a valid image extension
+(e.g. .png or .jpeg)</li>
+<li><code>plot</code> takes the variable containing the ggplot
+object</li>
+<li><code>width</code> and <code>height</code> are the dimensions of the
+plot to save</li>
+<li><code>units</code> specifies what the dimension values are
+(e.g. “px” = pixels)</li>
+</ul>
+</div>
 <div id="additional-resources" class="section level2">
 <h2>Additional resources</h2>
 <p>If you like to get an idea of all the popular kinds of plots you can
