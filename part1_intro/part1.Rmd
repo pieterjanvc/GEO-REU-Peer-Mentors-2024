@@ -27,7 +27,7 @@ Programming has come a long way and learning how to use it for specific tasks is
 As mentioned, this tutorial is interactive. You will be able to play around with actual R code provided in the coding boxes like the one below. You can type and run code to try things for yourself.
 
 ```{r demo, exercise=TRUE}
-"Hello World!"
+print("Hello World!")
 ```
 ```{r demo-check}
 grade_result(
@@ -39,7 +39,8 @@ grade_result(
 - In some exercises, there is a `Submit Answer` button that allows you to **check if your code is correct** and provide feedback
 - **If you make mistakes** you will see errors appear, but don't worry, there is a `Start Over` button in case you need it, though it's recommended to try and fix your code first before you reset.
 
-Each section will first introduce a new topic together with some code examples. Some examples have simple instructions below for you to explore them in a bit more detail (called: EXPLORE A BIT MORE). At the end of each section will be a `Try it yourself` exercise that combines all you have learned and requires a bit more thinking. 
+Each of the sections (overview on the left) will first introduce a new topic together with some code examples. Some examples come with sample code and some instructions for 
+you to explore them in a bit more detail (called: EXPLORE A BIT MORE). At the end of each section there will be a `Try it yourself` exercise that combines all you have learned and requires a bit more thinking. 
 
 The tutorial is broken up in several topics, and your progress is automatically saved (as long as you don't wipe the browser history). You can also choose to reset the whole tutorial by clicking the small `start over` link underneath the topic overview. 
 
@@ -48,7 +49,7 @@ Before you start, realize that learning how to code can often be frustrating or 
 Ready? Click the `Next Topic` button to get started ...
 ___
 
-_This tutorial was made to prepare students for an in-person workshop series on coding with R for people with no prior experience but who perform data analysis using Excel. It is not considered a comprehensive introduction to programming, but rather focusses on aspects relevant to the workshop series. In case of questions, please reach out to PJ Van Camp - pjvancamp@hms.harvard.edu_
+_This tutorial was made to prepare students for an in-person workshop series on coding with R for people with no prior experience but who perform data analysis using Spreadsheets. It is not considered a comprehensive introduction to programming, but rather focusses on aspects relevant to the workshop series. In case of questions, please reach out to PJ Van Camp - pjvancamp@hms.harvard.edu_
 
 ## Data Types
 
@@ -66,7 +67,7 @@ _EXPLORE A BIT MORE: Try any of the other basic arithmetic operations using `-`,
 
 _--- SIDE NOTE ---_
 
-_In programming things are always very explicit, and whole numbers (integers), decimal numbers, complex numbers etc. are technically all considered different data types, though for this intro we won't worry about that._
+_In most programming languages whole numbers (integers), decimal numbers, complex numbers etc. are technically all considered different data types, though for this intro we won't worry about that._
 
 
 ### Text
@@ -76,7 +77,7 @@ You can write strings by wrapping your text in quotes like this:
 ```{r ex2, exercise=TRUE, exercise.eval=TRUE}
 "This is a string of text"
 ```
- _EXPLORE A BIT MORE: Try changing the text_
+ _EXPLORE A BIT MORE: Try changing the text. Also note that using single quotes `'` also work when wrapping text_
  
 ### Boolean
 
@@ -92,7 +93,7 @@ Now we have introduced a few basic data types, we can take a look on how we can 
 
 ### Vectors
  
-We can group multiple values of the _same type_ by wrapping them in a vector `c()`
+We can combine multiple values of the _same type_ by putting them in a vector `c()`
 
 ```{r ex4, exercise=TRUE}
 c(1,2,3,4,5)
@@ -108,14 +109,14 @@ grade_result(
 
 ### Lists
  
-We can group multiple values of the _different types_ by creating a list `list()`
+We can group multiple values of _different types_ by creating a list `list()`
 
 ```{r ex5, exercise=TRUE}
 list(TRUE, "test", c(1,2,3))
 ```
 _This list has 3 entries: a boolean, a string and a vector (which in turn contains 3 numbers)_
 
-Lists allow you to give a unique name to each of its entries like so:
+Lists also allow you to give a unique name to each of its entries like so:
 
 ```{r ex6, exercise=TRUE}
 list(item1 = TRUE, item2 = "test", item3 = c(1,2,3))
@@ -125,7 +126,7 @@ list(item1 = TRUE, item2 = "test", item3 = c(1,2,3))
 
 You can see that the code boxes have line numbers. This is because when the code is run, it's done so line by line (each line containing a new instruction). However, there are ways of splitting a long line of code across multiple lines for better readability without _breaking_ the code. 
 
-Examples of valid ways to split a line are _after_ an opening bracket `(` or a comma `,` or _before_ a closing bracket `)`. When R executes the code, it will ignore these line breaks and interpret them as if they were on as single line. This means we can rewrite ...
+Examples of valid ways to split a line are _after_ an opening bracket `(` a comma `,` or a curly brace `{` and _before_ a closing bracket `)` or curly brace `}`. When R executes the code, it will ignore these line breaks and interpret them as if they were on as single line. This means we can rewrite ...
 ```r
 list(item1 = TRUE, item2 = "test", item3 = c(1,2,3))
 ```
@@ -144,8 +145,8 @@ list(
 
 Create the following named list:
 
-- The first entry contains a vector of the numbers 1 to 3 and is named _first_
-- The second entry contains a vector with the first 3 letters of the alphabet (lowercase) and is named _second_
+- The first entry contains a vector of the numbers 1, 2 and 3 and is named _first_
+- The second entry contains a vector with the letters a, b and c (lower-case) and is named _second_
 
 ```{r ex7, exercise=TRUE}
 list()
@@ -164,7 +165,7 @@ grade_result(
 
 ### Building on what we know ...
 
-In the previous topic you learned about basic R data types. Let's now use then to recreate a spreadsheet. Start by taking a look at this spreadsheet table below
+In the previous topic you learned about basic R data types. Let's now use them to recreate a spreadsheet. Start by taking a look at this spreadsheet table below
 
 ```{r echo=FALSE}
 data.frame(name = c("Mohamet", "Lin Yi", "Nina"), age = c(21,19,24),
@@ -187,11 +188,11 @@ list(
 ) 
 ```
 
-We just converted our spreadsheet to a combination of data types in R! Note that the way it written in R looks like the table was rotated with the columns now horizontal an the rows vertical.
+We just converted our spreadsheet to a data structure in R! Note that the way it is written in R looks like the table was rotated with the columns now horizontal an the rows vertical.
 
 ### Introducing the R Data Frame
 
-Although the list above is a valid representation of a table, R has another, special, built-in datatype that optimises working with this type of data called a _data frame_. It is constructed very much like we did with the list but is handled and displayed differently:
+Although the list above is a valid representation of a table, R has another, special, built-in data structure that optimises working with this type of data called a _data frame_. It is constructed very much like we did with the list but is handled and displayed differently:
 ```{r}
 data.frame(
   name = c("Mohamet", "Lin Yi", "Nina"), 
@@ -203,14 +204,14 @@ data.frame(
 A data frame imposes more restrictions on how the data can be organised as it has to conform to the rules of a well-organised spreadsheet table. These rules are:
 
 - Every column needs a unique name (avoid using spaces)
-- Every column can only hold a single data type (i.e. need to be represented as a vector)
+- Every column can only hold a single data type (i.e. needs to be represented as a vector)
 - The length of each column has to be the same
 
-_There are more rules that you should follow to create a tidy table, but they will not be discussed in here_
+_There are more rules that you should follow to create a tidy table, but they will not be discussed here_
 
 ### Try it yourself
 
-Edit the following code so it becomes a _valid_ data frame with 3 rows, and the columns: animal, legs and mammal. 
+Fix the following code so it becomes a _valid_ data frame with 3 rows, and the columns: animal, mammal and legs. 
 
 ```{r ex8, exercise=TRUE}
 data.frame(
@@ -234,16 +235,17 @@ grade_result(
 
 ## Variables
 
-Now we know how to create different types of data in R, let's see how we can store and access them in R.
+Now we know how to create different types of data in R, let's see how we can store and access them.
 
 ### Storing data into a variable
 
-We define (assign) a variable by picking a name followed by the assignment `<-` operator (`<` followed by `-`) and then the value (or calculation that will generate one).
+We define (assign) a variable by picking a `name` followed by the assignment `<-` operator (`<` followed by `-`) and then the `value` (or calculation that will generate one).
 
 Valid variable names:
 
-- Must start with a letter
+- must start with a letter
 - can only have alphanumeric characters (A-Z, a-z, 0-9), `_` or `.`
+- do NOT have spaces
 
 ```{r ex9, exercise=TRUE, exercise.eval=TRUE}
 x <- FALSE
@@ -280,7 +282,8 @@ x
 ```
 
 ### Try it yourself
-Create a variable `prod` that stores the product of x, y and z and then display the result
+On line 4 create a new variable `prod` that stores the product of x, y and z
+On line 5, print the result
 
 ```{r ex13, exercise=TRUE, exercise.reveal_solution = FALSE}
 x <- 5
@@ -312,7 +315,7 @@ Let say we have a vector x  ...
 ```r
 x = c(1, 15, 22, 10)
 ```
-... and we want to calculate the mean value. R has a built-in function called `mean` which takes in a vector and returns the mean:
+... and we want to calculate the mean value. R has a built-in function called `mean()` which takes in a vector and returns the mean:
 ```r
 mean(x)
 ```
@@ -322,21 +325,22 @@ result <- mean(values)
 result
 ```
 
-_EXPLORE A BIT MORE: Try to replace the mean function with some other basic functions you can execute on vectors of numbers like `min` or `max` or `sum`_
+_EXPLORE A BIT MORE: Try to replace the mean function with some other basic functions you can execute on vectors of numbers like `min`, `max` or `sum`_
 
 ### Arguments
 
-Some functions have multiple parameters or arguments that you have to specify. 
+Some functions have multiple parameters / arguments that you have to specify. 
 
 For example, the `round` function has two parameters: `x`, which is the value we like to round, and `digits`, the number of decimal points we want to round to. If we want to round a number to 3 decimal points we specify them inside the function ...
 ```{r}
 value <- 17/13
 value
-round(x = value, digits = 3)
+value_rounded <- round(x = value, digits = 3)
+value_rounded
 ```
 ... we set `x` to the value and `digits` to 3.
 
-To know which arguments a function takes, you have several options
+There are multiple ways to find out which arguments a function takes
 
 #### Option 1: look at the function code
 
@@ -349,15 +353,15 @@ _Note that the second argument here already has a default value assigned (see no
 
 #### Option 2: load the function documentation
 
-The people who wrote any of the functions you will use, also wrote documentation on _how_ to use them. You can read this documentation by running the function _without_ the  brackets and putting a question mark in front of it. This will open up the function documentation where you can read more about specific function arguments.
+The people created the functions also wrote documentation on how to use them. You can read this documentation by running the function _without_ the brackets and putting a question mark in front of it. This will open up the function documentation where you can read more about specific function arguments.
 ```{r ex15, exercise=TRUE}
 ?round
 ```
-_NOTE: In this tutorial, the documentation is just printed in plain text and might contains strange characters or formatting. When open it in a real code editor, it is often rendered much nicer or interactive_
+_NOTE: In this tutorial, the documentation is just printed in plain text and might contains strange characters or formatting. When you run this in a real code-editor, it is often rendered much nicer or even interactive_
 
 #### Option 3: Code editor tooltips
 
-Many code editors like [R Studio](https://posit.co/download/rstudio-desktop/) or [VS Code](https://code.visualstudio.com/) will automatically show function arguments whilst writing code or when you hover over a function name in your code. Even here you will see suggestions pop-up when you start typing the brackets of a known function
+Many code editors like [R Studio](https://posit.co/download/rstudio-desktop/) or [Positron](https://positron.posit.co/) will automatically show function arguments whilst writing code or when you hover over a function name in your code. Even here you will see suggestions pop-up when you start typing the brackets of a known function
 
 ```{r ex16, exercise=TRUE}
 round
@@ -388,7 +392,7 @@ _In this example, big.mark is the 9th argument, but since all apart from the fir
 
 1. You are given a variable _values_ that contains a vector of numbers. 
 2. On line 2 use the function `sort` to sort the values in the vector and save the result to a new variable called _values_sorted_
-3. Now make sure that the sorting happens in _decreasing_ order (i.e. highest to lowest). You will need to set an argument of the sort function to make this happen (look at the documentation of the sort function)
+3. Now make sure that the sorting happens in _decreasing_ order (i.e. highest to lowest). You will need to specify an argument in the sort function to make this happen (look at the documentation of the sort function)
 4. Print the result of _values_sorted_ on line 3
 
 ```{r ex17, exercise=TRUE, exercise.reveal_solution = FALSE}
@@ -413,7 +417,7 @@ Functions can use other functions as input to create more complex behaviour. The
 
 #### Nested functions
 
-Just as in mathematics, the inner most calculations of nested functions are performed before the outer ones can use their results.
+Just as in mathematics, the inner most calculations of nested functions are performed before the outer ones use the results.
 
 ```{r}
 floor(sqrt(2))
@@ -422,7 +426,7 @@ _The square root function is run first before the value is used in the flooring 
 
 #### Piping (chaining) functions
 
-Highly nested functions can become difficult to read, so it it also possible to write your code differently by using the result from one function as the input for the next one using the piping operator `|>` (`|` followed by `>`).
+Highly nested functions can become difficult to read, so it it also possible to write your code differently by using the result from one function as the input of the next function using the piping operator `|>` (`|` followed by `>`).
 
 ```{r}
 sqrt(2) |> floor()
@@ -444,12 +448,12 @@ ___
 
 Note on the piping operator
 
-The built-in piping operator `|>` was only introduced in R version 4.1.0 in 2021. It was already possible long before that to use piping but this required an additional package to be installed. Hence, you will still see a lot of code using an alternative pipe which looks like `%>%`. Both are identical in functionality.
+The built-in piping operator `|>` was only introduced in R version 4.1.0 in 2021. It was already possible long before that to use piping but this required an additional package to be installed. Hence, you will still see code using an alternative pipe which looks like `%>%`. Both are identical in functionality.
 
 ### Try it yourself
 
-- On line 2, write a _nested_ set of functions what will `sum` _vec_ and then `floor` the result (i.e. round down to the nearest integer) 
-- On line 3, write the same set of functions but now using pipes
+- On line 2, write a _nested_ set of functions what will `sum` all the values in _vec_ and then `floor` the result (i.e. round down to the nearest integer) 
+- On line 3, write the same set of functions but now using the piping operator.
 
 
 ```{r ex18, exercise=TRUE, exercise.reveal_solution = FALSE}
@@ -473,7 +477,7 @@ Remember that a data frame in essence is a list of column vectors. Before we lea
 
 ### Simple vector math
 
-When you perform basic arithmetic operations on a vector, they will be carried out for every element in that vector and return a new vector with all results. 
+When you perform basic arithmetic operations on a vector, they will be carried out for every element in that vector and return a new vector with the results. 
 
 ```{r ex19, exercise=TRUE, exercise.eval=TRUE}
 vec <- c(2,4,6,8,10)
@@ -481,9 +485,9 @@ vec / 2
 ```
 _EXPLORE A BIT MORE: You can try out other basic operations like `+`, `-` or `*`_
 
-### Operations with multiple vecors
+### Operations with multiple vecors of the same length
 
-When you perform basic arithmetic operations using two vectors they will be carried out by using the first element of each vector for the first calculation, the the second for the next one and so on, returning again a vector with all results.
+When you perform basic arithmetic operations using two compatible vectors of the same length they will be carried out by using the first element of each vector for the first calculation, the the second for the next one and so on, returning again a vector with all results.
 
 ```{r ex20, exercise=TRUE, exercise.eval=TRUE}
 vec <- c(1,2,3,4,5)
@@ -509,7 +513,7 @@ _On the other hand, if a function is made to be run on a single value, it will j
 
 ### Try it yourself
 
-When _centering_ a set of numbers, you ensure that the mean value is zero without changing the distribution. We can do this by simply subtracting the mean from each individual value. For example: the list 2, 4, 9 has a mean value of 5. If we subtract this from each value we get -3, -1 , 4 which has a mean of 0.
+When _centering_ a vector of numbers, you ensure that the mean value is zero without changing the original distribution. This is accomplished subtracting the current mean from each individual value. For example: the list 2, 4, 9 has a mean value of 5. If we subtract this from each value we get -3, -1 , 4 which has a mean of 0.
 
 1. You are given a variable _vec_ that contains a set of numbers
 2. Calculate the mean value using the `mean` function
@@ -519,7 +523,7 @@ When _centering_ a set of numbers, you ensure that the mean value is zero withou
 vec <- c(11,6,3,8,9)
 
 ```
-_Note, you can accomplish step 2 and 3 in a single line, or create an intermediate variable. You should try both and get the same result_
+_Note, you can accomplish step 2 and 3 in a single line, or create an intermediate variable. You can try both and get the same result_
 
 ```{r ex21-solution}
 vec <- c(11,6,3,8,9)
