@@ -1,1 +1,2 @@
-# GEO-REU-Peer-Mentors-2024
+# From SpreadSheets to R
+#### ... without going too far
