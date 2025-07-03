@@ -352,16 +352,8 @@ display: none;
 </div>
 
 
-<div id="from-spreadsheets-to-r" class="section level1">
-<h1>From Spreadsheets to R</h1>
-<div id="without-going-too-far" class="section level4">
-<h4>without going too far</h4>
-</div>
-<div id="part-1---introduction-to-r-data-types-variables-and-functions" class="section level2">
-<h2><em>PART 1 - Introduction to R data types, variables and
-functions</em></h2>
-<hr />
-</div>
+<div id="introduction-to-r-data-types-variables-and-functions" class="section level1">
+<h1>Introduction to R data types, variables and functions</h1>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <div id="why-should-you-learn-to-code-if-you-work-with-spreadsheets" class="section level3">
@@ -383,9 +375,16 @@ this interactive page, we’ll introduce some very basic data types in R
 and show how you can use them to construct something very similar to an
 Excel spreadsheet. This will prepare you for the next step: learning to
 analyze data from spreadsheet using simple R code.</p>
+<p>Each of the sections will first introduce a new topic together with
+some code examples.</p>
+<p>Before you start, realize that learning how to code can often be
+frustrating or overwhelming, but this is very normal. Just write down
+any questions you have and bring them to the workshop where we can
+revisit them together.</p>
+<hr />
 <p><em>This tutorial was made to prepare students for an in-person
 workshop series on coding with R for people with no prior experience but
-who perform data analysis using Excel. It is not considered a
+who perform data analysis using Spreadsheets. It is not considered a
 comprehensive introduction to programming, but rather focusses on
 aspects relevant to the workshop series. In case of questions, please
 reach out to PJ Van Camp - <a href="mailto:pjvancamp@hms.harvard.edu" class="email">pjvancamp@hms.harvard.edu</a></em></p>
@@ -403,11 +402,13 @@ spreadsheet are <em>numbers</em>, <em>text</em> and <em>boolean</em>
 <p>In most programming languages like R, you can work with numbers the
 same way as you would in a calculator. For example:</p>
 <pre class="r"><code>1 + 1</code></pre>
-<pre><code>2</code></pre>
-<p><em>NOTE: In programming things are always very explicit, and whole
-numbers (integers), decimal numbers, complex numbers etc. are
-technically all considered different data types, though for this intro
-we won’t worry about that.</em></p>
+<p><em>EXPLORE A BIT MORE: Try any of the other basic arithmetic
+operations using <code>-</code>, <code>*</code> or <code>/</code> and
+try using decimal numbers as well like <code>2.5</code></em></p>
+<p><em>— SIDE NOTE —</em></p>
+<p><em>In most programming languages whole numbers (integers), decimal
+numbers, complex numbers etc. are technically all considered different
+data types, though for this intro we won’t worry about that.</em></p>
 </div>
 <div id="text" class="section level3">
 <h3>Text</h3>
@@ -415,6 +416,73 @@ we won’t worry about that.</em></p>
 <em>strings</em> when programming). You can write strings by wrapping
 your text in quotes like this:</p>
 <pre class="r"><code>&quot;This is a string of text&quot;</code></pre>
+</div>
+</div>
+</div>
+<div id="introduction-to-r-data-types-variables-and-functions-1" class="section level1">
+<h1>Introduction to R data types, variables and functions</h1>
+<div id="introduction-1" class="section level2">
+<h2>Introduction</h2>
+<div id="why-should-you-learn-to-code-if-you-work-with-spreadsheets-1" class="section level3">
+<h3>Why should you learn to code if you work with spreadsheets ?</h3>
+<p>Many people who use computers for their job or studies work with some
+from of spreadsheets like Excel or Google Sheets. Spreadsheets are a
+handy way to collect and organise many types of data. Tools like Excel
+provide additional clever functionality that can help you analyse the
+data and gain new insights. However, when the dataset is complex, gets
+large, or the analysis becomes more customized, manually curating and
+analyzing the data becomes difficult. This often is the point where it
+is handed over to a data analyst, who will use programming languages to
+automate the process and perform the seemingly hard tasks.</p>
+<p>Programming has come a long way and learning how to use it for
+specific tasks is less daunting that it might seem. In this tutorial,
+we’ll introduce you to one of the programming languages that’s popular
+in data science and analytics called <em>R</em>. By following along in
+this interactive page, we’ll introduce some very basic data types in R
+and show how you can use them to construct something very similar to an
+Excel spreadsheet. This will prepare you for the next step: learning to
+analyze data from spreadsheet using simple R code.</p>
+<p>Before you start, realize that learning how to code can often be
+frustrating or overwhelming, but this is very normal. Just write down
+any questions you have and bring them to the workshop where we can
+revisit them together.</p>
+<hr />
+<p><em>This tutorial was made to prepare students for an in-person
+workshop series on coding with R for people with no prior experience but
+who perform data analysis using Spreadsheets. It is not considered a
+comprehensive introduction to programming, but rather focusses on
+aspects relevant to the workshop series. In case of questions, please
+reach out to PJ Van Camp - <a href="mailto:pjvancamp@hms.harvard.edu" class="email">pjvancamp@hms.harvard.edu</a></em></p>
+</div>
+</div>
+<div id="data-types-1" class="section level2">
+<h2>Data Types</h2>
+<p>There are many different types of data we put into spreadsheets, but
+in most cases we can break them down into a few simple categories of
+values. Three of the most common types of data entered into a
+spreadsheet are <em>numbers</em>, <em>text</em> and <em>boolean</em>
+(true / false) values.</p>
+<div id="numbers-1" class="section level3">
+<h3>Numbers</h3>
+<p>In most programming languages like R, you can work with numbers the
+same way as you would in a calculator. For example:</p>
+<pre class="r"><code>1 + 1</code></pre>
+<p><em>EXPLORE A BIT MORE: Try any of the other basic arithmetic
+operations using <code>-</code>, <code>*</code> or <code>/</code> and
+try using decimal numbers as well like <code>2.5</code></em></p>
+<p><em>— SIDE NOTE —</em></p>
+<p><em>In most programming languages whole numbers (integers), decimal
+numbers, complex numbers etc. are technically all considered different
+data types, though for this intro we won’t worry about that.</em></p>
+</div>
+<div id="text-1" class="section level3">
+<h3>Text</h3>
+<p>The other common type of values are text (often called
+<em>strings</em> when programming). You can write strings by wrapping
+your text in quotes like this:</p>
+<pre class="r"><code>&quot;This is a string of text&quot;</code></pre>
+<p><em>EXPLORE A BIT MORE: Try changing the text. Also note that using
+single quotes <code>&#39;</code> also work when wrapping text</em></p>
 </div>
 <div id="boolean" class="section level3">
 <h3>Boolean</h3>
@@ -433,19 +501,21 @@ taking a look at vectors and lists.</p>
 </div>
 <div id="vectors" class="section level3">
 <h3>Vectors</h3>
-<p>We can group multiple values of the <em>same type</em> by wrapping
+<p>We can combine multiple values of the <em>same type</em> by putting
 them in a vector <code>c()</code></p>
 <pre class="r"><code>c(1,2,3,4,5)</code></pre>
+<p><em>EXPLORE A BIT MORE: Replace the vector with one containing 3
+strings: cat, dog, horse</em></p>
 </div>
 <div id="lists" class="section level3">
 <h3>Lists</h3>
-<p>We can group multiple values of the <em>different types</em> by
-creating a list <code>list()</code></p>
+<p>We can group multiple values of <em>different types</em> by creating
+a list <code>list()</code></p>
 <pre class="r"><code>list(TRUE, &quot;test&quot;, c(1,2,3))</code></pre>
 <p><em>This list has 3 entries: a boolean, a string and a vector (which
 in turn contains 3 numbers)</em></p>
-<p>Lists allow you to give a unique name to each of its entries like
-so:</p>
+<p>Lists also allow you to give a unique name to each of its entries
+like so:</p>
 <pre class="r"><code>list(item1 = TRUE, item2 = &quot;test&quot;, item3 = c(1,2,3))</code></pre>
 </div>
 <div id="note-on-lines-of-code" class="section level3">
@@ -456,8 +526,9 @@ new instruction). However, there are ways of splitting a long line of
 code across multiple lines for better readability without
 <em>breaking</em> the code.</p>
 <p>Examples of valid ways to split a line are <em>after</em> an opening
-bracket <code>(</code> or a comma <code>,</code> or <em>before</em> a
-closing bracket <code>)</code>. When R executes the code, it will ignore
+bracket <code>(</code> a comma <code>,</code> or a curly brace
+<code>{</code> and <em>before</em> a closing bracket <code>)</code> or
+curly brace <code>}</code>. When R executes the code, it will ignore
 these line breaks and interpret them as if they were on as single line.
 This means we can rewrite …</p>
 <pre class="r"><code>list(item1 = TRUE, item2 = &quot;test&quot;, item3 = c(1,2,3))</code></pre>
@@ -469,13 +540,24 @@ This means we can rewrite …</p>
 )</code></pre>
 <p>… and it will still be valid and interpreted as a single line.</p>
 </div>
+<div id="try-it-yourself" class="section level3">
+<h3>Try it yourself</h3>
+<p>Create the following named list:</p>
+<ul>
+<li>The first entry contains a vector of the numbers 1, 2 and 3 and is
+named <em>first</em></li>
+<li>The second entry contains a vector with the letters a, b and c
+(lower-case) and is named <em>second</em></li>
+</ul>
+<pre class="r"><code>list()</code></pre>
+</div>
 </div>
 <div id="data-frames" class="section level2">
 <h2>Data Frames</h2>
 <div id="building-on-what-we-know" class="section level3">
 <h3>Building on what we know …</h3>
 <p>In the previous topic you learned about basic R data types. Let’s now
-use then to recreate a spreadsheet. Start by taking a look at this
+use them to recreate a spreadsheet. Start by taking a look at this
 spreadsheet table below</p>
 <pre class="r"><code>data.frame(name = c(&quot;Mohamet&quot;, &quot;Lin Yi&quot;, &quot;Nina&quot;), age = c(21,19,24),
            student = c(TRUE, TRUE, FALSE)) %&gt;% kable()</code></pre>
@@ -497,16 +579,17 @@ whole table like this:</p>
   age = c(42,33,19),
   student = c(TRUE, TRUE, FALSE)
 ) </code></pre>
-<p>We just converted our spreadsheet to a combination of data types in
-R! Note that the way it written in R looks like the table was rotated
-with the columns now horizontal an the rows vertical.</p>
+<p>We just converted our spreadsheet to a data structure in R! Note that
+the way it is written in R looks like the table was rotated with the
+columns now horizontal an the rows vertical.</p>
 </div>
 <div id="introducing-the-r-data-frame" class="section level3">
 <h3>Introducing the R Data Frame</h3>
 <p>Although the list above is a valid representation of a table, R has
-another, special, built-in datatype that optimises working with this
-type of data called a <em>data frame</em>. It is constructed very much
-like we did with the list but is handled and displayed differently:</p>
+another, special, built-in data structure that optimises working with
+this type of data called a <em>data frame</em>. It is constructed very
+much like we did with the list but is handled and displayed
+differently:</p>
 <pre class="r"><code>data.frame(
   name = c(&quot;Mohamet&quot;, &quot;Lin Yi&quot;, &quot;Nina&quot;), 
   age = c(42,33,19),
@@ -517,37 +600,53 @@ organised as it has to conform to the rules of a well-organised
 spreadsheet table. These rules are:</p>
 <ul>
 <li>Every column needs a unique name (avoid using spaces)</li>
-<li>Every column can only hold a single data type (i.e. need to be
+<li>Every column can only hold a single data type (i.e. needs to be
 represented as a vector)</li>
 <li>The length of each column has to be the same</li>
 </ul>
 <p><em>There are more rules that you should follow to create a tidy
-table, but they will not be discussed in here</em></p>
+table, but they will not be discussed here</em></p>
+</div>
+<div id="try-it-yourself-1" class="section level3">
+<h3>Try it yourself</h3>
+<p>Fix the following code so it becomes a <em>valid</em> data frame with
+3 rows, and the columns: animal, mammal and legs.</p>
+<pre class="r"><code>data.frame(
+  animal = c(&quot;dog&quot;, &quot;beetle&quot;, &quot;spider&quot;), 
+  mammal = c(TRUE, TRUE),
+  c(4, 6, 8)
+) </code></pre>
+<p><em>You will see errors appear as long as it’s not correct, but keep
+trying!</em></p>
 </div>
 </div>
 <div id="variables" class="section level2">
 <h2>Variables</h2>
 <p>Now we know how to create different types of data in R, let’s see how
-we can store and access them in R.</p>
+we can store and access them.</p>
 <div id="storing-data-into-a-variable" class="section level3">
 <h3>Storing data into a variable</h3>
-<p>We define (assign) a variable by picking a name followed by the
-assignment <code>&lt;-</code> operator (<code>&lt;</code> followed by
-<code>-</code>) and then the value (or calculation that will generate
-one).</p>
+<p>We define (assign) a variable by picking a <code>name</code> followed
+by the assignment <code>&lt;-</code> operator (<code>&lt;</code>
+followed by <code>-</code>) and then the <code>value</code> (or
+calculation that will generate one).</p>
 <p>Valid variable names:</p>
 <ul>
-<li>Must start with a letter</li>
+<li>must start with a letter</li>
 <li>can only have alphanumeric characters (A-Z, a-z, 0-9),
 <code>_</code> or <code>.</code></li>
+<li>do NOT have spaces</li>
 </ul>
 <pre class="r"><code>x &lt;- FALSE
 y2 &lt;- data.frame(x = c(1,2,3), y = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;))
-other_var &lt;- (6 + 4) / 2</code></pre>
-<p>You can print the content of a variable simply by writing its name on
-a separate line (e.g. <code>x</code> defined above will print FALSE)</p>
-<pre class="r"><code>x</code></pre>
-<pre><code>FALSE</code></pre>
+other_var &lt;- (6 + 4) / 2
+
+x</code></pre>
+<p><em>EXPLORE A BIT MORE: You can print the content of a variable by
+simply writing its name on a separate line (e.g. <code>x</code> on line
+5 will print FALSE). Try and replace <code>x</code> with any of the
+other variable names listed to print their content when you run the
+code.</em></p>
 </div>
 <div id="updating-a-variable" class="section level3">
 <h3>Updating a variable</h3>
@@ -557,20 +656,25 @@ different value</p>
 x
 x &lt;- 2 + 3
 x</code></pre>
-<pre><code>1
-5</code></pre>
 <p>We can also use the values stored in variables to perform
 calculations</p>
 <pre class="r"><code>x &lt;- 5
 y &lt;- x * 2
 y</code></pre>
-<pre><code>10</code></pre>
 <p>We can even update a variable by using it’s own value then
 reassigning it</p>
 <pre class="r"><code>x &lt;- 10 - 4
 x &lt;- x / 2
 x</code></pre>
-<pre><code>3</code></pre>
+</div>
+<div id="try-it-yourself-2" class="section level3">
+<h3>Try it yourself</h3>
+<p>On line 4 create a new variable <code>prod</code> that stores the
+product of x, y and z On line 5, print the result</p>
+<pre class="r"><code>x &lt;- 5
+y &lt;- 7
+z &lt;- 11
+</code></pre>
 </div>
 </div>
 <div id="functions" class="section level2">
@@ -585,18 +689,19 @@ variables or parameters that serve as placeholders.</p>
 <p>Let say we have a vector x …</p>
 <pre class="r"><code>x = c(1, 15, 22, 10)</code></pre>
 <p>… and we want to calculate the mean value. R has a built-in function
-called <code>mean</code> which takes in a vector and returns the
+called <code>mean()</code> which takes in a vector and returns the
 mean:</p>
 <pre class="r"><code>mean(x)</code></pre>
-<pre><code>12</code></pre>
 <pre class="r"><code>values &lt;- c(1, 15, 22, 10)
 result &lt;- mean(values)
 result</code></pre>
-<pre><code>12</code></pre>
+<p><em>EXPLORE A BIT MORE: Try to replace the mean function with some
+other basic functions you can execute on vectors of numbers like
+<code>min</code>, <code>max</code> or <code>sum</code></em></p>
 </div>
 <div id="arguments" class="section level3">
 <h3>Arguments</h3>
-<p>Some functions have multiple parameters or arguments that you have to
+<p>Some functions have multiple parameters / arguments that you have to
 specify.</p>
 <p>For example, the <code>round</code> function has two parameters:
 <code>x</code>, which is the value we like to round, and
@@ -605,12 +710,12 @@ If we want to round a number to 3 decimal points we specify them inside
 the function …</p>
 <pre class="r"><code>value &lt;- 17/13
 value
-round(x = value, digits = 3)</code></pre>
-<pre><code>1.308</code></pre>
+value_rounded &lt;- round(x = value, digits = 3)
+value_rounded</code></pre>
 <p>… we set <code>x</code> to the value and <code>digits</code> to
 3.</p>
-<p>To know which arguments a function takes, you have several
-options</p>
+<p>There are multiple ways to find out which arguments a function
+takes</p>
 <div id="option-1-look-at-the-function-code" class="section level4">
 <h4>Option 1: look at the function code</h4>
 <p>To run the function <em>without</em> the brackets <code>()</code> to
@@ -621,25 +726,24 @@ assigned (see notes below for more details)</em></p>
 </div>
 <div id="option-2-load-the-function-documentation" class="section level4">
 <h4>Option 2: load the function documentation</h4>
-<p>The people who wrote any of the functions you will use, also wrote
-documentation on <em>how</em> to use them. You can read this
-documentation by running the function <em>without</em> the brackets and
-putting a question mark in front of it. This will open up the function
-documentation where you can read more about specific function
-arguments.</p>
+<p>The people created the functions also wrote documentation on how to
+use them. You can read this documentation by running the function
+<em>without</em> the brackets and putting a question mark in front of
+it. This will open up the function documentation where you can read more
+about specific function arguments.</p>
 <pre class="r"><code>?round</code></pre>
 <p><em>NOTE: In this tutorial, the documentation is just printed in
-plain text and might contains strange characters or formatting. When
-open it in a real code editor, it is often rendered much nicer or
+plain text and might contains strange characters or formatting. When you
+run this in a real code-editor, it is often rendered much nicer or even
 interactive</em></p>
 </div>
 <div id="option-3-code-editor-tooltips" class="section level4">
 <h4>Option 3: Code editor tooltips</h4>
-<p>Many code editors like <a href="https://posit.co/download/rstudio-desktop/">R Studio</a> or <a href="https://code.visualstudio.com/">VS Code</a> will automatically
-show function arguments whilst writing code or when you hover over a
-function name in your code. Even here you will see suggestions pop-up
-when you start typing the brackets of a known function</p>
-<pre class="r"><code>round(
+<p>Many code editors like <a href="https://posit.co/download/rstudio-desktop/">R Studio</a> or <a href="https://positron.posit.co/">Positron</a> will automatically show
+function arguments whilst writing code or when you hover over a function
+name in your code. Even here you will see suggestions pop-up when you
+start typing the brackets of a known function</p>
+<pre class="r"><code>round
 </code></pre>
 </div>
 <div id="notes-about-function-arguments" class="section level4">
@@ -647,7 +751,6 @@ when you start typing the brackets of a known function</p>
 <p>If you don’t specify the argument names explicitly, the first value
 will become the first listed argument, the second the next, etc.</p>
 <pre class="r"><code>round(1.333, 1)</code></pre>
-<pre><code>1.3</code></pre>
 <p><em>This implicit argument assignment will be translated to round(x =
 1.333, digits = 1) when the code is run</em></p>
 <p>Functions can come with default values for some of its arguments,
@@ -657,18 +760,33 @@ to provide a value) and optional arguments (you can choose to override
 the default if you want). Look at the function documentation to see
 which ones are required.</p>
 <pre class="r"><code>round(1.333)</code></pre>
-<pre><code>1</code></pre>
 <p><em>By default <code>digits = 0</code></em></p>
 <p>You can combine implicit (unnamed) and explicit (named) arguments,
 but the implicit ones always have to come first and all required
 arguments need to have a value. Let’s take the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/format">format</a>
 function as an example</p>
 <pre class="r"><code>format(15658475, big.mark = &quot;,&quot;)</code></pre>
-<pre><code>&quot;15,658,475&quot;</code></pre>
 <p><em>In this example, big.mark is the 9th argument, but since all
 apart from the first argument have default values, we can use named
 arguments to only override those we need to change</em></p>
 </div>
+</div>
+<div id="try-it-yourself-3" class="section level3">
+<h3>Try it yourself</h3>
+<ol style="list-style-type: decimal">
+<li>You are given a variable <em>values</em> that contains a vector of
+numbers.</li>
+<li>On line 2 use the function <code>sort</code> to sort the values in
+the vector and save the result to a new variable called
+<em>values_sorted</em></li>
+<li>Now make sure that the sorting happens in <em>decreasing</em> order
+(i.e. highest to lowest). You will need to specify an argument in the
+sort function to make this happen (look at the documentation of the sort
+function)</li>
+<li>Print the result of <em>values_sorted</em> on line 3</li>
+</ol>
+<pre class="r"><code>values &lt;- c(11.2, 16, 0.6, 8.89)
+</code></pre>
 </div>
 <div id="combining-functions" class="section level3">
 <h3>Combining functions</h3>
@@ -677,9 +795,8 @@ behaviour. There are two ways of doing this:</p>
 <div id="nested-functions" class="section level4">
 <h4>Nested functions</h4>
 <p>Just as in mathematics, the inner most calculations of nested
-functions are performed before the outer ones can use their results.</p>
+functions are performed before the outer ones use the results.</p>
 <pre class="r"><code>floor(sqrt(2))</code></pre>
-<pre><code>1</code></pre>
 <p><em>The square root function is run first before the value is used in
 the flooring function</em></p>
 </div>
@@ -687,7 +804,7 @@ the flooring function</em></p>
 <h4>Piping (chaining) functions</h4>
 <p>Highly nested functions can become difficult to read, so it it also
 possible to write your code differently by using the result from one
-function as the input for the next one using the piping operator
+function as the input of the next function using the piping operator
 <code>|&gt;</code> (<code>|</code> followed by <code>&gt;</code>).</p>
 <pre class="r"><code>sqrt(2) |&gt; floor()</code></pre>
 <ul>
@@ -700,7 +817,6 @@ chain</li>
 </ul>
 <p>More complex example:</p>
 <pre class="r"><code>sqrt(2) |&gt; exp() |&gt; round(digits = 3) </code></pre>
-<pre><code>4.113</code></pre>
 <p><em>Take the square root of 2, exponentiate it (raise e, Euler’s
 number to this power) and then round the result to 3 digits</em></p>
 <p><em>This is more readable than the nested version
@@ -710,9 +826,21 @@ number to this power) and then round the result to 3 digits</em></p>
 <p>The built-in piping operator <code>|&gt;</code> was only introduced
 in R version 4.1.0 in 2021. It was already possible long before that to
 use piping but this required an additional package to be installed.
-Hence, you will still see a lot of code using an alternative pipe which
-looks like <code>%&gt;%</code>. Both are identical in functionality.</p>
+Hence, you will still see code using an alternative pipe which looks
+like <code>%&gt;%</code>. Both are identical in functionality.</p>
 </div>
+</div>
+<div id="try-it-yourself-4" class="section level3">
+<h3>Try it yourself</h3>
+<ul>
+<li>On line 2, write a <em>nested</em> set of functions what will
+<code>sum</code> all the values in <em>vec</em> and then
+<code>floor</code> the result (i.e. round down to the nearest
+integer)</li>
+<li>On line 3, write the same set of functions but now using the piping
+operator.</li>
+</ul>
+<pre class="r"><code>vec &lt;- c(65.001,58,412.4,36,87.6666,4,11,0.69)</code></pre>
 </div>
 </div>
 <div id="vector-operations" class="section level2">
@@ -725,19 +853,22 @@ basics you need here.</p>
 <h3>Simple vector math</h3>
 <p>When you perform basic arithmetic operations on a vector, they will
 be carried out for every element in that vector and return a new vector
-with all results.</p>
+with the results.</p>
 <pre class="r"><code>vec &lt;- c(2,4,6,8,10)
 vec / 2</code></pre>
+<p><em>EXPLORE A BIT MORE: You can try out other basic operations like
+<code>+</code>, <code>-</code> or <code>*</code></em></p>
 </div>
-<div id="operations-with-multiple-vecors" class="section level3">
-<h3>Operations with multiple vecors</h3>
-<p>When you perform basic arithmetic operations using two vectors they
-will be carried out by using the first element of each vector for the
-first calculation, the the second for the next one and so on, returning
-again a vector with all results.</p>
+<div id="operations-with-multiple-vecors-of-the-same-length" class="section level3">
+<h3>Operations with multiple vecors of the same length</h3>
+<p>When you perform basic arithmetic operations using two compatible
+vectors of the same length they will be carried out by using the first
+element of each vector for the first calculation, the the second for the
+next one and so on, returning again a vector with all results.</p>
 <pre class="r"><code>vec &lt;- c(1,2,3,4,5)
 vec + vec</code></pre>
-<pre><code>c(2, 4, 6, 8, 10)</code></pre>
+<p><em>EXPLORE A BIT MORE: You can try out other basic operations like
+<code>+</code>, <code>-</code> or <code>*</code></em></p>
 </div>
 <div id="functions-across-vectors" class="section level3">
 <h3>Functions across vectors</h3>
@@ -745,18 +876,459 @@ vec + vec</code></pre>
 what the effect of the function is. For example:</p>
 <pre class="r"><code>vec &lt;- c(1.554,6.23,2.201,0.01366)
 sum(vec)</code></pre>
-<pre><code>9.99866</code></pre>
 <p><em>As seen before, this will sum all elements in the vector and
 return a single value</em></p>
 <pre class="r"><code>vec &lt;- c(1.554,6.23,2.201,0.1366)
 round(vec, digits = 1)</code></pre>
-<pre><code>c(1.6, 6.2, 2.2, 0.1)</code></pre>
 <p><em>On the other hand, if a function is made to be run on a single
 value, it will just be repeated for every value in the vector and return
 the result vector</em></p>
 </div>
+<div id="try-it-yourself-5" class="section level3">
+<h3>Try it yourself</h3>
+<p>When <em>centering</em> a vector of numbers, you ensure that the mean
+value is zero without changing the original distribution. This is
+accomplished subtracting the current mean from each individual value.
+For example: the list 2, 4, 9 has a mean value of 5. If we subtract this
+from each value we get -3, -1 , 4 which has a mean of 0.</p>
+<ol style="list-style-type: decimal">
+<li>You are given a variable <em>vec</em> that contains a set of
+numbers</li>
+<li>Calculate the mean value using the <code>mean</code> function</li>
+<li>Use vector operations to subtract the mean from each entry in the
+vector</li>
+</ol>
+<pre class="r"><code>vec &lt;- c(11,6,3,8,9)
+</code></pre>
+<p><em>Note, you can accomplish step 2 and 3 in a single line, or create
+an intermediate variable. You can try both and get the same
+result</em></p>
+</div>
 </div>
 <div id="wrap-up" class="section level2">
+<h2>Wrap-up</h2>
+<p>Congratulations, you now know all the basics to be ready to start
+working with data frames in R! You can revisit this introduction at any
+time, but don’t worry if some things are still unclear, learning to code
+takes time and frustration is definitely part of the experience, but
+you’ll have more opportunity to practice soon!</p>
+<p><em>EXPLORE A BIT MORE: Try changing the text. Also note that using
+single quotes <code>&#39;</code> also work when wrapping text</em></p>
+<div id="boolean-1" class="section level3">
+<h3>Boolean</h3>
+<p>A Boolean value is a binary value that simply means <em>true</em> or
+<em>false</em>. In R these can be written as <code>TRUE</code> /
+<code>FALSE</code> or <code>T</code> / <code>F</code></p>
+<pre class="r"><code>TRUE</code></pre>
+<p><em>Note that this is case sensitive and you must use all capital
+letters</em></p>
+</div>
+<div id="grouping-data-1" class="section level3">
+<h3>Grouping data</h3>
+<p>Now we have introduced a few basic data types, we can take a look on
+how we can group them into more complex structures. We’ll start by
+taking a look at vectors and lists.</p>
+</div>
+<div id="vectors-1" class="section level3">
+<h3>Vectors</h3>
+<p>We can combine multiple values of the <em>same type</em> by putting
+them in a vector <code>c()</code></p>
+<pre class="r"><code>c(1,2,3,4,5)</code></pre>
+<p><em>EXPLORE A BIT MORE: Replace the vector with one containing 3
+strings: cat, dog, horse</em></p>
+</div>
+<div id="lists-1" class="section level3">
+<h3>Lists</h3>
+<p>We can group multiple values of <em>different types</em> by creating
+a list <code>list()</code></p>
+<pre class="r"><code>list(TRUE, &quot;test&quot;, c(1,2,3))</code></pre>
+<p><em>This list has 3 entries: a boolean, a string and a vector (which
+in turn contains 3 numbers)</em></p>
+<p>Lists also allow you to give a unique name to each of its entries
+like so:</p>
+<pre class="r"><code>list(item1 = TRUE, item2 = &quot;test&quot;, item3 = c(1,2,3))</code></pre>
+</div>
+<div id="note-on-lines-of-code-1" class="section level3">
+<h3>Note on <em>lines of code</em></h3>
+<p>You can see that the code boxes have line numbers. This is because
+when the code is run, it’s done so line by line (each line containing a
+new instruction). However, there are ways of splitting a long line of
+code across multiple lines for better readability without
+<em>breaking</em> the code.</p>
+<p>Examples of valid ways to split a line are <em>after</em> an opening
+bracket <code>(</code> a comma <code>,</code> or a curly brace
+<code>{</code> and <em>before</em> a closing bracket <code>)</code> or
+curly brace <code>}</code>. When R executes the code, it will ignore
+these line breaks and interpret them as if they were on as single line.
+This means we can rewrite …</p>
+<pre class="r"><code>list(item1 = TRUE, item2 = &quot;test&quot;, item3 = c(1,2,3))</code></pre>
+<p>… like so …</p>
+<pre class="r"><code>list(
+  item1 = TRUE, 
+  item2 = &quot;test&quot;, 
+  item3 = c(1,2,3)
+)</code></pre>
+<p>… and it will still be valid and interpreted as a single line.</p>
+</div>
+<div id="try-it-yourself-6" class="section level3">
+<h3>Try it yourself</h3>
+<p>Create the following named list:</p>
+<ul>
+<li>The first entry contains a vector of the numbers 1, 2 and 3 and is
+named <em>first</em></li>
+<li>The second entry contains a vector with the letters a, b and c
+(lower-case) and is named <em>second</em></li>
+</ul>
+<pre class="r"><code>list()</code></pre>
+</div>
+</div>
+<div id="data-frames-1" class="section level2">
+<h2>Data Frames</h2>
+<div id="building-on-what-we-know-1" class="section level3">
+<h3>Building on what we know …</h3>
+<p>In the previous topic you learned about basic R data types. Let’s now
+use them to recreate a spreadsheet. Start by taking a look at this
+spreadsheet table below</p>
+<pre class="r"><code>data.frame(name = c(&quot;Mohamet&quot;, &quot;Lin Yi&quot;, &quot;Nina&quot;), age = c(21,19,24),
+           student = c(TRUE, TRUE, FALSE)) %&gt;% kable()</code></pre>
+<p>This simple spreadsheet records student info and is a table with the
+following properties:</p>
+<ul>
+<li>Each row is an entry in the table (i.e. info about a particular
+student)</li>
+<li>Each column records a different observation</li>
+<li>Every column has a header that describes what is being recorded</li>
+</ul>
+<p>Note that the values in every column are of the same data type. This
+means we can represent them as a vector. For example, the first column
+would be <code>c(&quot;Mohamet&quot;, &quot;Lin Yi&quot;, &quot;Nina&quot;)</code>. If we do this for
+all three columns and organise them as a list in R, we can recreate the
+whole table like this:</p>
+<pre class="r"><code>list(
+  name = c(&quot;Mohamet&quot;, &quot;Lin Yi&quot;, &quot;Nina&quot;), 
+  age = c(42,33,19),
+  student = c(TRUE, TRUE, FALSE)
+)</code></pre>
+<p>We just converted our spreadsheet to a data structure in R! Note that
+the way it is written in R looks like the table was rotated with the
+columns now horizontal an the rows vertical.</p>
+</div>
+<div id="introducing-the-r-data-frame-1" class="section level3">
+<h3>Introducing the R Data Frame</h3>
+<p>Although the list above is a valid representation of a table, R has
+another, special, built-in data structure that optimises working with
+this type of data called a <em>data frame</em>. It is constructed very
+much like we did with the list but is handled and displayed
+differently:</p>
+<pre class="r"><code>data.frame(
+  name = c(&quot;Mohamet&quot;, &quot;Lin Yi&quot;, &quot;Nina&quot;), 
+  age = c(42,33,19),
+  student = c(TRUE, TRUE, FALSE)
+)</code></pre>
+<p>A data frame imposes more restrictions on how the data can be
+organised as it has to conform to the rules of a well-organised
+spreadsheet table. These rules are:</p>
+<ul>
+<li>Every column needs a unique name (avoid using spaces)</li>
+<li>Every column can only hold a single data type (i.e. needs to be
+represented as a vector)</li>
+<li>The length of each column has to be the same</li>
+</ul>
+<p><em>There are more rules that you should follow to create a tidy
+table, but they will not be discussed here</em></p>
+</div>
+<div id="try-it-yourself-7" class="section level3">
+<h3>Try it yourself</h3>
+<p>Fix the following code so it becomes a <em>valid</em> data frame with
+3 rows, and the columns: animal, mammal and legs.</p>
+<pre class="r"><code>data.frame(
+  animal = c(&quot;dog&quot;, &quot;beetle&quot;, &quot;spider&quot;), 
+  mammal = c(TRUE, TRUE),
+  c(4, 6, 8)
+)</code></pre>
+<p><em>You will see errors appear as long as it’s not correct, but keep
+trying!</em></p>
+</div>
+</div>
+<div id="variables-1" class="section level2">
+<h2>Variables</h2>
+<p>Now we know how to create different types of data in R, let’s see how
+we can store and access them.</p>
+<div id="storing-data-into-a-variable-1" class="section level3">
+<h3>Storing data into a variable</h3>
+<p>We define (assign) a variable by picking a <code>name</code> followed
+by the assignment <code>&lt;-</code> operator (<code>&lt;</code>
+followed by <code>-</code>) and then the <code>value</code> (or
+calculation that will generate one).</p>
+<p>Valid variable names:</p>
+<ul>
+<li>must start with a letter</li>
+<li>can only have alphanumeric characters (A-Z, a-z, 0-9),
+<code>_</code> or <code>.</code></li>
+<li>do NOT have spaces</li>
+</ul>
+<pre class="r"><code>x &lt;- FALSE
+y2 &lt;- data.frame(x = c(1,2,3), y = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;))
+other_var &lt;- (6 + 4) / 2
+
+x</code></pre>
+<p><em>EXPLORE A BIT MORE: You can print the content of a variable by
+simply writing its name on a separate line (e.g. <code>x</code> on line
+5 will print FALSE). Try and replace <code>x</code> with any of the
+other variable names listed to print their content when you run the
+code.</em></p>
+</div>
+<div id="updating-a-variable-1" class="section level3">
+<h3>Updating a variable</h3>
+<p>You can update a variable by using the same name, but assigning a
+different value</p>
+<pre class="r"><code>x &lt;- 1
+x
+x &lt;- 2 + 3
+x</code></pre>
+<p>We can also use the values stored in variables to perform
+calculations</p>
+<pre class="r"><code>x &lt;- 5
+y &lt;- x * 2
+y</code></pre>
+<p>We can even update a variable by using it’s own value then
+reassigning it</p>
+<pre class="r"><code>x &lt;- 10 - 4
+x &lt;- x / 2
+x</code></pre>
+</div>
+<div id="try-it-yourself-8" class="section level3">
+<h3>Try it yourself</h3>
+<p>On line 4 create a new variable <code>prod</code> that stores the
+product of x, y and z On line 5, print the result</p>
+<pre class="r"><code>x &lt;- 5
+y &lt;- 7
+z &lt;- 11</code></pre>
+</div>
+</div>
+<div id="functions-1" class="section level2">
+<h2>Functions</h2>
+<div id="intro-1" class="section level3">
+<h3>Intro</h3>
+<p>The power of programming lies in the ability to execute a set of
+instructions automatically and being able to reuse code written by
+others or yourself. This a accomplished using <em>functions</em>. Just
+as in mathematics, a function contains a set of instructions, with
+variables or parameters that serve as placeholders.</p>
+<p>Let say we have a vector x …</p>
+<pre class="r"><code>x = c(1, 15, 22, 10)</code></pre>
+<p>… and we want to calculate the mean value. R has a built-in function
+called <code>mean()</code> which takes in a vector and returns the
+mean:</p>
+<pre class="r"><code>mean(x)</code></pre>
+<p><em>EXPLORE A BIT MORE: Try to replace the mean function with some
+other basic functions you can execute on vectors of numbers like
+<code>min</code>, <code>max</code> or <code>sum</code></em></p>
+</div>
+<div id="arguments-1" class="section level3">
+<h3>Arguments</h3>
+<p>Some functions have multiple parameters / arguments that you have to
+specify.</p>
+<p>For example, the <code>round</code> function has two parameters:
+<code>x</code>, which is the value we like to round, and
+<code>digits</code>, the number of decimal points we want to round to.
+If we want to round a number to 3 decimal points we specify them inside
+the function …</p>
+<pre class="r"><code>value &lt;- 17/13
+value
+value_rounded &lt;- round(x = value, digits = 3)
+value_rounded</code></pre>
+<p>… we set <code>x</code> to the value and <code>digits</code> to
+3.</p>
+<p>There are multiple ways to find out which arguments a function
+takes</p>
+<div id="option-1-look-at-the-function-code-1" class="section level4">
+<h4>Option 1: look at the function code</h4>
+<p>To run the function <em>without</em> the brackets <code>()</code> to
+print its code and look at the arguments listed at the top</p>
+<pre class="r"><code>round</code></pre>
+<p><em>Note that the second argument here already has a default value
+assigned (see notes below for more details)</em></p>
+</div>
+<div id="option-2-load-the-function-documentation-1" class="section level4">
+<h4>Option 2: load the function documentation</h4>
+<p>The people created the functions also wrote documentation on how to
+use them. You can read this documentation by running the function
+<em>without</em> the brackets and putting a question mark in front of
+it. This will open up the function documentation where you can read more
+about specific function arguments.</p>
+<pre class="r"><code>?round</code></pre>
+<p><em>NOTE: In this tutorial, the documentation is just printed in
+plain text and might contains strange characters or formatting. When you
+run this in a real code-editor, it is often rendered much nicer or even
+interactive</em></p>
+</div>
+<div id="option-3-code-editor-tooltips-1" class="section level4">
+<h4>Option 3: Code editor tooltips</h4>
+<p>Many code editors like <a href="https://posit.co/download/rstudio-desktop/">R Studio</a> or <a href="https://positron.posit.co/">Positron</a> will automatically show
+function arguments whilst writing code or when you hover over a function
+name in your code. Even here you will see suggestions pop-up when you
+start typing the brackets of a known function</p>
+<pre class="r"><code>round</code></pre>
+</div>
+<div id="notes-about-function-arguments-1" class="section level4">
+<h4>Notes about function arguments</h4>
+<p>If you don’t specify the argument names explicitly, the first value
+will become the first listed argument, the second the next, etc.</p>
+<pre class="r"><code>round(1.333, 1)</code></pre>
+<p><em>This implicit argument assignment will be translated to round(x =
+1.333, digits = 1) when the code is run</em></p>
+<p>Functions can come with default values for some of its arguments,
+which you don’t have to set if you are OK with the value. In other
+words, functions have required arguments (i.e. no default and you have
+to provide a value) and optional arguments (you can choose to override
+the default if you want). Look at the function documentation to see
+which ones are required.</p>
+<pre class="r"><code>round(1.333)</code></pre>
+<p><em>By default <code>digits = 0</code></em></p>
+<p>You can combine implicit (unnamed) and explicit (named) arguments,
+but the implicit ones always have to come first and all required
+arguments need to have a value. Let’s take the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/format">format</a>
+function as an example</p>
+<pre class="r"><code>format(15658475, big.mark = &quot;,&quot;)</code></pre>
+<p><em>In this example, big.mark is the 9th argument, but since all
+apart from the first argument have default values, we can use named
+arguments to only override those we need to change</em></p>
+</div>
+</div>
+<div id="try-it-yourself-9" class="section level3">
+<h3>Try it yourself</h3>
+<ol style="list-style-type: decimal">
+<li>You are given a variable <em>values</em> that contains a vector of
+numbers.</li>
+<li>On line 2 use the function <code>sort</code> to sort the values in
+the vector and save the result to a new variable called
+<em>values_sorted</em></li>
+<li>Now make sure that the sorting happens in <em>decreasing</em> order
+(i.e. highest to lowest). You will need to specify an argument in the
+sort function to make this happen (look at the documentation of the sort
+function)</li>
+<li>Print the result of <em>values_sorted</em> on line 3</li>
+</ol>
+<pre class="r"><code>values &lt;- c(11.2, 16, 0.6, 8.89)</code></pre>
+</div>
+<div id="combining-functions-1" class="section level3">
+<h3>Combining functions</h3>
+<p>Functions can use other functions as input to create more complex
+behaviour. There are two ways of doing this:</p>
+<div id="nested-functions-1" class="section level4">
+<h4>Nested functions</h4>
+<p>Just as in mathematics, the inner most calculations of nested
+functions are performed before the outer ones use the results.</p>
+<pre class="r"><code>floor(sqrt(2))</code></pre>
+<p><em>The square root function is run first before the value is used in
+the flooring function</em></p>
+</div>
+<div id="piping-chaining-functions-1" class="section level4">
+<h4>Piping (chaining) functions</h4>
+<p>Highly nested functions can become difficult to read, so it it also
+possible to write your code differently by using the result from one
+function as the input of the next function using the piping operator
+<code>|&gt;</code> (<code>|</code> followed by <code>&gt;</code>).</p>
+<pre class="r"><code>sqrt(2) |&gt; floor()</code></pre>
+<ul>
+<li>The function that needs to be executed first comes first in the
+chain</li>
+<li>The result from the previous function will occupy the <em>first</em>
+argument slot of the next function.</li>
+<li>You can add (optional) named arguments to any function in the
+chain</li>
+</ul>
+<p>More complex example:</p>
+<pre class="r"><code>sqrt(2) |&gt; exp() |&gt; round(digits = 3)</code></pre>
+<p><em>Take the square root of 2, exponentiate it (raise e, Euler’s
+number to this power) and then round the result to 3 digits</em></p>
+<p><em>This is more readable than the nested version
+<code>round(exp(sqrt(2)),digits = 3)</code></em></p>
+<hr />
+<p>Note on the piping operator</p>
+<p>The built-in piping operator <code>|&gt;</code> was only introduced
+in R version 4.1.0 in 2021. It was already possible long before that to
+use piping but this required an additional package to be installed.
+Hence, you will still see code using an alternative pipe which looks
+like <code>%&gt;%</code>. Both are identical in functionality.</p>
+</div>
+</div>
+<div id="try-it-yourself-10" class="section level3">
+<h3>Try it yourself</h3>
+<ul>
+<li>On line 2, write a <em>nested</em> set of functions what will
+<code>sum</code> all the values in <em>vec</em> and then
+<code>floor</code> the result (i.e. round down to the nearest
+integer)</li>
+<li>On line 3, write the same set of functions but now using the piping
+operator.</li>
+</ul>
+<pre class="r"><code>vec &lt;- c(65.001,58,412.4,36,87.6666,4,11,0.69)</code></pre>
+</div>
+</div>
+<div id="vector-operations-1" class="section level2">
+<h2>Vector operations</h2>
+<p>Remember that a data frame in essence is a list of column vectors.
+Before we learn to work with this, it’s important to know how R makes it
+very easy to perform operations across vectors. We’ll just explore the
+basics you need here.</p>
+<div id="simple-vector-math-1" class="section level3">
+<h3>Simple vector math</h3>
+<p>When you perform basic arithmetic operations on a vector, they will
+be carried out for every element in that vector and return a new vector
+with the results.</p>
+<pre class="r"><code>vec &lt;- c(2,4,6,8,10)
+vec / 2</code></pre>
+<p><em>EXPLORE A BIT MORE: You can try out other basic operations like
+<code>+</code>, <code>-</code> or <code>*</code></em></p>
+</div>
+<div id="operations-with-multiple-vecors-of-the-same-length-1" class="section level3">
+<h3>Operations with multiple vecors of the same length</h3>
+<p>When you perform basic arithmetic operations using two compatible
+vectors of the same length they will be carried out by using the first
+element of each vector for the first calculation, the the second for the
+next one and so on, returning again a vector with all results.</p>
+<pre class="r"><code>vec &lt;- c(1,2,3,4,5)
+vec + vec</code></pre>
+<p><em>EXPLORE A BIT MORE: You can try out other basic operations like
+<code>+</code>, <code>-</code> or <code>*</code></em></p>
+</div>
+<div id="functions-across-vectors-1" class="section level3">
+<h3>Functions across vectors</h3>
+<p>Finally, you can use functions across a vector. The result depends on
+what the effect of the function is. For example:</p>
+<pre class="r"><code>vec &lt;- c(1.554,6.23,2.201,0.01366)
+sum(vec)</code></pre>
+<p><em>As seen before, this will sum all elements in the vector and
+return a single value</em></p>
+<pre class="r"><code>vec &lt;- c(1.554,6.23,2.201,0.1366)
+round(vec, digits = 1)</code></pre>
+<p><em>On the other hand, if a function is made to be run on a single
+value, it will just be repeated for every value in the vector and return
+the result vector</em></p>
+</div>
+<div id="try-it-yourself-11" class="section level3">
+<h3>Try it yourself</h3>
+<p>When <em>centering</em> a vector of numbers, you ensure that the mean
+value is zero without changing the original distribution. This is
+accomplished subtracting the current mean from each individual value.
+For example: the list 2, 4, 9 has a mean value of 5. If we subtract this
+from each value we get -3, -1 , 4 which has a mean of 0.</p>
+<ol style="list-style-type: decimal">
+<li>You are given a variable <em>vec</em> that contains a set of
+numbers</li>
+<li>Calculate the mean value using the <code>mean</code> function</li>
+<li>Use vector operations to subtract the mean from each entry in the
+vector</li>
+</ol>
+<pre class="r"><code>vec &lt;- c(11,6,3,8,9)</code></pre>
+<p><em>Note, you can accomplish step 2 and 3 in a single line, or create
+an intermediate variable. You can try both and get the same
+result</em></p>
+</div>
+</div>
+<div id="wrap-up-1" class="section level2">
 <h2>Wrap-up</h2>
 <p>Congratulations, you now know all the basics to be ready to start
 working with data frames in R! You can revisit this introduction at any
