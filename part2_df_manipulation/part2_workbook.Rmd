@@ -4,11 +4,11 @@ subtitle: "Part 2 - Data Frame Manipulations"
 output: html_document
 ---
 
-*This is an R-markdown document. If run in RStudio, you will see code blocks appear with the option to run each one using the little "play button" on the top-right of each block. The output (including errors) will be printed below a block. For the best view, click the `Visual` mode at the top left of this file (if set to Source now)*
+*This is an R-markdown document. If run in RStudio, you will see code blocks appear with the option to run each one using the little "green play button" on the top-right of each block. The output (including errors) will be printed below the block. For the best view, click the `Visual` mode at the top left of this file (if set to Source now)*
 
 Read the [session materials](README.md) for more background on the various functions and their use
 
-## Make sure you have the following libraries loaded
+## Load the following libraries
 
 ```{r setup, include=FALSE}
 library(knitr)
@@ -27,7 +27,7 @@ If you get an error that libraries are not installed yet, un-comment the last li
 
 ## Read in an Excel file
 
-Let's load in an Excel file (antiquities_act.xlsx) which is stored in the same folder as this script using the `read_excel` function and assigning it to a variable named `data`
+Let's load in an Excel file (antiquities_act.xlsx) which is stored in the same folder as this script. We'll use the `read_excel` function and save the data frame to a variable named `data`
 
 ```{r}
 data <- read_excel("antiquities_act.xlsx")
@@ -38,7 +38,7 @@ data
 
 ## Handy functions to learn more about the data
 
-The built-in function `colnames()` can list all the column names for you, and the `glimpse()` function from the `dplyr` package will give you a summary of each column
+The built-in function `colnames()` can list all the column names of a data frame, and the `glimpse()` function from the `dplyr` package will give you a sample of the data in each column
 
 ```{r}
 colnames(data)
@@ -60,6 +60,7 @@ glimpse(myData)
 
 ```{r}
 myData <- data |> select(current_name, states, year)
+glimpse(myData)
 ```
 
 ## By index
@@ -102,9 +103,9 @@ myData <- data |> select(1,2,5)
 myData <- data |> select(-c(2,3))
 ```
 
-#### Extra challenge: you can select a range of numbers using the <first>:<last> notation.
+#### Extra challenge: you can select a range of columns using the <first>:<last> notation.
 
-For example 1:5, is the same as c(1,2,3,4,5). Using this, select the columns 1-4 and 7-9
+For example 1:5, is the same as 1,2,3,4,5. Using this, select the columns 1-4 and 7-9
 
 ```{r}
 myData <- data |> select(1:4, 7:9)
@@ -147,7 +148,7 @@ myData |> select(current_name, acres_affected)
 
 ### Try it yourself
 
-#### Filter out all rows from the `data` dataframe from the year 2016 onwards
+#### Filter out (i.e keep) all rows from the `data` dataframe from the year 2016 onwards
 
 ```{r}
 myData <- data |> filter(year >= 2016)
@@ -178,13 +179,13 @@ myData <- data |> filter(acres_affected > 5000 | year > 2000)
 ## New column
 
 ```{r}
-myData = data |> mutate(years_protected = 2024 - year)
+myData = data |> mutate(years_protected = 2025 - year)
 
 # Display relevant columns
 myData |> select(year, years_protected)
 ```
 
-*Calculate the number of years the land has been protected in 2024*
+*Calculate the number of years the land has been protected in 2025*
 
 ## Update existing column
 
@@ -205,7 +206,7 @@ myData |> select(current_name, acres_affected)
 myData <- data |> mutate(large = acres_affected > 1000)
 ```
 
-#### Use the `toupper()` function to change all state names to be written in capital letters (update the states column)
+#### Use the `toupper()` function to change all state names to be written in capital letters (update the _states_ column)
 
 ```{r}
 myData <- data |> mutate(states = toupper(states))
@@ -232,7 +233,7 @@ data |> group_by(states) |>
   ungroup()
 ```
 
-*Get the mean and standard deviation of the affected acres by state*
+*Get the mean and standard deviation of the affected acres by state. Note that NA means there is a missing value. In this case that is because there only is one row for those states and you need at least two values to calculate standard deviation*
 
 ### Try it yourself
 
@@ -244,7 +245,7 @@ myData <- data |>
   ungroup()
 ```
 
-#### Do the same thing but now by year
+#### Do the same thing but now for each year seperately
 
 ```{r}
 myData <- data |> 
@@ -256,7 +257,7 @@ myData <- data |>
 
 # Putting it all together
 
-In this part you will combine the new things you've learned (selecting, filtering, mutating and summarising) into a more comprehensive analysis
+In this part you will combine all new things you've learned (selecting, filtering, mutating and summarising) into a more comprehensive analysis
 
 #### Use the `read_excel()` function to load the *antiquities_act.xlsx* file into a new variable called `newData`
 
@@ -270,7 +271,7 @@ newData <- read_excel("antiquities_act.xlsx")
 analysis <- newData |> select(current_name, states, action, year, acres_affected)
 ```
 
-#### We'll only focus on the data when and area was enlarged before the year 2000, so update the `analysis` variable to only contain those rows
+#### We'll only focus on the data where and area was enlarged before the year 2000, so update the `analysis` variable to only contain those rows
 
 ```{r}
 analysis <- analysis |> filter(action == "Enlarged" & year < 2000)
@@ -278,9 +279,9 @@ analysis <- analysis |> filter(action == "Enlarged" & year < 2000)
 
 #### Generate a summary by state and save it to a variable called `result` with the following statistics:
 
--   Total acres of the area enlarged
--   Time span (difference between first and last year enlargement happened)
--   Number of times and area was enlarged (look up the `n()` function for details)
+-   Total acres (i.e. sum) of the area enlarged
+-   Time span in years (i.e. difference between first and last year the enlargement happened)
+-   Number of times and area was enlarged (look up the `n()` function in dplyr for details)
 
 ```{r}
 result <- analysis |> group_by(states) |> 
