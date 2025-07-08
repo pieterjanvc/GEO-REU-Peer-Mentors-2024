@@ -221,13 +221,14 @@ myData <- data |> mutate(states = toupper(states))
 
 ```{r}
 data |> 
-  summarise(mean_acres = mean(acres_affected), sd_acres = sd(acres_affected)) |>
-  ungroup()
+  summarise(mean_acres = mean(acres_affected), sd_acres = sd(acres_affected))
 ```
 
 *Summarise the data to show the mean and standard deviation of the affected acres across the whole dataset*
 
 ## By group
+
+Use the group_by() function, but don't forget to ungroup() once finished
 
 ```{r}
 data |> group_by(states) |> 
