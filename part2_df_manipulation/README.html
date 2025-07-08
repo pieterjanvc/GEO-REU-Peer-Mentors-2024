@@ -374,7 +374,8 @@ successful and has been widely adopted by the R community. This means
 you will have to install the <code>tidyverse</code> library collection
 before you can start working with its functions.</p>
 <pre class="r"><code>install.packages(&quot;tidyverse&quot;) # Only run once to install
-library(tidyverse) # Run once every time you start R</code></pre>
+library(dplyr)
+library(readxl)</code></pre>
 <p>Most functions for dataframe manipulation in the tidyverse libraries
 were written with the pipe operator <code>|&gt;</code> in mind for
 better code readability. We will use this throughout this guide but you
@@ -382,27 +383,28 @@ can always use the nested alternative as well (see Part 1).</p>
 </div>
 <div id="tidy-data" class="section level2">
 <h2>Tidy Data</h2>
-<p>Before we can load spreadsheets into R, we must make sure we have
-<em>tidy data</em>. We briefly introduces this in Part 1, but tidy data
-simply defines a data table with the following core properties:</p>
+<p>Before we can load spreadsheets into R, we must make sure the
+spreadsheet has a <em>tidy data</em> format. We briefly introduced this
+in Part 1, but for a table with data to be in a tidy format is has to
+have the following properties:</p>
 <ul>
-<li>Each variable is a column; each column is a variable.</li>
-<li>Each observation is a row; each row is an observation.</li>
-<li>Each value is a cell; each cell is a single value.</li>
+<li>Each column is a <em>single</em> variable</li>
+<li>Each observation is a <em>single</em> row</li>
+<li>Each cell is a <em>single</em> value.</li>
 </ul>
-<p>If your data is not in a tidy format, we can still correct it, but
-it’s better to think about this <em>before</em> you start collecting or
-generating data.</p>
-<p><strong>When importing data from spreadsheet, the following must be
-done before you should try to load it into R</strong></p>
+<p>If your data is not in a tidy format, we can still correct it in R,
+but it’s better to think about this <em>before</em> you start collecting
+or generating data.</p>
+<p><strong>When importing data from a spreadsheet into R, check the
+following</strong></p>
 <ul>
 <li>There should only be a single table per tab</li>
 <li>The table must start at the top-left cell of the spreadsheet
 (i.e. no blank rows or columns before the table)</li>
 <li>The top row should contain the names of each column (i.e. the table
 header)</li>
-<li>No cells should be merged (perfect grid of rows and columns): remove
-merging if needed</li>
+<li>No cells should be merged (perfect grid of rows and columns). So
+remove merging if needed</li>
 <li>Note that all cell formatting will be ignored (e.g. colour, font,
 etc.)</li>
 </ul>
@@ -411,7 +413,7 @@ etc.)</li>
 <h2>Loading a spreadsheet into R</h2>
 <p>You can load a spreadsheet as an R data frame using the
 <code>read_excel</code> function from the <code>readxl</code> library
-(is loaded when you load tidyverse).</p>
+you loaded.</p>
 <pre class="r"><code>data &lt;- read_excel(path = &quot;myfile.xlsx&quot;)</code></pre>
 <p>The <code>path</code> argument in the <a href="https://www.rdocumentation.org/packages/readxl/versions/0.1.1/topics/read_excel">read_excel</a>
 function is where you provide the file name of the Excel file you want
@@ -428,7 +430,7 @@ manipulated</em></p>
 or use a function like <code>glimpse()</code></li>
 <li>If you are using R Studio, look for the variable in the <a href="https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html">Environment
 pane</a>. When you click it, it will open as a spreadsheet. You can also
-expand the variable by clicking the little icon in front of it to geta
+expand the variable by clicking the little icon in front of it to get a
 list of all columns names and their respective data types</li>
 </ul>
 </div>
@@ -437,16 +439,16 @@ list of all columns names and their respective data types</li>
 <h2>Selecting columns - <code>select()</code></h2>
 <p>One of the simplest operations you can do is <strong>selecting a set
 of columns</strong> from a larger dataframe. This is useful when you
-want to perform sub-analyses that do not need all of the collected data.
-Do do this, we’ll use the <code>select()</code> function from the
-<code>dplyr</code> library (loaded automatically when loading tidyverse
-library) and provide a vector of the columns names we want.</p>
+want to perform an analysis on a subset of the columns. Do do this,
+we’ll use the <code>select()</code> function from the <code>dplyr</code>
+library (loaded automatically when loading tidyverse library) and
+provide a vector of the columns names we want to keep.</p>
 <pre class="r"><code>data |&gt; select(c(&quot;name&quot;, &quot;date&quot;, &quot;score&quot;))</code></pre>
 <p><em>This will select the name, date and score columns from the
 data</em></p>
 <p>Note that in <code>dplyr</code>, selecting columns using
 <code>select()</code> function does not require you to use quoted
-strings</p>
+strings, but you still can</p>
 <pre class="r"><code>data |&gt; select(c(name, date, score))</code></pre>
 <p><em>This is identical to using quoted strings, but only works for
 dplyr functions</em></p>
@@ -504,8 +506,8 @@ than 50 <strong>OR <code>|</code></strong> the gender is male</em></li>
 <a href="https://dplyr.tidyverse.org/reference/filter.html">documentation</a></p>
 </div>
 </div>
-<div id="updating-existing-creating-new-columns---mutate" class="section level2">
-<h2>Updating existing / Creating new columns -
+<div id="updating-existing-columns-creating-new-columns---mutate" class="section level2">
+<h2>Updating existing columns / Creating new columns -
 <code>mutate()</code></h2>
 <p>The <code>mutate()</code> function will allow you to perform
 calculations using the values of one or more columns and storing the
@@ -521,18 +523,18 @@ unchanged</em></p>
 data types are compatible.</p>
 <pre class="r"><code>data |&gt; mutate(result = score1 - score2)</code></pre>
 <p><em>This will subtract the values of column score2 from the values of
-column score1 and store them in a new column result</em></p>
+column score1 and store them in a new column named result</em></p>
 <div id="operations-across-a-column" class="section level3">
 <h3>Operations across a column</h3>
-<p>Remember from Part 1 that columns in a dataframe are vectors, and
-thus <strong>any operation performed on a column will be a vector
+<p>Remember from Part 1 that columns in a dataframe are vectors. This
+means that <strong>any operation performed on a column will be a vector
 operation</strong>.</p>
 <p>Imagine a data frame with a column called <em>score</em> that stores
 the vector <code>c(11.3, 16.658, 66.578, 22.01, 6.99)</code></p>
 <pre class="r"><code>data |&gt; mutate(score = score + 10)</code></pre>
 <p><em>This will add 10 to all values in the score column</em></p>
 <p>You also learned to use functions on vectors, which again can be used
-in the exact same way on columns of a data frame.</p>
+in the exact same way on the columns of a data frame.</p>
 <pre class="r"><code>data |&gt; mutate(score = round(score, 1))</code></pre>
 <p><em>This will round all the values in the score column to one decimal
 position</em></p>
@@ -552,7 +554,7 @@ please refer to the <a href="https://dplyr.tidyverse.org/reference/mutate.html">
 </div>
 <div id="summarising-data---summarise" class="section level2">
 <h2>Summarising data - <code>summarise()</code></h2>
-<p>In many cases data analysis aims to summarise your raw data to gain
+<p>In many cases data analysis aims to summarise raw data to gain
 insights. We can use the <code>summarise</code> or
 <code>summarize</code> functions on our dataframe to do this.</p>
 <pre class="r"><code>data |&gt; summarise(average = mean(score), stand_dev = sd(score))</code></pre>
@@ -560,7 +562,7 @@ insights. We can use the <code>summarise</code> or
 deviation of the score column and storing them as a new column</em></p>
 <p>Note that <strong>summarising will compress the whole data frame into
 a single row</strong>, and thus the functions used within it must also
-produce a single value (e.g. mean, and standard deviation). The result
+produce a single value (e.g. mean, and standard deviation). The result
 is a data frame with one row containing all the summarised results
 defined in the function (all unused columns are removed).</p>
 <p>More info on the <code>summarise</code> function can be found in the
@@ -581,11 +583,11 @@ performed separately by group.</p>
 <p><em>This code will summarise the results by team name, meaning that
 the <strong>output will be a dataframe with the number of rows equal to
 the number of unique groups</strong>, and the summary statistic will be
-calculated per team</em></p>
+calculated per group</em></p>
 <p>Use the <code>ungroup()</code> function to remove the grouping after
-having performed the operations needed. If you fail to do this, all
-subsequent operations will be carries out on the same groups instead of
-the whole dataframe.</p>
+having performed the operations. If you fail to do this, all subsequent
+operations will be carried out on the same groups instead of the whole
+dataframe.</p>
 </div>
 <div id="filter-by-group" class="section level3">
 <h3>Filter by group</h3>
@@ -593,10 +595,10 @@ the whole dataframe.</p>
   group_by(team) |&gt; 
   filter(score == max(score)) |&gt;
   ungroup()</code></pre>
-<p><em>This code will filter out the rows with the highest score by
-team. The number of rows returned depends on the number of unique groups
-and the filtering condition within each group</em></p>
-<p>To lear n more about ways to group data and perform subsequent
+<p><em>This code will filter out (i.e. keep) the rows with the highest
+score by team. The number of rows returned depends on the number of
+unique groups and the filtering condition within each group</em></p>
+<p>To learn more about ways to group data and perform subsequent
 operations, refer to the <a href="https://dplyr.tidyverse.org/articles/grouping.html">dowumentation</a></p>
 </div>
 </div>

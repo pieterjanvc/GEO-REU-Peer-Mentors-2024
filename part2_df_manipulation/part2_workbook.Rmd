@@ -34,7 +34,7 @@ data <- read_excel("antiquities_act.xlsx")
 data
 ```
 
-*You will see a preview of the table when you run this block, but you can also look at it it by clicking the variable name 'data' in the Environment pane on the right of your screen*
+*You will see a preview of the table when you run this block, but you can also look at it it by clicking the variable name 'data' in the Environment tab on the right of your screen*
 
 ## Handy functions to learn more about the data
 
@@ -79,25 +79,27 @@ myData <- data |> select(-c(1,2,7))
 glimpse(myData)
 ```
 
-*Select all but the 1st, 2nd and seventh column. Note that in this case a vector is required to invert everything*
+*Select all but the 1st, 2nd and 7th column. Note that in this case a vector is required to invert everything by putting a minus sign in front of it*
 
 ### Try it yourself
 
-*Use the same `data` variable for all exercises. You can save to whichever variable you like and check with glimpse()*
+*Use the same `data` variable used in the examples above for all following exercises. You can save your results to whichever variable you like (e.g. myData)*
 
 #### Select the current agency and the the number of acres affected from the dataset
+
+*Start by looking for the correct column names*
 
 ```{r}
 myData <- data |> select(current_agency, acres_affected)
 ```
 
-#### Select the 1st, second and 5th columns
+#### Select the 1st, 2nd and 5th columns
 
 ```{r}
 myData <- data |> select(1,2,5)
 ```
 
-#### Select everything but the second and third column
+#### Select everything but the 2nd and 3rd column
 
 ```{r}
 myData <- data |> select(-c(2,3))
@@ -124,7 +126,7 @@ myData |> select(current_name, acres_affected)
 
 *Filter all rows with less than 100 affected acres*
 
-## Multiple boolean statements with *and*
+## Multiple boolean statements with *and (&)*
 
 ```{r}
 myData <- data |> filter(acres_affected < 100 & states == "Florida")
@@ -135,7 +137,7 @@ myData |> select(acres_affected, states)
 
 *Filter all rows with less than 100 acres affected in Florida*
 
-## Multiple boolean statements with *or*
+## Multiple boolean statements with *or (|)*
 
 ```{r}
 myData <- data |> filter(acres_affected < 100 | acres_affected > 1000000)
@@ -165,7 +167,7 @@ myData <- data |> filter(current_name == "Pinnacles National Park" & year < 1950
 
 *The result should have 6 rows*
 
-#### Get all rows with more than 5000 affected acres or after the year 2000
+#### Get all rows with more than 5000 affected acres OR after the year 2000
 
 ```{r}
 myData <- data |> filter(acres_affected > 5000 | year > 2000) 
@@ -206,7 +208,7 @@ myData |> select(current_name, acres_affected)
 myData <- data |> mutate(large = acres_affected > 1000)
 ```
 
-#### Use the `toupper()` function to change all state names to be written in capital letters (update the _states_ column)
+#### Use the `toupper()` function to change all state names to be written in capital letters (update the *states* column)
 
 ```{r}
 myData <- data |> mutate(states = toupper(states))
@@ -215,7 +217,7 @@ myData <- data |> mutate(states = toupper(states))
 
 # Summarise data - summarise()
 
-## Single row
+## Summarise everything to a single row
 
 ```{r}
 data |> 
@@ -233,7 +235,7 @@ data |> group_by(states) |>
   ungroup()
 ```
 
-*Get the mean and standard deviation of the affected acres by state. Note that NA means there is a missing value. In this case that is because there only is one row for those states and you need at least two values to calculate standard deviation*
+*Get the mean and standard deviation of the affected acres by state. Note that NA means there is a missing value. In this case that is because there only is one row for those states and you need at least two values to calculate a standard deviation*
 
 ### Try it yourself
 
@@ -265,7 +267,7 @@ In this part you will combine all new things you've learned (selecting, filterin
 newData <- read_excel("antiquities_act.xlsx")
 ```
 
-#### Select the name, state, action, year and affected acres columns from the data and put them into a new variable called `analysis`
+#### Select the current name, state, action, year and affected acres columns from the data and put them into a new variable called `analysis`
 
 ```{r}
 analysis <- newData |> select(current_name, states, action, year, acres_affected)
