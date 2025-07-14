@@ -30,17 +30,18 @@ If you get an error that libraries are not installed yet, un-comment the last li
 
 ## Read in an Excel file
 
-Let's load in an Excel file derived from a public dataset on water quality measurement.
-
+Let's load in an Excel file derived from a public dataset on water quality measurements.
+The dataset contains 500  samples with various measurements that are used to assess the quality of the water (pH, temperature, turbidity, oxygen and conductivity)
 <https://www.kaggle.com/datasets/shreyanshverma27/water-quality-testing>
 
 ```{r}
 water <- read_xlsx("part3_ggplot/Water_Quality.xlsx")
+glimpse(water)
 ```
 
 # Mapping dataframe columns to plot aesthetics
 
-We'll put the measured pH level on the x-axis and the amount of dissolved oxygen on the y-axis
+Let's create a graph that contains the measured pH level of each sample on the x-axis and the amount of dissolved oxygen on the y-axis
 
 ```{r}
 waterPlot <- ggplot(water, aes(x = pH, y = Oxygen))
@@ -49,23 +50,24 @@ waterPlot
 
 *Note that when the plot is rendered, no data points are shown because we have not defined the exact type of plot yet*
 
-# Visualising data points - geom\_\*()
+# Visualising data points - geom\_\<type>()
 
-Let's start by showing the data as points (i.e. a scatter plot)
+Let's start by plotting the data as points (i.e. a scatter plot)
 
 ```{r}
 waterPlot + geom_point()
 ```
 
-We can use the same ggplot object to show the data as a line chart
+We can use the same base ggplot object to plot the data as a line chart instead
 
 ```{r}
 waterPlot + geom_line()
 ```
+_Note that for this data plotting the data as a line chart does not make sense as all points are independents and thus are not connected in any way_
 
 ### Try it yourself
 
-We'll be working with a dataset that comes with R called `iris` which has a record of several plant characteristics for different iris species
+We'll be working with a dataset that comes pre-installed with R called `iris` which has a record of several plant leaf characteristics for different iris species
 
 ```{r}
 flowers <- iris
@@ -92,15 +94,15 @@ flowersPlot
 
 #Static vs data-driven attributes
 
-Depending on the data we have and what we want to visualise, we can either specify plot style attributes for the whole plot or have them be driven by the data.
+Depending on the data we have and what we want to visualise, we can either specify plot style attributes for all data points at once or have them be driven by the data.
 
-## Global / static attribute
+## Global / static attributes
 
-Change the size of the points in the plot
+Change the size of all the points in the plot
 
 ```{r}
 waterPlot <- ggplot(water, aes(x = pH, y = Oxygen)) +
-  geom_point(size = 2)
+  geom_point(size = 3)
 waterPlot
 ```
 
@@ -120,7 +122,7 @@ waterPlot
 
 ### Try it yourself
 
-#### Continue from the last iris flowers scatter plot and colour all the points blue
+#### Continue with the iris flowers scatter plot you created in the previous section and colour all the points blue
 
 ```{r}
 ggplot(flowers, aes(x = Petal.Length, y = Petal.Width)) + 
@@ -136,11 +138,11 @@ ggplot(flowers, aes(x = Petal.Length, y = Petal.Width, colour = Species)) +
   geom_point()
 ```
 
-*ggplot will automatically generate colours for different species names*
+*Tip ggplot will automatically generate unique colours for different text values*
 
 ## Plot layout
 
-### Add axis labels and title - `labs()`
+### Add axis labels and a title - `labs()`
 
 ```{r}
 waterPlot <- ggplot(water, aes(x = pH, y = Oxygen, size = Temp)) +
@@ -179,18 +181,20 @@ waterPlot
 
 ```{r}
 ggplot(flowers, aes(x = Petal.Length, y = Petal.Width, colour = Species)) + 
-  geom_point() + labs(x = "Petal length (cm)", y = "Petal width (cm)", 
-                      title = "Iris petal length and width comparison for different species")
+  geom_point() + 
+  labs(x = "Petal length (cm)", y = "Petal width (cm)",
+       title = "Iris petal length and width comparison for different species")
 ```
 
-#### Now add built-in minimal theme to the plot `theme_minimal()`
+#### Now add the built-in minimal theme to the plot `theme_minimal()`
 
 ```{r}
 ggplot(flowers, aes(x = Petal.Length, y = Petal.Width, colour = Species)) + 
   geom_point() + labs(
     x = "Petal length", 
     y = "Petal width",
-    title = "Iris petal length and width comparison for different species") + theme_minimal()
+    title = "Iris petal length and width comparison for different species") + 
+  theme_minimal()
 ```
 
 ## Bar charts
@@ -204,18 +208,21 @@ sumData <- water |>
   group_by(pH) |>
   summarise(Oxygen = mean(Oxygen)) |> 
   ungroup()
+
 glimpse(sumData)
 ```
+_We now have a data frame with the average oxygen level for each PH level_
 
-### Now plot the bar graph
+### Create a bar graph
 
 ```{r}
 waterPlot <- ggplot(sumData, aes(x = pH, y = Oxygen)) +
   geom_bar(stat = "identity")
+
 waterPlot
 ```
 
-*`stat = "identity"` should always be set when you are creating bar charts where you summarised the data per bar already*
+*Note: `stat = "identity"` should always be set when you are creating bar charts where you summarised the data for each bar already*
 
 ### Try it yourself
 
@@ -227,16 +234,17 @@ sumData <- flowers |>
   summarise(avgPetalLength = mean(Petal.Length)) |> 
   ungroup()
 ```
-_This is a good refresher of Part 2 on working with data frames. Should you really get stuck scroll down to the very end to see the code_
 
-#### Now create a bat chart with one bar per species and the height representing the average petal length
+*This is a good refresher of Part 2 on working with data frames. Should you really get stuck scroll down to the very end to see the code*
+
+#### Now create a bar chart that shows the average petal length per species
 
 ```{r}
 ggplot(sumData, aes(x = Species, y = avgPetalLength)) + 
   geom_bar(stat = "identity")
 ```
 
-#### How can you make the bars horizontal instead of vertical?
+#### If your previous plot had horisontal bars, try to plot them vertically now or vice versa in case they were vertical in the previous plot
 
 ```{r}
 ggplot(sumData, aes(x = avgPetalLength, y = Species)) + 
@@ -249,7 +257,7 @@ Once you are happy with your result, you can save the plot as an image.
 
 ```{r}
 waterPlot <- ggplot(water, aes(x = pH, y = Oxygen, color = Conductivity)) +
-  geom_point(size = 2) +
+  geom_point(size = 3) +
   labs(x = "Water pH", 
        y = "Dissolved Oxygen (mg/L)", 
        title = "Effect of water pH on oxygenation"
@@ -262,7 +270,7 @@ ggsave(filename = "oxygenation.png", plot = waterPlot, width = 1800, height = 90
 
 ## Bringing it all together
 
-Let's look at a wine tasting experiment. Experts rated red wines on a ten point scale. In addition specific wine properties were measured. Let's evaluate some of the result visually.
+Let's look at a wine tasting experiment were experts rated red wines on a ten point scale. In addition, specific wine properties were measured.
 
 source: <https://www.kaggle.com/datasets/shilongzhuang/red-and-white-wine-quality>
 
@@ -278,9 +286,9 @@ glimpse(wine)
 #### Create a plot with the following properties:
 
 -   scatter plot
--   fixed acidity on x axis
--   density on y axis
--   alcohol is represented as the point colour
+-   fixed acidity on x the axis
+-   density on y the axis
+-   alcohol level is represented as the point colour
 -   all points are of size 1.2
 -   title: Correlation between acidity and density in red wines
 -   use the built-in light theme
@@ -302,7 +310,8 @@ sulQual <- wine |>
   ungroup()
 
 ```
-_Again if you get stuck scroll down to the very end to see the code_
+
+*Again if you get stuck scroll down to the very end to see the code*
 
 #### Create a bar chart of the results and style the plot as you see fit
 
@@ -312,10 +321,10 @@ sulQualPlot <- ggplot(sulQual, aes(x = quality, y = sulphates)) +
 sulQualPlot
 ```
 
-#### Save the bar chart as a PNG image `wine_sulfate_quality.png` with dimensions 550px x 1150px (width x height)
+#### Save the bar chart as a PNG image `wine_sulfate_quality.png` with dimensions 600px x 800px (width x height)
 
 ```{r}
-ggsave(filename = "wine_sulfate_quality.png",plot =sulQualPlot, width = 550, height = 1150, units = "px")
+ggsave(filename = "wine_sulfate_quality.png",plot =sulQualPlot, width = 600, height = 800, units = "px")
 ```
 
 ## EXTRA - More ggplot functions
@@ -328,12 +337,14 @@ When setting `colour` in the `aes()` function, ggplot will use a default set of 
 
 ```{r}
 flowers <- iris
+
 flowersPlot <- ggplot(flowers, aes(x = Petal.Length, y = Petal.Width, colour = Species)) + 
   geom_point() + theme_minimal() +
   # Use a discrete set of colours
   scale_colour_discrete(
     name = "Iris species",
-    type = c(setosa = "orange", versicolor = "#72BD13", virginica = "purple"))
+    type = c(setosa = "orange", versicolor = "#72BD13", virginica = "purple")
+  )
   
 flowersPlot
 ```
@@ -354,11 +365,11 @@ flowersPlot <- ggplot(flowers,
 flowersPlot
 ```
 
-*Set colours across a whole range of numbers (number of colours provided here are equally spaced between min and max)*
+*Set colours across a range of numbers (The colours provided here are equally spaced between min and max)*
 
 ## Add text labels
 
-You can add text labels instead of points with `geom_text`
+You can add text labels to a plot with `geom_text`
 
 ```{r}
 flowersPlot <- ggplot(flowers, aes(x = Petal.Length, y = Petal.Width, 
@@ -424,7 +435,7 @@ waterPlot
 
 ```
 
-## Data summary SPOILERS
+## SPOILER: Data summary code for exercises
 
 Summarise the iris data so you have the average `mean()` petal length per species
 
@@ -435,7 +446,7 @@ sumData <- flowers |>
   ungroup()
 ```
 
-Summarise the winedata so that you get the average `mean()` sulphates concentration per quality level and save this to a new varliable `sulQual`
+Summarise the wine data so that you get the average `mean()` sulphates concentration per quality level and save this to a new variable `sulQual`
 
 ```{r}
 

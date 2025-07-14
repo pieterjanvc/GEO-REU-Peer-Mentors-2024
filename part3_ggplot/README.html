@@ -445,7 +445,7 @@ changing the geom function</p>
 <div id="defining-styles" class="section level3">
 <h3>Defining styles</h3>
 <p>Some aesthetics like size or colour can be defined either
-<em>globally</em> (i.e. all points are styled the same) or <em>data
+<em>statically</em> (i.e. all points are styled the same) or <em>data
 driven</em> (i.e. each point is styled based on other info in the data
 frame).</p>
 <p>Styles that are <strong>data driven</strong> are defined
@@ -455,7 +455,7 @@ frame).</p>
 <p><em>The point colour in this graph is based on the
 <code>pointCol</code> value in the data frame (assuming this has a valid
 colour code)</em></p>
-<p>To set <strong>global</strong> styles, you specify the same parameter
+<p>To set <strong>static</strong> styles, you specify the same parameter
 <strong>outside of the aesthetics function</strong></p>
 <pre class="r"><code>ggplot(data = myData, mapping = aes(x = time, y = value)) + 
   geom_point(colour = &quot;red&quot;)</code></pre>
@@ -518,6 +518,12 @@ plot to save</li>
 <li><code>units</code> specifies what the dimension values are
 (e.g. “px” = pixels)</li>
 </ul>
+<p><em>If you are using <strong>RStudio or Positron</strong>, you can
+also manually save any plot by clicking the <strong>Export button in the
+Plots window</strong>. This is handy if you don’t need to save a plot
+using code in your script, or if you want to figure out the best height
+/ width values as these will auto update when you resize the preview
+window</em></p>
 </div>
 <div id="additional-resources" class="section level2">
 <h2>Additional resources</h2>

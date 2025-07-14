@@ -100,7 +100,7 @@ ggplot(data = myData, mapping = aes(x = time, y = value)) +
 
 ### Defining styles
 
-Some aesthetics like size or colour can be defined either _globally_ (i.e. all
+Some aesthetics like size or colour can be defined either _statically_ (i.e. all
 points are styled the same) or _data driven_ (i.e. each point is styled based on
 other info in the data frame).
 
@@ -115,7 +115,7 @@ ggplot(data = myData, mapping = aes(x = time, y = value, colour = pointCol)) +
 _The point colour in this graph is based on the `pointCol` value in the data
 frame (assuming this has a valid colour code)_
 
-To set **global** styles, you specify the same parameter **outside of the
+To set **static** styles, you specify the same parameter **outside of the
 aesthetics function**
 
 ```r
@@ -183,6 +183,12 @@ ggsave(filename = "image.png", plot = myPlot,
 - `plot` takes the variable containing the ggplot object
 - `width` and `height` are the dimensions of the plot to save
 - `units` specifies what the dimension values are (e.g. "px" = pixels)
+
+_If you are using **RStudio or Positron**, you can also manually save any plot
+by clicking the **Export button in the Plots window**. This is handy if you
+don't need to save a plot using code in your script, or if you want to figure
+out the best height / width values as these will auto update when you resize the
+preview window_
 
 ## Additional resources
 
