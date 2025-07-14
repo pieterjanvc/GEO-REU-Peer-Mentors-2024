@@ -363,50 +363,48 @@ display: none;
 </div>
 <div id="intro" class="section level2">
 <h2>Intro</h2>
-<p>In Part 1 we introduced data frames as a way to represent
+<p>We previously introduced data frames as a way to represent
 spreadsheets like Excel or Google Sheets in R. In this part, you’ll
-learn how to load actual spreadsheet data into R and start exploring
-some useful data manipulations.</p>
-<p>IMPORTANT NOTE: This tutorial will introduce you to the <a href="https://www.tidyverse.org/">Tidyverse Framework</a> for data frame
-manipulation. This is an opinionated framework that uses different
-syntax from what we would consider <em>base R</em>, but it has been very
-successful and has been widely adopted by the R community. This means
-you will have to install the <code>tidyverse</code> library collection
-before you can start working with its functions.</p>
+learn how to visualise the data stored in data frames by generating
+plots.</p>
+<p>IMPORTANT NOTE: This tutorial will introduce you to the <a href="https://www.tidyverse.org/">Tidyverse Framework</a> for plotting.
+ggplot is an opinionated framework that uses different syntax from what
+we would consider <em>base R</em>, but it has been very successful and
+has been widely adopted by the R community. This means you will have to
+install the <code>tidyverse</code> library collection before you can
+start working with its functions.</p>
 <pre class="r"><code>install.packages(&quot;tidyverse&quot;) # Only run once to install
 library(ggplot2)</code></pre>
 </div>
 <div id="grammar-of-graphics" class="section level2">
 <h2>Grammar of Graphics</h2>
-<p>The library we’ll be using for plotting is another Tidyverse one
-called <code>ggplot2</code>. GGPLOT refers to the <em>Grammar of
-Graphics</em>, a structured way to defining a plot and all its
-components in an intuitive and reproducible way both for humans and
-computers.</p>
+<p>GGPLOT refers to the <em>Grammar of Graphics</em>, a structured way
+to defining a plot and all its components in an intuitive and
+reproducible way both for humans and computers.</p>
 <p><em>Similar to using <code>dplyr</code> functions to chain together a
 set of data frame operations, we’ll use a new set of functions from the
-ggplot library to define each component of a plot. However, ggplot2
-predates the use of the pipe in R, and it has it’s own built in operator
-to <strong>chain functions together with the <code>+</code>
-symbol</strong>.</em></p>
+<code>ggplot2</code> library to define each component of a plot. Of
+note, ggplot2 predates the use of the pipe in R, and it has its own
+built-in operator to <strong>chain functions together with the
+<code>+</code> symbol</strong>.</em></p>
 </div>
 <div id="mapping-data-to-plot-components" class="section level2">
 <h2>Mapping data to plot components</h2>
 <p>When creating a graph, we typically define a 2D grid (x and y axis)
 and plot data points on it as a dot, line, bar, … The values for each x
-and y coordinate are typically sourced from a data frame.</p>
+and y coordinate are typically sourced from columns of a data frame.</p>
 <p>The base function from the <code>ggplot2</code> library is
-<code>ggplot()</code>. In here we’ll define two important arguments: the
+<code>ggplot()</code>. In it, we’ll define two important arguments: the
 data and the aesthetics.</p>
 <pre class="r"><code>ggplot(data = myData, mapping = aes(x = time, y = value))</code></pre>
 <ul>
 <li>The first <strong>data</strong> argument takes a dataframe that
 contains the data you want to visualise</li>
-<li>The second arguments maps specific columns to
-<strong>aesthetics</strong> of the plot. This is done by providing an
-aesthetics object, which is a function where we define all relevant
-aspects of the graph and map them to a column in the data. Commonly used
-aesthetic parameters are
+<li>The second argument <code>mapping</code> will map specific columns
+to <strong>aesthetics</strong> of the plot. This is done by providing an
+aesthetics object <code>aes()</code>, which is a function where we
+define all relevant aspects of the graph and map them to a column in the
+data. Commonly used aesthetic parameters are
 <ul>
 <li>x : x-axis value of a data point</li>
 <li>y : y-axis value of a data point</li>
@@ -416,73 +414,77 @@ aesthetic parameters are
 <li>label : label name for the data point</li>
 </ul></li>
 </ul>
-<p><em>Not that when you run the ggplot function by itself, nothing will
-happen, we need to define more details about the plot’s geometry before
-we can render anything </em></p>
+<p><em>Note that when you run the ggplot function by itself, nothing
+will happen, we need to define more details about the plot’s geometry
+before we can render anything</em></p>
 </div>
 <div id="rendering-geometry" class="section level2">
 <h2>Rendering Geometry</h2>
 <p>Once we have our data and mapping (i.e. we know what is going where
 on the plot) we need to define how we are going to visualise each data
-point. You might not have thought of this much, but there are many
-different ways in which the exact same data can be visualised, and it is
-up to you do decide which way works best. We’ll be focussing on
-visualising data that lives in an xy-coordinate system. Three common
-<strong>render geometry functions</strong> are:</p>
+point. There are many different ways in which the exact same data can be
+visualised, and it is up to you do decide which works best. We’ll be
+focussing on visualising data that lives in an xy-coordinate system.
+Three common <strong>render geometry functions</strong> are:</p>
 <ul>
 <li><code>geom_point()</code> scatter (point) plot</li>
 <li><code>geom_line()</code> line plot</li>
 <li><code>geom_bar()</code> bar plot</li>
 </ul>
-<p>Assuming we have defined a ggplot object with data and aesthetics
-that map to the <em>geom</em> function we are interested in, we can
-simply append the function and see the result</p>
+<p>Assuming we have defined a ggplot object with data and aesthetics, we
+can simply pipe in a geometry function and render the results</p>
 <pre class="r"><code>ggplot(data = myData, mapping = aes(x = time, y = value)) + 
   geom_point()</code></pre>
 <p><em>Note again that we use the <code>+</code> symbol here to chain
-ggplot functions and not the regular pipe symbol
+ggplot functions and <strong>not</strong> the regular pipe symbol
 <code>|&gt;</code></em></p>
 <p>Changing this plot from a scatter to a line chart is as simple as
 changing the geom function</p>
 <pre class="r"><code>ggplot(data = myData, mapping = aes(x = time, y = value)) + 
   geom_line()</code></pre>
-<div id="data-driven-vs-overall-aesthetics" class="section level3">
-<h3>Data driven vs overall aesthetics</h3>
-<p>Many aesthetics like size or colour can be defined <em>globally</em>
-or on a <strong>point to point basis</strong>. If you want each point to
-have a specific colour, than this is data driven and there should be a
-column in your data frame that provides the colour to each point which
-is then mapped <strong>inside the aesthetics function</strong>
-<code>aes()</code>:</p>
+<div id="defining-styles" class="section level3">
+<h3>Defining styles</h3>
+<p>Some aesthetics like size or colour can be defined either
+<em>globally</em> (i.e. all points are styled the same) or <em>data
+driven</em> (i.e. each point is styled based on other info in the data
+frame).</p>
+<p>Styles that are <strong>data driven</strong> are defined
+<strong>inside the aesthetics function</strong> <code>aes()</code>:</p>
 <pre class="r"><code>ggplot(data = myData, mapping = aes(x = time, y = value, colour = pointCol)) + 
   geom_point()</code></pre>
-<p>However if you just want to change the <strong>overall</strong>
-colour of all points, you can specify the same parameter
-<strong><em>outside</em> of the aesthetics function</strong> in the geom
-function</p>
+<p><em>The point colour in this graph is based on the
+<code>pointCol</code> value in the data frame (assuming this has a valid
+colour code)</em></p>
+<p>To set <strong>global</strong> styles, you specify the same parameter
+<strong>outside of the aesthetics function</strong></p>
 <pre class="r"><code>ggplot(data = myData, mapping = aes(x = time, y = value)) + 
   geom_point(colour = &quot;red&quot;)</code></pre>
+<p><em>All points have the same red colour in this graph</em></p>
 </div>
 </div>
-<div id="formatting-and-editing-plot-layout" class="section level2">
-<h2>Formatting and editing plot layout</h2>
-<p>The ggplot package has a large number of additional function to
+<div id="adjusting-plot-layout" class="section level2">
+<h2>Adjusting plot layout</h2>
+<p>The ggplot package has a large number of additional functions to
 customize nearly every detail of a plot. We’ll explore only a few common
 ones here:</p>
-<div id="edit-the-title-and-x-y-axis-labels---labs" class="section level3">
-<h3>Edit the title and x, y-axis labels - <code>labs()</code></h3>
-<p>The labs functions takes the following relevant arguments - x : label
-for x-axis - y : label for y-axis - title : title for the plot</p>
+<div id="title-x-y-axis-labels---labs" class="section level3">
+<h3>Title, x / y-axis labels - <code>labs()</code></h3>
+<p>The labs functions takes the following relevant arguments</p>
+<ul>
+<li>x : label text for x-axis</li>
+<li>y : label text for y-axis</li>
+<li>title : title for the plot</li>
+</ul>
 <p><em>The default labels for the x and y axis are the columns names
-mapped to them in the aes() function</em></p>
+used in the <code>aes()</code> function</em></p>
 <pre class="r"><code>ggplot(data = myData, mapping = aes(x = time, y = value)) + 
   geom_line() +
   labs(title = &quot;Scatter plot of data&quot;, x = &quot;Time in days&quot;, y = &quot;Length in meters&quot;)</code></pre>
 </div>
-<div id="edit-theme-elements---theme" class="section level3">
-<h3>Edit theme elements - <code>theme()</code></h3>
+<div id="theme-elements---theme" class="section level3">
+<h3>Theme elements - <code>theme()</code></h3>
 <p>The theme function has many arguments that allow you to change
-everything from the background colour of the plot to the tickmarks on
+everything from the background colour of the plot to the tick marks on
 each axis. We are not exploring all of this here, but <strong>refer to
 the <a href="https://ggplot2.tidyverse.org/reference/theme.html">documentation</a></strong>
 for more info</p>
@@ -492,8 +494,8 @@ easily add for some basic styling</p>
 <li><code>theme_bw()</code> : simple black and white theme</li>
 <li><code>theme_minimal()</code> : remove background colour and only
 show essential plot elements</li>
-<li><code>theme_void()</code> : remove everything except the data points
-(labs, axes, background, legends, … )</li>
+<li><code>theme_void()</code> : remove everything (e.g. labs, axes,
+background, legends, … ) except the data points</li>
 </ul>
 <pre class="r"><code>ggplot(data = myData, mapping = aes(x = time, y = value)) + 
   geom_line() +
@@ -502,8 +504,8 @@ show essential plot elements</li>
 </div>
 <div id="saving-the-plot-as-an-image---ggsave" class="section level2">
 <h2>Saving the plot as an image - <code>ggsave</code></h2>
-<p>You can use the <code>ggsave</code> function to save any ggplot to an
-image file.</p>
+<p>You can use the <code>ggsave</code> function to save a ggplot object
+to an image file.</p>
 <pre class="r"><code>ggsave(filename = &quot;image.png&quot;, plot = myPlot, 
   width = 1800, height = 900, units = &quot;px&quot;)</code></pre>
 <ul>
@@ -519,8 +521,8 @@ plot to save</li>
 </div>
 <div id="additional-resources" class="section level2">
 <h2>Additional resources</h2>
-<p>If you like to get an idea of all the popular kinds of plots you can
-create using R and ggplot, you can visit the <strong><a href="https://r-graph-gallery.com/barplot.html">R Graph
+<p>If you like to get an idea of popular kinds of plots you can create
+using R and ggplot, you can visit the <strong><a href="https://r-graph-gallery.com/barplot.html">R Graph
 Gallery</a></strong>. This website groups plots by type and shows
 examples of R code to recreate them.</p>
 </div>
