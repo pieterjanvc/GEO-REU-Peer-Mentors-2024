@@ -30,9 +30,7 @@ If you get an error that libraries are not installed yet, un-comment the last li
 
 ## Read in an Excel file
 
-Let's load in an Excel file derived from a public dataset on water quality measurements.
-The dataset contains 500  samples with various measurements that are used to assess the quality of the water (pH, temperature, turbidity, oxygen and conductivity)
-<https://www.kaggle.com/datasets/shreyanshverma27/water-quality-testing>
+Let's load in an Excel file derived from a public dataset on water quality measurements. The dataset contains 500 samples with various measurements that are used to assess the quality of the water (pH, temperature, turbidity, oxygen and conductivity) <https://www.kaggle.com/datasets/shreyanshverma27/water-quality-testing>
 
 ```{r}
 water <- read_xlsx("part3_ggplot/Water_Quality.xlsx")
@@ -50,7 +48,7 @@ waterPlot
 
 *Note that when the plot is rendered, no data points are shown because we have not defined the exact type of plot yet*
 
-# Visualising data points - geom\_\<type>()
+# Visualising data points - geom\_\<type\>()
 
 Let's start by plotting the data as points (i.e. a scatter plot)
 
@@ -63,7 +61,8 @@ We can use the same base ggplot object to plot the data as a line chart instead
 ```{r}
 waterPlot + geom_line()
 ```
-_Note that for this data plotting the data as a line chart does not make sense as all points are independents and thus are not connected in any way_
+
+*Note that for this data plotting the data as a line chart does not make sense as all points are independents and thus are not connected in any way*
 
 ### Try it yourself
 
@@ -140,7 +139,7 @@ ggplot(flowers, aes(x = Petal.Length, y = Petal.Width, colour = Species)) +
 
 *Tip ggplot will automatically generate unique colours for different text values*
 
-## Plot layout
+## Plot styling & theme
 
 ### Add axis labels and a title - `labs()`
 
@@ -211,7 +210,8 @@ sumData <- water |>
 
 glimpse(sumData)
 ```
-_We now have a data frame with the average oxygen level for each PH level_
+
+*We now have a data frame with the average oxygen level for each PH level*
 
 ### Create a bar graph
 
@@ -256,8 +256,8 @@ ggplot(sumData, aes(x = avgPetalLength, y = Species)) +
 Once you are happy with your result, you can save the plot as an image.
 
 ```{r}
-waterPlot <- ggplot(water, aes(x = pH, y = Oxygen, color = Conductivity)) +
-  geom_point(size = 3) +
+waterPlot <- ggplot(water, aes(x = pH, y = Oxygen, size = Temp)) +
+  geom_point() +
   labs(x = "Water pH", 
        y = "Dissolved Oxygen (mg/L)", 
        title = "Effect of water pH on oxygenation"
