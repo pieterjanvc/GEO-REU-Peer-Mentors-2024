@@ -51,12 +51,12 @@ ggplot(water, aes(x = pH, y = Oxygen, size = Temp)) +
 
 # Summarise data first
 sumData <- water |>
-  group_by(pH) |>
-  summarise(Oxygen = mean(Oxygen)) |>
+  group_by(area) |>
+  summarise(Turbidity = mean(Turbidity)) |>
   ungroup()
 
 # Plot the bars
-ggplot(sumData, aes(x = pH, y = Oxygen)) +
+ggplot(sumData, aes(x = area, y = Turbidity)) +
   geom_bar(stat = "identity")
 
 # try it yourself ...
