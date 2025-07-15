@@ -2,6 +2,8 @@
 title: "From Spreadsheets to R - without going too far"
 subtitle: "Part 2 - Data Frame Manipulations"
 output: html_document
+editor_options: 
+  chunk_output_type: inline
 ---
 
 *This is an R-markdown document. If run in RStudio, you will see code blocks appear with the option to run each one using the little "green play button" on the top-right of each block. The output (including errors) will be printed below the block. For the best view, click the `Visual` mode at the top left of this file (if set to Source now)*
@@ -14,11 +16,12 @@ Read the [session materials](README.md) for more background on the various funct
 library(knitr)
 library(readxl)
 library(dplyr)
+library(rstudioapi)
 
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 opts_chunk$set(echo = TRUE)
 
-#install.packages(c("tidyverse", "knitr"))
-
+# install.packages(c("tidyverse", "knitr"))
 ```
 
 If you get an error that libraries are not installed yet, un-comment the last line (remove the `#`), and run the code block again (you can re-comment once installed).

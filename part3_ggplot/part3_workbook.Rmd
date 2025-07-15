@@ -3,7 +3,7 @@ title: "From Spreadsheets to R - without going too far"
 subtitle: "Part 3 - Plotting your data"
 output: html_document
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 *This is an R-markdown document. If run in RStudio, you will see code blocks appear with the option to run each one using the little "play button" on the top-right of each block. The output (including errors) will be printed below a block. For the best view, click the `Visual` mode at the top left of this file (if set to Source now)*
@@ -17,11 +17,12 @@ library(knitr)
 library(readxl)
 library(dplyr)
 library(ggplot2)
+library(rstudioapi)
 
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 opts_chunk$set(echo = TRUE)
 
-#install.packages(c("tidyverse", "knitr"))
-
+# install.packages(c("tidyverse", "knitr"))
 ```
 
 If you get an error that libraries are not installed yet, un-comment the last line (remove the `#`), and run the code block again (you can re-comment once installed).
@@ -30,10 +31,12 @@ If you get an error that libraries are not installed yet, un-comment the last li
 
 ## Read in an Excel file
 
-Let's load in an Excel file derived from a public dataset on water quality measurements. The dataset contains 500 samples with various measurements that are used to assess the quality of the water (pH, temperature, turbidity, oxygen and conductivity) <https://www.kaggle.com/datasets/shreyanshverma27/water-quality-testing>
+Let's load in an Excel file derived from a public dataset on water quality measurements. The dataset contains 500 samples with various measurements that are used to assess the quality of the water (pH, temperature, turbidity, oxygen and conductivity) 
+and the type of area where the sample was taken
+<https://www.kaggle.com/datasets/shreyanshverma27/water-quality-testing>
 
 ```{r}
-water <- read_xlsx("part3_ggplot/Water_Quality.xlsx")
+water <- read_xlsx("waterQuality.xlsx")
 glimpse(water)
 ```
 
@@ -204,8 +207,8 @@ When creating bar charts with ggplot you have to summarise the data first if nee
 
 ```{r}
 sumData <- water |>
-  group_by(pH) |>
-  summarise(Oxygen = mean(Oxygen)) |> 
+  group_by(area) |>
+  summarise(Turbidity = mean(Turbidity)) |> 
   ungroup()
 
 glimpse(sumData)
@@ -216,7 +219,7 @@ glimpse(sumData)
 ### Create a bar graph
 
 ```{r}
-waterPlot <- ggplot(sumData, aes(x = pH, y = Oxygen)) +
+waterPlot <- ggplot(sumData, aes(x = area, y = Turbidity)) +
   geom_bar(stat = "identity")
 
 waterPlot
@@ -277,7 +280,7 @@ source: <https://www.kaggle.com/datasets/shilongzhuang/red-and-white-wine-qualit
 #### Load the `winequality-red.csv` dataset using the built-in `read.csv()` function into a new variable called `wine` and explore the dataset.
 
 ```{r}
-wine <- read.csv("part3_ggplot/winequality-red.csv")
+wine <- read.csv("winequality-red.csv")
 glimpse(wine)
 ```
 
